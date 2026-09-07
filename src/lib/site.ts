@@ -10,7 +10,8 @@ import hero from "@/assets/hero-bolo.jpg";
 export const WHATSAPP_NUMBER = "5511999999999";
 
 export const site = {
-  name: "Pimenta Rosa Festas",
+  name: "Ângela Oliveira Cake Design",
+  formerName: "antiga Pimenta Rosa Festas",
   tagline: "Bolos decorados, doces e salgados artesanais",
   city: "São Paulo, SP",
   instagram: "https://www.instagram.com/",
