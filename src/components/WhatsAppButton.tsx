@@ -28,10 +28,10 @@ export function WhatsAppButton({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300",
+        "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         variant === "solid"
-          ? "bg-primary text-primary-foreground shadow-[var(--shadow-soft)] hover:bg-primary/90 hover:-translate-y-0.5"
-          : "border border-primary/40 text-primary hover:bg-primary/10",
+          ? "bg-primary text-primary-foreground shadow-[var(--shadow-soft)] hover:bg-foreground hover:text-background hover:-translate-y-0.5"
+          : "border border-gold/70 text-foreground hover:bg-gold hover:text-accent-foreground",
         className,
       )}
     >
@@ -50,7 +50,7 @@ export function WhatsAppFloating() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Fazer encomenda no WhatsApp"
-      className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground shadow-[var(--shadow-elegant)] transition-transform hover:scale-105"
+      className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-elegant)] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
       <WhatsAppIcon />
       <span className="hidden sm:inline">Encomendar</span>
