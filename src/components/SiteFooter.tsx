@@ -1,14 +1,15 @@
 import { Link } from "@tanstack/react-router";
 
+import { BrandMark } from "@/components/BrandMark";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { site } from "@/lib/site";
 
 export function SiteFooter() {
   return (
-    <footer className="mt-24 border-t border-border/60 bg-secondary/50">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-3">
+    <footer className="mt-24 border-t border-gold/30 bg-secondary/70">
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-3 lg:px-8">
         <div>
-          <p className="font-display text-2xl text-primary">{site.name}</p>
+          <BrandMark className="max-w-60" />
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
             {site.tagline}. Encomendas sob medida para aniversários, casamentos e eventos em{" "}
             {site.city}.
@@ -16,7 +17,7 @@ export function SiteFooter() {
         </div>
 
         <div className="text-sm">
-          <p className="mb-3 text-xs uppercase tracking-[0.22em] text-muted-foreground">Navegar</p>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-primary">Navegar</p>
           <ul className="space-y-2">
             <li>
               <Link to="/catalogo" className="text-foreground/80 hover:text-primary">
@@ -47,7 +48,7 @@ export function SiteFooter() {
         </div>
 
         <div>
-          <p className="mb-3 text-xs uppercase tracking-[0.22em] text-muted-foreground">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
             Pedidos apenas por WhatsApp
           </p>
           <WhatsAppButton />
