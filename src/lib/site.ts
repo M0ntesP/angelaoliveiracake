@@ -1,31 +1,34 @@
-import bolos from "@/assets/bolos.jpg";
-import doces from "@/assets/doces.jpg";
-import salgados from "@/assets/salgados.jpg";
-import hero from "@/assets/hero-bolo.jpg";
+import bolo1 from "@/assets/bolo-1.jpg.asset.json";
+import bolo2 from "@/assets/bolo-2.jpg.asset.json";
+import bolo3 from "@/assets/bolo-3.jpg.asset.json";
+import bolo4 from "@/assets/bolo-4.jpg.asset.json";
+import bolo5 from "@/assets/bolo-5.jpg.asset.json";
+import bolo6 from "@/assets/bolo-6.jpg.asset.json";
+import bolo7 from "@/assets/bolo-7.jpg.asset.json";
+import bolo8 from "@/assets/bolo-8.jpg.asset.json";
+import bolo9 from "@/assets/bolo-9.jpg.asset.json";
+import bolo10 from "@/assets/bolo-10.jpg.asset.json";
 
-/**
- * ATENÇÃO: confirme o número de WhatsApp real antes de publicar.
- * Formato: código do país + DDD + número, somente dígitos.
- */
-export const WHATSAPP_NUMBER = "5511999999999";
+export const WHATSAPP_URL = "https://wa.me/message/2NQZ64SODALVE1";
 
 export const site = {
   name: "Ângela Oliveira Cake Design",
   formerName: "antiga Pimenta Rosa Festas",
   tagline: "Bolos decorados, doces e salgados artesanais",
   city: "São Paulo, SP",
-  instagram: "https://www.instagram.com/",
+  instagram: "https://www.instagram.com/angelaoliveira.cakedesing/",
   links: "https://beacons.ai/angelacake",
-  email: "contato@pimentarosafestas.com.br",
+  whatsapp: WHATSAPP_URL,
 };
 
-export function whatsappLink(message: string) {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+// Todos os pedidos acontecem pelo WhatsApp; o link oficial não aceita mensagem pré-preenchida.
+export function whatsappLink(_message?: string) {
+  return WHATSAPP_URL;
 }
 
-export const heroImage = hero;
+export const heroImage = bolo3.url;
 
-export type Category = "Bolos" | "Doces" | "Salgados";
+export type Category = "Bolos temáticos" | "Bolos comemorativos" | "Bolos florais e frutas";
 
 export const categories: {
   name: Category;
@@ -34,25 +37,25 @@ export const categories: {
   description: string;
 }[] = [
   {
-    name: "Bolos",
-    slug: "bolos",
-    image: bolos,
+    name: "Bolos temáticos",
+    slug: "tematicos",
+    image: bolo7.url,
     description:
-      "Bolos decorados sob encomenda, do clássico chantilly ao cake design com flores e detalhes em dourado.",
+      "Personagens, cores e cenários montados à mão para festas infantis e temas favoritos de qualquer idade.",
   },
   {
-    name: "Doces",
-    slug: "doces",
-    image: doces,
+    name: "Bolos comemorativos",
+    slug: "comemorativos",
+    image: bolo3.url,
     description:
-      "Brigadeiros gourmet, bem-casados e docinhos finos montados à mão, um a um.",
+      "Aniversários, 15 anos e datas especiais com acabamento delicado, topo personalizado e detalhes em dourado.",
   },
   {
-    name: "Salgados",
-    slug: "salgados",
-    image: salgados,
+    name: "Bolos florais e frutas",
+    slug: "florais-frutas",
+    image: bolo1.url,
     description:
-      "Salgadinhos de festa fritos na hora ou congelados para assar em casa, com massa artesanal.",
+      "Chantilly, frutas frescas e flores naturais para quem prefere um bolo clássico, leve e elegante.",
   },
 ];
 
@@ -66,67 +69,74 @@ export type Product = {
 
 export const products: Product[] = [
   {
-    name: "Bolo Floral Rosé",
-    category: "Bolos",
-    description: "Buttercream rosé com flores modeladas à mão e folhas de ouro.",
-    detail: "A partir de 1,5 kg",
-    image: bolos,
+    name: "Bolo de morangos com chantilly",
+    category: "Bolos florais e frutas",
+    description: "Chantilly em bico rendado, morangos frescos no topo e laço de cetim.",
+    detail: "Andar único · sabores a combinar",
+    image: bolo1.url,
   },
   {
-    name: "Bolo Dois Andares",
-    category: "Bolos",
-    description: "Ideal para casamentos e aniversários de 40 a 60 convidados.",
-    detail: "Sob orçamento",
-    image: hero,
+    name: "Bolo tropical flamingo",
+    category: "Bolos temáticos",
+    description: "Dois andares em rosetas rosa e turquesa, com folhagens e topo de flamingos.",
+    detail: "Dois andares",
+    image: bolo2.url,
   },
   {
-    name: "Bolo Naked Frutas",
-    category: "Bolos",
-    description: "Massa amanteigada, recheio de frutas vermelhas e chantilly.",
-    detail: "A partir de 2 kg",
-    image: bolos,
+    name: "Bolo pink 15 anos",
+    category: "Bolos comemorativos",
+    description: "Pink metálico espatulado, rosas em papel e nome personalizado em dourado.",
+    detail: "Andar único · nome personalizado",
+    image: bolo3.url,
   },
   {
-    name: "Brigadeiro Gourmet",
-    category: "Doces",
-    description: "Belga, ninho com nutella, pistache e maracujá. Cento fechado ou sortido.",
-    detail: "Cento ou meio cento",
-    image: doces,
+    name: "Bolo uvas e vinho",
+    category: "Bolos florais e frutas",
+    description: "Drip vinho sobre chantilly texturizado, com uvas frescas e detalhes cintilantes.",
+    detail: "Andar único",
+    image: bolo4.url,
   },
   {
-    name: "Bem-Casado",
-    category: "Doces",
-    description: "Massa leve com doce de leite, embalado em papel e fita personalizados.",
-    detail: "Mínimo 30 unidades",
-    image: doces,
+    name: "Bolo rock'n'roll",
+    category: "Bolos temáticos",
+    description: "Cobertura preta acetinada, topo de guitarra, estrelas e nome em relevo.",
+    detail: "Andar único",
+    image: bolo5.url,
   },
   {
-    name: "Mesa de Doces Finos",
-    category: "Doces",
-    description: "Seleção montada por porção de convidados, com cores combinando com a festa.",
-    detail: "Sob orçamento",
-    image: doces,
+    name: "Bolo TikTok",
+    category: "Bolos temáticos",
+    description: "Espatulado rosa e azul com respingos dourados e topo de aplicativos favoritos.",
+    detail: "Andar único",
+    image: bolo6.url,
   },
   {
-    name: "Coxinha de Frango",
-    category: "Salgados",
-    description: "Massa artesanal com recheio cremoso de frango desfiado com catupiry.",
-    detail: "Cento fritos ou congelados",
-    image: salgados,
+    name: "Bolo safári",
+    category: "Bolos temáticos",
+    description: "Dois andares com tronco em chocolate texturizado, gramado e bichinhos da savana.",
+    detail: "Dois andares",
+    image: bolo7.url,
   },
   {
-    name: "Empadinha",
-    category: "Salgados",
-    description: "Massa amanteigada com frango, palmito ou queijo.",
-    detail: "Cento",
-    image: salgados,
+    name: "Bolo unicórnio surpresa",
+    category: "Bolos comemorativos",
+    description: "Azul em rosetas e babados, confeitos coloridos e unicórnio modelado à mão.",
+    detail: "Andar único · recheio surpresa",
+    image: bolo8.url,
   },
   {
-    name: "Kit Festa Salgado",
-    category: "Salgados",
-    description: "Mix de salgadinhos variados para receber sem complicação.",
-    detail: "300 a 1000 unidades",
-    image: salgados,
+    name: "Bolo super-herói",
+    category: "Bolos temáticos",
+    description: "Cenário em relevo com base dourada, verde vibrante e topo do herói preferido.",
+    detail: "Dois andares",
+    image: bolo9.url,
+  },
+  {
+    name: "Bolo afro com flores",
+    category: "Bolos florais e frutas",
+    description: "Andares com estampas africanas, flores naturais amarelas e nome no topo.",
+    detail: "Dois andares · flores naturais",
+    image: bolo10.url,
   },
 ];
 
