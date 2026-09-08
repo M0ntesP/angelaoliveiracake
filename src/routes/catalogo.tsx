@@ -25,7 +25,12 @@ export const Route = createFileRoute("/catalogo")({
   component: CatalogoPage,
 });
 
-const filters: ("Todos" | Category)[] = ["Todos", "Bolos", "Doces", "Salgados"];
+const filters: ("Todos" | Category)[] = [
+  "Todos",
+  "Bolos temáticos",
+  "Bolos comemorativos",
+  "Bolos florais e frutas",
+];
 
 function CatalogoPage() {
   const [active, setActive] = useState<"Todos" | Category>("Todos");
@@ -74,7 +79,7 @@ function CatalogoPage() {
                 loading="lazy"
                 width={1200}
                 height={1200}
-                className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="aspect-[3/4] w-full bg-secondary/40 object-cover object-center transition-transform duration-500 group-hover:scale-105"
               />
               <div className="space-y-3 p-5">
                 <span className="text-[0.65rem] uppercase tracking-[0.24em] text-primary">
