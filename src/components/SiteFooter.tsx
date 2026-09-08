@@ -36,6 +36,16 @@ export function SiteFooter() {
             </li>
             <li>
               <a
+                href={site.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground/80 hover:text-primary"
+              >
+                Instagram
+              </a>
+            </li>
+            <li>
+              <a
                 href={site.links}
                 target="_blank"
                 rel="noopener noreferrer"

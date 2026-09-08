@@ -64,10 +64,10 @@ function Index() {
 
             <img
               src={heroImage}
-              alt="Bolo decorado com buttercream rosa, flores modeladas e detalhes dourados"
-              width={1600}
-              height={1200}
-              className="w-full rounded-[2rem] object-cover shadow-[var(--shadow-elegant)]"
+              alt="Bolo pink de 15 anos com rosas e nome personalizado em dourado"
+              width={1200}
+              height={1600}
+              className="aspect-[4/5] w-full rounded-[2rem] object-cover object-center shadow-[var(--shadow-elegant)]"
             />
           </div>
         </section>
@@ -126,7 +126,7 @@ function Index() {
                   loading="lazy"
                   width={1200}
                   height={1200}
-                  className="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="aspect-[3/4] w-full bg-secondary/40 object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="p-6">
                   <h3 className="font-display text-2xl text-primary">{c.name}</h3>
@@ -166,7 +166,7 @@ function Index() {
                     loading="lazy"
                     width={1200}
                     height={1200}
-                    className="h-52 w-full object-cover"
+                    className="aspect-[3/4] w-full bg-secondary/40 object-cover object-center"
                   />
                   <div className="space-y-3 p-5">
                     <span className="text-[0.65rem] uppercase tracking-[0.24em] text-primary">
