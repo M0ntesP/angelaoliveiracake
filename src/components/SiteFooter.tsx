@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
-import { BrandMark } from "@/components/BrandMark";
+import footerLogo from "@/assets/logo-rodape.png.asset.json";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { site } from "@/lib/site";
 
@@ -9,7 +9,14 @@ export function SiteFooter() {
     <footer className="mt-24 border-t border-gold/30 bg-secondary/70">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-3 lg:px-8">
         <div>
-          <BrandMark className="max-w-60" />
+          <img
+            src={footerLogo.url}
+            alt="Ângela Oliveira Cake Design"
+            width={500}
+            height={500}
+            loading="lazy"
+            className="h-auto w-40 max-w-full object-contain sm:w-48"
+          />
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
             {site.tagline}. Encomendas sob medida para aniversários, casamentos e eventos em{" "}
             {site.city}.
