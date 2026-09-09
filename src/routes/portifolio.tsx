@@ -6,7 +6,7 @@ import { WhatsAppButton, WhatsAppFloating } from "@/components/WhatsAppButton";
 import novaFase from "@/assets/nova-fase.jpg";
 import { site, testimonials } from "@/lib/site";
 
-export const Route = createFileRoute("/sobre")({
+export const Route = createFileRoute("/portifolio")({
   head: () => ({
     meta: [
       { title: "Sobre a Ângela Oliveira Cake Design | Nova fase" },

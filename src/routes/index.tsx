@@ -13,13 +13,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Bolos decorados, doces finos e salgados artesanais sob encomenda em São Paulo. A antiga Pimenta Rosa Festas agora é Ângela Oliveira Cake Design. Peça pelo WhatsApp.",
+          "Bolos decorados e doces finos artesanais sob encomenda em São Paulo. A antiga Pimenta Rosa Festas agora é Ângela Oliveira Cake Design. Peça pelo WhatsApp.",
       },
       { property: "og:title", content: "Ângela Oliveira Cake Design" },
       {
         property: "og:description",
         content:
-          "Confeitaria artesanal em São Paulo: bolos decorados, doces finos e salgados de festa. Encomendas pelo WhatsApp.",
+          "Confeitaria artesanal em São Paulo: bolos decorados e doces finos de festa. Encomendas pelo WhatsApp.",
       },
     ],
   }),
@@ -42,7 +42,7 @@ function Index() {
                 Confeitaria artesanal · {site.city}
               </p>
               <h1 className="mt-4 font-display text-5xl leading-[1.05] sm:text-6xl">
-                Bolos decorados, doces e salgados feitos à mão
+                Bolos decorados e doces feitos à mão
               </h1>
               <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground">
                 Cada criação nasce de uma conversa e termina em festa. Encomendas sob medida, com
