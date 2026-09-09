@@ -91,22 +91,8 @@ function PortifolioPage() {
             Um pouco do que sai da cozinha: ovos de Páscoa artesanais, bolos vulcão e doces feitos
             à mão para cada temporada.
           </p>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {gallery.map((g) => (
-              <figure
-                key={g.src}
-                className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-soft)]"
-              >
-                <img
-                  src={g.src}
-                  alt={g.alt}
-                  loading="lazy"
-                  width={1200}
-                  height={900}
-                  className="aspect-[4/3] w-full bg-secondary/40 object-cover object-center"
-                />
-              </figure>
-            ))}
+          <div className="mt-8">
+            <GalleryCarousel />
           </div>
         </section>
 
