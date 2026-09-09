@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
+import angelaEquipe from "@/assets/angela-equipe.jpg.asset.json";
+import angelaNovaFase from "@/assets/angela-nova-fase.jpg.asset.json";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { WhatsAppButton, WhatsAppFloating } from "@/components/WhatsAppButton";
-import novaFase from "@/assets/nova-fase.jpg";
 import { categories, heroImage, products, site, testimonials } from "@/lib/site";
 
 export const Route = createFileRoute("/")({
@@ -75,14 +76,24 @@ function Index() {
         {/* Nova fase / rebranding */}
         <section className="bg-secondary/60">
           <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 lg:grid-cols-[0.9fr_1.1fr]">
-            <img
-              src={novaFase}
-              alt="Ângela Oliveira decorando um bolo em sua cozinha artesanal"
-              loading="lazy"
-              width={1200}
-              height={1408}
-              className="w-full rounded-[2rem] object-cover shadow-[var(--shadow-elegant)]"
-            />
+            <div className="grid grid-cols-2 gap-4">
+              <img
+                src={angelaNovaFase.url}
+                alt="Ângela Oliveira em sua cozinha, de touca e avental, conferindo encomendas no celular"
+                loading="lazy"
+                width={640}
+                height={960}
+                className="col-span-2 w-full rounded-[2rem] object-cover shadow-[var(--shadow-elegant)] sm:col-span-1 sm:aspect-[3/4]"
+              />
+              <img
+                src={angelaEquipe.url}
+                alt="Equipe da Ângela Oliveira Cake Design preparando doces na cozinha"
+                loading="lazy"
+                width={640}
+                height={853}
+                className="col-span-2 w-full rounded-[2rem] object-cover shadow-[var(--shadow-elegant)] sm:col-span-1 sm:aspect-[3/4]"
+              />
+            </div>
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-primary">
                 Uma nova fase começa
