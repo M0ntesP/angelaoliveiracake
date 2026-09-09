@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import pascoa1 from "@/assets/pascoa-1.jpg.asset.json";
 import pascoa10 from "@/assets/pascoa-10.jpg.asset.json";
