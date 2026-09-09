@@ -12,7 +12,7 @@ export const Route = createFileRoute("/contato")({
       {
         name: "description",
         content:
-          "Fale com a Ângela Oliveira Cake Design pelo WhatsApp: encomendas, prazos e entrega de bolos, doces e salgados em São Paulo.",
+          "Fale com a Ângela Oliveira Cake Design pelo WhatsApp: encomendas, prazos e entrega de bolos e doces em São Paulo.",
       },
       { property: "og:title", content: "Contato | Ângela Oliveira Cake Design" },
       {
@@ -31,7 +31,7 @@ const infos = [
   },
   {
     title: "Prazos",
-    text: "Bolos decorados: reserva ideal com 7 dias de antecedência. Doces e salgados: 3 a 5 dias. Datas comemorativas fecham antes.",
+    text: "Bolos decorados: reserva ideal com 7 dias de antecedência. Doces: 3 a 5 dias. Datas comemorativas fecham antes.",
   },
   {
     title: "Entrega",

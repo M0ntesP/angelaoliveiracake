@@ -9,16 +9,16 @@ import { categories, products, type Category } from "@/lib/site";
 export const Route = createFileRoute("/catalogo")({
   head: () => ({
     meta: [
-      { title: "Catálogo de bolos, doces e salgados | Ângela Oliveira" },
+      { title: "Catálogo de bolos e doces | Ângela Oliveira" },
       {
         name: "description",
         content:
-          "Vitrine de bolos decorados, doces finos e salgados de festa da Ângela Oliveira Cake Design em São Paulo. Encomendas pelo WhatsApp.",
+          "Vitrine de bolos decorados e doces finos de festa da Ângela Oliveira Cake Design em São Paulo. Encomendas pelo WhatsApp.",
       },
       { property: "og:title", content: "Catálogo | Ângela Oliveira Cake Design" },
       {
         property: "og:description",
-        content: "Bolos decorados, doces finos e salgados artesanais para festas em São Paulo.",
+        content: "Bolos decorados e doces finos artesanais para festas em São Paulo.",
       },
     ],
   }),

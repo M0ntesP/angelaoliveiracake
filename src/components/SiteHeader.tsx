@@ -8,7 +8,7 @@ import { site } from "@/lib/site";
 const nav = [
   { to: "/", label: "Início" },
   { to: "/catalogo", label: "Catálogo" },
-  { to: "/sobre", label: "Sobre" },
+  { to: "/portifolio", label: "Portfólio" },
   { to: "/contato", label: "Contato" },
 ] as const;
 

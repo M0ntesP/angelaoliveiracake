@@ -81,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Bolos decorados, doces finos e salgados artesanais sob encomenda em São Paulo. Antiga Pimenta Rosa Festas.",
+          "Bolos decorados e doces finos artesanais sob encomenda em São Paulo. Antiga Pimenta Rosa Festas.",
       },
       { name: "author", content: "Ângela Oliveira Cake Design" },
       { property: "og:title", content: "Ângela Oliveira Cake Design" },
