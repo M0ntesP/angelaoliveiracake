@@ -14,7 +14,7 @@ export const WHATSAPP_URL = "https://wa.me/message/2NQZ64SODALVE1";
 export const site = {
   name: "Ângela Oliveira Cake Design",
   formerName: "antiga Pimenta Rosa Festas",
-  tagline: "Bolos decorados, doces e salgados artesanais",
+  tagline: "Bolos decorados e doces artesanais",
   city: "São Paulo, SP",
   instagram: "https://www.instagram.com/angelaoliveira.cakedesing/",
   links: "https://beacons.ai/angelacake",
@@ -151,6 +151,6 @@ export const testimonials = [
   },
   {
     name: "Patrícia S.",
-    text: "Salgados fresquinhos, entregues no horário combinado na Zona Leste. Confiança total.",
+    text: "Doces fresquinhos, entregues no horário combinado na Zona Leste. Confiança total.",
   },
 ];
