@@ -2,6 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Download, ExternalLink } from "lucide-react";
 
 import cardapio from "@/assets/cardapio-angela-oliveira.pdf.asset.json";
+import pagina1 from "@/assets/cardapio-pagina-1.jpg.asset.json";
+import pagina2 from "@/assets/cardapio-pagina-2.jpg.asset.json";
+import pagina3 from "@/assets/cardapio-pagina-3.jpg.asset.json";
+import pagina4 from "@/assets/cardapio-pagina-4.jpg.asset.json";
+import pagina5 from "@/assets/cardapio-pagina-5.jpg.asset.json";
+import pagina6 from "@/assets/cardapio-pagina-6.jpg.asset.json";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { WhatsAppButton, WhatsAppFloating } from "@/components/WhatsAppButton";
@@ -26,6 +32,8 @@ export const Route = createFileRoute("/cardapio")({
   }),
   component: CardapioPage,
 });
+
+const paginas = [pagina1, pagina2, pagina3, pagina4, pagina5, pagina6];
 
 function CardapioPage() {
   return (
@@ -60,13 +68,19 @@ function CardapioPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-5">
-          <div className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-elegant)]">
-            <iframe
-              src={cardapio.url}
-              title="Cardápio da Ângela Oliveira Cake Design"
-              className="h-[72vh] min-h-[560px] w-full"
-            />
+        <section className="mx-auto max-w-5xl px-5">
+          <div className="space-y-6" aria-label="Páginas do cardápio">
+            {paginas.map((pagina, index) => (
+              <img
+                key={pagina.url}
+                src={pagina.url}
+                alt={`Cardápio da Ângela Oliveira Cake Design — página ${index + 1} de ${paginas.length}`}
+                width={992}
+                height={1403}
+                loading={index === 0 ? "eager" : "lazy"}
+                className="h-auto w-full rounded-lg border border-border/70 shadow-[var(--shadow-soft)]"
+              />
+            ))}
           </div>
           <div className="mt-10 flex justify-center">
             <WhatsAppButton>Fazer encomenda no WhatsApp</WhatsAppButton>
