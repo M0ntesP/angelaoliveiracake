@@ -12,7 +12,7 @@ import pascoa6 from "@/assets/pascoa-6.jpg.asset.json";
 import pascoa7 from "@/assets/pascoa-7.jpg.asset.json";
 import pascoa8 from "@/assets/pascoa-8.jpg.asset.json";
 import pascoa9 from "@/assets/pascoa-9.jpg.asset.json";
-import novaFase from "@/assets/nova-fase.jpg";
+import angelaPortifolio from "@/assets/angela-portifolio.jpg.asset.json";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { WhatsAppButton, WhatsAppFloating } from "@/components/WhatsAppButton";
@@ -60,12 +60,12 @@ function PortifolioPage() {
 
         <div className="mt-10 grid items-center gap-10 lg:grid-cols-2">
           <img
-            src={novaFase}
-            alt="Ângela Oliveira decorando um bolo com buttercream rosa"
+            src={angelaPortifolio.url}
+            alt="Ângela Oliveira em sua cozinha usando o avental da marca"
             loading="lazy"
-            width={1200}
-            height={1408}
-            className="w-full rounded-3xl object-cover shadow-[var(--shadow-elegant)]"
+            width={640}
+            height={960}
+            className="aspect-[2/3] w-full rounded-3xl object-cover object-center shadow-[var(--shadow-elegant)]"
           />
           <div className="space-y-5 text-muted-foreground">
             <p className="text-base leading-relaxed">

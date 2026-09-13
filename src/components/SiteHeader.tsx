@@ -8,6 +8,7 @@ import { site } from "@/lib/site";
 const nav = [
   { to: "/", label: "Início" },
   { to: "/catalogo", label: "Catálogo" },
+  { to: "/cardapio", label: "Cardápio" },
   { to: "/portifolio", label: "Portfólio" },
   { to: "/contato", label: "Contato" },
 ] as const;
@@ -22,7 +23,7 @@ export function SiteHeader() {
           <BrandMark compact />
         </Link>
 
-        <nav aria-label="Navegação principal" className="hidden items-center gap-8 md:flex">
+        <nav aria-label="Navegação principal" className="hidden items-center gap-6 md:flex">
           {nav.map((item) => (
             <Link
               key={item.to}
