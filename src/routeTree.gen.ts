@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CardapioRouteImport } from './routes/cardapio'
 import { Route as CatalogoRouteImport } from './routes/catalogo'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as PortifolioRouteImport } from './routes/portifolio'
@@ -17,6 +18,11 @@ import { Route as PortifolioRouteImport } from './routes/portifolio'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CardapioRoute = CardapioRouteImport.update({
+  id: '/cardapio',
+  path: '/cardapio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CatalogoRoute = CatalogoRouteImport.update({
@@ -37,12 +43,14 @@ const PortifolioRoute = PortifolioRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cardapio': typeof CardapioRoute
   '/catalogo': typeof CatalogoRoute
   '/contato': typeof ContatoRoute
   '/portifolio': typeof PortifolioRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cardapio': typeof CardapioRoute
   '/catalogo': typeof CatalogoRoute
   '/contato': typeof ContatoRoute
   '/portifolio': typeof PortifolioRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cardapio': typeof CardapioRoute
   '/catalogo': typeof CatalogoRoute
   '/contato': typeof ContatoRoute
   '/portifolio': typeof PortifolioRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/catalogo' | '/contato' | '/portifolio'
+  fullPaths: '/' | '/cardapio' | '/catalogo' | '/contato' | '/portifolio'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/catalogo' | '/contato' | '/portifolio'
-  id: '__root__' | '/' | '/catalogo' | '/contato' | '/portifolio'
+  to: '/' | '/cardapio' | '/catalogo' | '/contato' | '/portifolio'
+  id: '__root__' | '/' | '/cardapio' | '/catalogo' | '/contato' | '/portifolio'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CardapioRoute: typeof CardapioRoute
   CatalogoRoute: typeof CatalogoRoute
   ContatoRoute: typeof ContatoRoute
   PortifolioRoute: typeof PortifolioRoute
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cardapio': {
+      id: '/cardapio'
+      path: '/cardapio'
+      fullPath: '/cardapio'
+      preLoaderRoute: typeof CardapioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/catalogo': {
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CardapioRoute: CardapioRoute,
   CatalogoRoute: CatalogoRoute,
   ContatoRoute: ContatoRoute,
   PortifolioRoute: PortifolioRoute,
