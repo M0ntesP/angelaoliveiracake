@@ -8,7 +8,7 @@ export const site = {
   whatsapp: "https://wa.me/message/2NQZ64SODALVE1",
   instagram: "https://www.instagram.com/angelaoliveira.cakedesing/",
   links: "https://beacons.ai/angelacake",
-  logo: "/images/angela-logo-oficial-completa.png",
+  logo: new URL(footerLogoAsset.url, "https://angelaoliveiracake.lovable.app").href,
   footerLogo: new URL(footerLogoAsset.url, "https://angelaoliveiracake.lovable.app").href,
 };
 
