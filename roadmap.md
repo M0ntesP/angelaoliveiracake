@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Aplicar manual Brasil Afetivo, logo oficial, segunda imagem como capa e retrato enviado
+- [x] Aplicar manual Brasil Afetivo, logo oficial, segunda imagem como capa e retrato enviado
 
 - [x] Imagens do catálogo
 - [x] Páginas: início, catálogo, cardápio, portfólio, contato
