@@ -11,3 +11,4 @@
 
 - Keep brand colors and fonts in global semantic tokens and official logo artwork in CDN asset pointers, so identity changes stay consistent across pages.
 - The homepage cover uses the upper campaign band cropped from the supplied brand board; never display the technical specification board as page content.
+- Keep `build` and `build:dev` available and include JavaScript sources in `tsconfig.json`, so the publishing pipeline can validate and bundle the site.
