@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Aplicar manual Brasil Afetivo, logo oficial, segunda imagem como capa e retrato enviado
+
 - [x] Imagens do catálogo
 - [x] Páginas: início, catálogo, cardápio, portfólio, contato
 - [x] Rebranding para "Ângela Oliveira Cake Design" + seção "nova fase"
