@@ -6,6 +6,7 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
@@ -34,7 +35,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -77,14 +78,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Ângela Oliveira Cake Design | Confeitaria artesanal em SP" },
+      { title: "Ângela Oliveira — Confeitaria Brasileira | Confeitaria artesanal em SP" },
       {
         name: "description",
         content:
           "Bolos decorados e doces finos artesanais sob encomenda em São Paulo. Antiga Pimenta Rosa Festas.",
       },
-      { name: "author", content: "Ângela Oliveira Cake Design" },
-      { property: "og:title", content: "Ângela Oliveira Cake Design" },
+      { name: "author", content: "Ângela Oliveira — Confeitaria Brasileira" },
+      { property: "og:title", content: "Ângela Oliveira — Confeitaria Brasileira" },
       {
         property: "og:description",
         content: "Confeitaria artesanal em São Paulo. Encomendas pelo WhatsApp.",
@@ -101,7 +102,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Montserrat:wght@400;500;600&display=swap",
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],

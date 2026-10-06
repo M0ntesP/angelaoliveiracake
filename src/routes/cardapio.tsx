@@ -15,13 +15,13 @@ import { WhatsAppButton, WhatsAppFloating } from "@/components/WhatsAppButton";
 export const Route = createFileRoute("/cardapio")({
   head: () => ({
     meta: [
-      { title: "Cardápio de bolos | Ângela Oliveira Cake Design" },
+      { title: "Cardápio de bolos | Ângela Oliveira — Confeitaria Brasileira" },
       {
         name: "description",
         content:
-          "Conheça os sabores, recheios e valores dos bolos artesanais da Ângela Oliveira Cake Design em São Paulo.",
+          "Conheça os sabores, recheios e valores dos bolos artesanais da Ângela Oliveira — Confeitaria Brasileira em São Paulo.",
       },
-      { property: "og:title", content: "Cardápio de bolos | Ângela Oliveira Cake Design" },
+      { property: "og:title", content: "Cardápio de bolos | Ângela Oliveira — Confeitaria Brasileira" },
       {
         property: "og:description",
         content: "Sabores que contam histórias. Consulte o cardápio e faça sua encomenda pelo WhatsApp.",
@@ -74,7 +74,7 @@ function CardapioPage() {
               <img
                 key={pagina.url}
                 src={pagina.url}
-                alt={`Cardápio da Ângela Oliveira Cake Design — página ${index + 1} de ${paginas.length}`}
+                alt={`Cardápio da Ângela Oliveira — Confeitaria Brasileira — página ${index + 1} de ${paginas.length}`}
                 width={992}
                 height={1403}
                 loading={index === 0 ? "eager" : "lazy"}

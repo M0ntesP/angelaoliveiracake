@@ -1,27 +1,32 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
+import cover from "@/assets/angela-brasil-capa.jpg.asset.json";
+import portrait from "@/assets/angela-brasil-retrato.jpg.asset.json";
+import { Button } from "@/components/ui/button";
 import angelaEquipe from "@/assets/angela-equipe.jpg.asset.json";
 import angelaNovaFase from "@/assets/angela-nova-fase.jpg.asset.json";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { WhatsAppButton, WhatsAppFloating } from "@/components/WhatsAppButton";
-import { categories, heroImage, products, site, testimonials } from "@/lib/site";
+import { categories, products, site, testimonials } from "@/lib/site";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Ângela Oliveira Cake Design | Bolos e doces em São Paulo" },
+      { title: "Ângela Oliveira — Confeitaria Brasileira | Bolos e doces em São Paulo" },
       {
         name: "description",
         content:
-          "Bolos decorados e doces finos artesanais sob encomenda em São Paulo. A antiga Pimenta Rosa Festas agora é Ângela Oliveira Cake Design. Peça pelo WhatsApp.",
+          "Bolos decorados e doces finos artesanais sob encomenda em São Paulo. A antiga Pimenta Rosa Festas agora é Ângela Oliveira — Confeitaria Brasileira. Peça pelo WhatsApp.",
       },
-      { property: "og:title", content: "Ângela Oliveira Cake Design" },
+      { property: "og:title", content: "Ângela Oliveira — Confeitaria Brasileira" },
       {
         property: "og:description",
         content:
           "Confeitaria artesanal em São Paulo: bolos decorados e doces finos de festa. Encomendas pelo WhatsApp.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,
@@ -35,41 +40,27 @@ function Index() {
       <SiteHeader />
 
       <main>
-        {/* Hero */}
-        <section className="relative overflow-hidden">
-          <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-14 lg:grid-cols-2 lg:py-20">
+        <section aria-label="Brasil Afetivo" className="bg-background">
+          <img
+            src={cover.url}
+            alt="Brasil Afetivo — Ângela Oliveira, Confeitaria Brasileira. Sabores que contam histórias."
+            width={1055}
+            height={388}
+            fetchPriority="high"
+            className="mx-auto h-auto w-full max-w-[1440px]"
+          />
+          <div className="mx-auto flex max-w-6xl flex-col justify-between gap-6 px-5 py-9 md:flex-row md:items-center md:py-10">
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-primary">
-                Confeitaria artesanal · {site.city}
-              </p>
-              <h1 className="mt-4 font-display text-5xl leading-[1.05] sm:text-6xl">
-                Bolos decorados e doces feitos à mão
-              </h1>
-              <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground">
-                Cada criação nasce de uma conversa e termina em festa. Encomendas sob medida, com
-                sabor de casa e acabamento delicado.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <WhatsAppButton />
-                <Link
-                  to="/catalogo"
-                  className="inline-flex items-center rounded-full border border-primary/40 px-6 py-3 text-sm text-primary transition-colors hover:bg-primary/10"
-                >
-                  Ver catálogo
-                </Link>
-              </div>
-              <p className="mt-6 text-xs uppercase tracking-[0.22em] text-muted-foreground">
-                {site.formerName}
-              </p>
+              <p className="text-xs font-semibold uppercase text-leaf">Confeitaria Brasileira · {site.city}</p>
+              <h1 className="mt-2 font-display text-4xl sm:text-5xl">Ângela Oliveira</h1>
+              <p className="mt-3 text-sm text-muted-foreground">Bolos decorados e doces artesanais. Sabores que contam histórias.</p>
             </div>
-
-            <img
-              src={heroImage}
-              alt="Bolo pink de 15 anos com rosas e nome personalizado em dourado"
-              width={1200}
-              height={1600}
-              className="aspect-[4/5] w-full rounded-[2rem] object-cover object-center shadow-[var(--shadow-elegant)]"
-            />
+            <div className="flex flex-wrap gap-3 md:max-w-sm md:justify-end">
+              <WhatsAppButton />
+              <Button asChild variant="outline" className="rounded-full border-primary/40 px-6 py-3 text-primary h-auto">
+                <Link to="/catalogo">Ver catálogo</Link>
+              </Button>
+            </div>
           </div>
         </section>
 
@@ -78,28 +69,28 @@ function Index() {
           <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="grid grid-cols-2 gap-4">
               <img
-                src={angelaNovaFase.url}
-                alt="Ângela Oliveira em sua cozinha, de touca e avental, conferindo encomendas no celular"
+                src={portrait.url}
+                alt="Ângela Oliveira, fundadora, com avental rosa em sua cozinha"
                 loading="lazy"
-                width={640}
-                height={960}
-                className="col-span-2 w-full rounded-[2rem] object-cover shadow-[var(--shadow-elegant)] sm:col-span-1 sm:aspect-[3/4]"
+                width={769}
+                height={793}
+                className="col-span-2 w-full rounded-lg object-cover shadow-[var(--shadow-elegant)] sm:col-span-1 sm:aspect-[3/4]"
               />
               <img
                 src={angelaEquipe.url}
-                alt="Equipe da Ângela Oliveira Cake Design preparando doces na cozinha"
+                alt="Equipe da Ângela Oliveira — Confeitaria Brasileira preparando doces na cozinha"
                 loading="lazy"
                 width={640}
                 height={853}
-                className="col-span-2 w-full rounded-[2rem] object-cover shadow-[var(--shadow-elegant)] sm:col-span-1 sm:aspect-[3/4]"
+                className="col-span-2 w-full rounded-lg object-cover shadow-[var(--shadow-elegant)] sm:col-span-1 sm:aspect-[3/4]"
               />
             </div>
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-primary">
-                Uma nova fase começa
+                Brasilidade · afeto · memória
               </p>
               <h2 className="mt-4 font-display text-4xl leading-tight sm:text-5xl">
-                A Pimenta Rosa Festas agora é Ângela Oliveira Cake Design
+                Nossa história também tem sabor.
               </h2>
               <div className="mt-5 space-y-4 text-base leading-relaxed text-muted-foreground">
                 <p>
@@ -107,6 +98,7 @@ function Index() {
                   dedicação em cada criação.
                 </p>
                 <p>A história continua. E o melhor ainda está por vir!</p>
+                <p className="text-xs">{site.formerName}</p>
                 <p>
                   Essa foto representa um pouco da minha trajetória e da mulher que está por trás de
                   cada bolo, cada doce e cada sonho realizado.
@@ -129,7 +121,7 @@ function Index() {
             {categories.map((c) => (
               <article
                 key={c.slug}
-                className="group overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-soft)]"
+                className="group overflow-hidden rounded-lg border border-border/70 bg-card shadow-[var(--shadow-soft)]"
               >
                 <img
                   src={c.image}
@@ -169,7 +161,7 @@ function Index() {
               {destaques.map((p) => (
                 <article
                   key={p.name}
-                  className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-soft)] transition-transform duration-300 hover:-translate-y-1"
+                  className="overflow-hidden rounded-lg border border-border/70 bg-card shadow-[var(--shadow-soft)] transition-transform duration-300 hover:-translate-y-1"
                 >
                   <img
                     src={p.image}
@@ -206,7 +198,7 @@ function Index() {
             {testimonials.map((t) => (
               <figure
                 key={t.name}
-                className="rounded-2xl border border-border/70 bg-card p-6 shadow-[var(--shadow-soft)]"
+                className="rounded-lg border border-border/70 bg-card p-6 shadow-[var(--shadow-soft)]"
               >
                 <blockquote className="text-sm leading-relaxed text-muted-foreground">
                   “{t.text}”
@@ -218,10 +210,10 @@ function Index() {
         </section>
 
         {/* CTA final */}
-        <section className="mx-auto max-w-6xl px-5">
-          <div className="rounded-[2rem] bg-primary/10 px-6 py-14 text-center">
+        <section className="bg-primary text-primary-foreground">
+          <div className="mx-auto max-w-6xl px-6 py-14 text-center">
             <h2 className="font-display text-4xl">Pronta para adoçar a sua data?</h2>
-            <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+            <p className="mx-auto mt-3 max-w-xl text-primary-foreground/90">
               Conte a data, o número de convidados e o estilo da festa. O orçamento sai na conversa,
               sem carrinho e sem burocracia.
             </p>

@@ -13,13 +13,15 @@ export const Route = createFileRoute("/catalogo")({
       {
         name: "description",
         content:
-          "Vitrine de bolos decorados e doces finos de festa da Ângela Oliveira Cake Design em São Paulo. Encomendas pelo WhatsApp.",
+          "Vitrine de bolos decorados e doces finos de festa da Ângela Oliveira — Confeitaria Brasileira em São Paulo. Encomendas pelo WhatsApp.",
       },
-      { property: "og:title", content: "Catálogo | Ângela Oliveira Cake Design" },
+      { property: "og:title", content: "Catálogo | Ângela Oliveira — Confeitaria Brasileira" },
       {
         property: "og:description",
         content: "Bolos decorados e doces finos artesanais para festas em São Paulo.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: CatalogoPage,

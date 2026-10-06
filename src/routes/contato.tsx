@@ -8,17 +8,19 @@ import { site } from "@/lib/site";
 export const Route = createFileRoute("/contato")({
   head: () => ({
     meta: [
-      { title: "Contato e entrega em São Paulo | Ângela Oliveira Cake Design" },
+      { title: "Contato e entrega em São Paulo | Ângela Oliveira — Confeitaria Brasileira" },
       {
         name: "description",
         content:
-          "Fale com a Ângela Oliveira Cake Design pelo WhatsApp: encomendas, prazos e entrega de bolos e doces em São Paulo.",
+          "Fale com a Ângela Oliveira — Confeitaria Brasileira pelo WhatsApp: encomendas, prazos e entrega de bolos e doces em São Paulo.",
       },
-      { property: "og:title", content: "Contato | Ângela Oliveira Cake Design" },
+      { property: "og:title", content: "Contato | Ângela Oliveira — Confeitaria Brasileira" },
       {
         property: "og:description",
         content: "Encomendas pelo WhatsApp, com entrega combinada em São Paulo.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ContatoPage,

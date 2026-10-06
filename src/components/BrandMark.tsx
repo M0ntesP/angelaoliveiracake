@@ -1,4 +1,5 @@
-import brandLogo from "@/assets/logo-circular.png.asset.json";
+import brandLogo from "@/assets/angela-brasil-logo.png.asset.json";
+import brandSignature from "@/assets/angela-brasil-assinatura-final.png.asset.json";
 import { cn } from "@/lib/utils";
 
 type BrandMarkProps = {
@@ -9,13 +10,13 @@ type BrandMarkProps = {
 export function BrandMark({ className, compact = false }: BrandMarkProps) {
   return (
     <img
-      src={brandLogo.url}
-      alt="Ângela Oliveira Cake Design"
-      width={500}
-      height={500}
+      src={compact ? brandSignature.url : brandLogo.url}
+      alt="Ângela Oliveira — Confeitaria Brasileira"
+      width={compact ? 425 : 268}
+      height={compact ? 80 : 204}
       className={cn(
-        "rounded-full bg-background object-contain",
-        compact ? "h-14 w-14 sm:h-16 sm:w-16" : "h-32 w-32",
+        "object-contain",
+        compact ? "h-auto w-[180px]" : "h-auto w-56",
         className,
       )}
     />
