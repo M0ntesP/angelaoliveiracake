@@ -17,7 +17,7 @@ function WhatsAppIcon() {
 }
 
 export function WhatsAppButton({
-  message = "Olá! Vim pelo site da Pimenta Rosa Festas e gostaria de fazer uma encomenda.",
+  message = "Olá! Vim pelo site da Ângela Oliveira e gostaria de fazer uma encomenda.",
   children = "Fazer encomenda no WhatsApp",
   variant = "solid",
   className,
@@ -30,7 +30,7 @@ export function WhatsAppButton({
       className={cn(
         "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         variant === "solid"
-          ? "bg-primary text-primary-foreground shadow-[var(--shadow-soft)] hover:bg-foreground hover:text-background hover:-translate-y-0.5"
+          ? "bg-leaf text-leaf-foreground shadow-[var(--shadow-soft)] hover:bg-foreground hover:text-background hover:-translate-y-0.5"
           : "border border-gold/70 text-foreground hover:bg-gold hover:text-accent-foreground",
         className,
       )}
@@ -45,12 +45,12 @@ export function WhatsAppFloating() {
   return (
     <a
       href={whatsappLink(
-        "Olá! Vim pelo site da Pimenta Rosa Festas e gostaria de fazer uma encomenda.",
+        "Olá! Vim pelo site da Ângela Oliveira e gostaria de fazer uma encomenda.",
       )}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Fazer encomenda no WhatsApp"
-      className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-elegant)] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full bg-leaf px-5 py-3 text-sm font-semibold text-leaf-foreground shadow-[var(--shadow-elegant)] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
       <WhatsAppIcon />
       <span className="hidden sm:inline">Encomendar</span>

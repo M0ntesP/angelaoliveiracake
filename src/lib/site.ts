@@ -12,9 +12,9 @@ import bolo10 from "@/assets/bolo-10.jpg.asset.json";
 export const WHATSAPP_URL = "https://wa.me/message/2NQZ64SODALVE1";
 
 export const site = {
-  name: "Ângela Oliveira Cake Design",
+  name: "Ângela Oliveira",
   formerName: "antiga Pimenta Rosa Festas",
-  tagline: "Bolos decorados e doces artesanais",
+  tagline: "Confeitaria Brasileira",
   city: "São Paulo, SP",
   instagram: "https://www.instagram.com/angelaoliveira.cakedesing/",
   links: "https://beacons.ai/angelacake",

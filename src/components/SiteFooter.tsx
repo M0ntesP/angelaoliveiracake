@@ -1,24 +1,24 @@
 import { Link } from "@tanstack/react-router";
 
-import footerLogo from "@/assets/logo-rodape.png.asset.json";
+import footerLogo from "@/assets/angela-brasil-logo.png.asset.json";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { site } from "@/lib/site";
 
 export function SiteFooter() {
   return (
-    <footer className="mt-24 border-t border-gold/30 bg-secondary/70">
+    <footer className="mt-24 border-t border-gold/30 bg-secondary">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-3 lg:px-8">
         <div>
           <img
             src={footerLogo.url}
-            alt="Ângela Oliveira Cake Design"
-            width={500}
-            height={500}
+            alt="Ângela Oliveira — Confeitaria Brasileira"
+            width={268}
+            height={204}
             loading="lazy"
-            className="h-auto w-40 max-w-full object-contain sm:w-48"
+            className="h-auto w-56 max-w-full object-contain"
           />
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
-            {site.tagline}. Encomendas sob medida para aniversários, casamentos e eventos em{" "}
+            {site.tagline}. Sabores que contam histórias. Encomendas sob medida para aniversários, casamentos e eventos em{" "}
             {site.city}.
           </p>
         </div>

@@ -12,7 +12,7 @@ import pascoa6 from "@/assets/pascoa-6.jpg.asset.json";
 import pascoa7 from "@/assets/pascoa-7.jpg.asset.json";
 import pascoa8 from "@/assets/pascoa-8.jpg.asset.json";
 import pascoa9 from "@/assets/pascoa-9.jpg.asset.json";
-import angelaPortifolio from "@/assets/angela-portifolio.jpg.asset.json";
+import angelaPortifolio from "@/assets/angela-brasil-retrato.jpg.asset.json";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { WhatsAppButton, WhatsAppFloating } from "@/components/WhatsAppButton";
@@ -21,17 +21,19 @@ import { site, testimonials } from "@/lib/site";
 export const Route = createFileRoute("/portifolio")({
   head: () => ({
     meta: [
-      { title: "Portfólio | Ângela Oliveira Cake Design" },
+      { title: "Portfólio | Ângela Oliveira — Confeitaria Brasileira" },
       {
         name: "description",
         content:
-          "Portfólio da Ângela Oliveira Cake Design: bolos decorados, ovos de Páscoa artesanais e doces feitos à mão em São Paulo. A antiga Pimenta Rosa Festas.",
+          "Portfólio da Ângela Oliveira — Confeitaria Brasileira: bolos decorados, ovos de Páscoa artesanais e doces feitos à mão em São Paulo. A antiga Pimenta Rosa Festas.",
       },
-      { property: "og:title", content: "Portfólio | Ângela Oliveira Cake Design" },
+      { property: "og:title", content: "Portfólio | Ângela Oliveira — Confeitaria Brasileira" },
       {
         property: "og:description",
         content: "Criações artesanais: bolos, ovos de Páscoa e doces feitos à mão em São Paulo.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: PortifolioPage,
@@ -63,9 +65,9 @@ function PortifolioPage() {
             src={angelaPortifolio.url}
             alt="Ângela Oliveira em sua cozinha usando o avental da marca"
             loading="lazy"
-            width={640}
-            height={960}
-            className="aspect-[2/3] w-full rounded-3xl object-cover object-center shadow-[var(--shadow-elegant)]"
+            width={769}
+            height={793}
+            className="aspect-[769/793] w-full rounded-lg object-cover object-center shadow-[var(--shadow-elegant)]"
           />
           <div className="space-y-5 text-muted-foreground">
             <p className="text-base leading-relaxed">
