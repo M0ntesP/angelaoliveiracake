@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Corrigir configuração de compilação que bloqueia a publicação
+- [x] Corrigir configuração de compilação que bloqueia a publicação
 
 - [x] Aplicar manual Brasil Afetivo, logo oficial, segunda imagem como capa e retrato enviado
 
