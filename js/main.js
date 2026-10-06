@@ -72,8 +72,8 @@ function renderMenu() {
   if (target) target.innerHTML = menuPages.map((url, index) => `<img src="${url}" alt="Cardápio — página ${index + 1} de ${menuPages.length}" loading="${index === 0 ? "eager" : "lazy"}">`).join("");
 }
 function renderPortfolio() {
-  const image = document.querySelector("#gallery-image");
-  if (!image || !gallery.length) return;
+  const track = document.querySelector("#gallery-track");
+  if (!track || !gallery.length) return;
   const dots = document.querySelector("#gallery-dots");
   const counter = document.querySelector("#gallery-count");
   let index = 0;
@@ -81,12 +81,24 @@ function renderPortfolio() {
   let userPaused = false;
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let pointerStartX = null;
+  let swipeInProgress = false;
   let paused = reducedMotion.matches;
   const pauseButton = document.querySelector("#gallery-toggle");
+  track.innerHTML = gallery.map((item, slideIndex) => `
+    <button class="gallery-photo" type="button" aria-label="Foto ${slideIndex + 1} de ${gallery.length}: ${item.alt}. Clique para avançar." ${slideIndex > 1 ? 'tabindex="-1" inert' : ""}>
+      <img src="${item.image}" alt="${item.alt}" draggable="false" loading="${slideIndex < 2 ? "eager" : "lazy"}">
+    </button>`).join("");
+  const slides = [...track.children];
   function show(next) {
     index = (next + gallery.length) % gallery.length;
-    image.src = gallery[index].image;
-    image.alt = gallery[index].alt;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    slides.forEach((slide, slideIndex) => {
+      const active = slideIndex === index;
+      slide.classList.toggle("active", active);
+      slide.toggleAttribute("inert", !active);
+      slide.setAttribute("aria-hidden", String(!active));
+      slide.tabIndex = active ? 0 : -1;
+    });
     counter.textContent = `${String(index + 1).padStart(2, "0")} / ${String(gallery.length).padStart(2, "0")}`;
     dots.querySelectorAll("button").forEach((button, dotIndex) => {
       const active = dotIndex === index;
@@ -126,7 +138,7 @@ function renderPortfolio() {
     if (event.key === "ArrowRight") { show(index + 1); restartTimer(); }
   });
   galleryElement.addEventListener("pointerdown", (event) => {
-    if (event.target.closest("button")) return;
+    if (event.target.closest(".gallery-arrow")) return;
     pointerStartX = event.clientX;
   });
   galleryElement.addEventListener("pointerup", (event) => {
@@ -134,10 +146,21 @@ function renderPortfolio() {
     const distance = event.clientX - pointerStartX;
     pointerStartX = null;
     if (Math.abs(distance) < 45) return;
+    swipeInProgress = true;
     show(index + (distance < 0 ? 1 : -1));
     restartTimer();
   });
   galleryElement.addEventListener("pointercancel", () => { pointerStartX = null; });
+  track.addEventListener("click", (event) => {
+    if (!event.target.closest(".gallery-photo")) return;
+    if (swipeInProgress) {
+      swipeInProgress = false;
+      event.preventDefault();
+      return;
+    }
+    show(index + 1);
+    restartTimer();
+  });
   reducedMotion.addEventListener("change", () => {
     paused = userPaused || reducedMotion.matches;
     updatePauseButton();
