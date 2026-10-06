@@ -81,6 +81,13 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px soli
 .gallery-track { display: flex; width: 100%; transition: transform .45s cubic-bezier(.22,.61,.36,1); will-change: transform; }
 .gallery-photo { display: block; flex: 0 0 100%; width: 100%; border: 0; padding: 0; background: transparent; cursor: pointer; }
 .gallery-photo img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+.home-showcase-slide { flex: 0 0 100%; width: 100%; background: var(--paper-light); }
+.home-gallery .gallery-arrow { top: 38%; }
+.home-showcase-photo { display: block; width: 100%; border: 0; padding: 0; background: transparent; cursor: pointer; }
+.home-showcase-photo img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+.home-showcase-copy { padding: 24px clamp(20px, 5vw, 38px) 32px; }
+.home-showcase-copy h3 { margin-top: 4px; }
+.home-showcase-copy > p:not(.eyebrow) { color: var(--muted); }
 .gallery-count { position: absolute; z-index: 1; top: 16px; right: 16px; border: 1px solid #fff8; border-radius: 999px; padding: 5px 10px; background: #34251fc7; color: white; font-size: .76rem; font-variant-numeric: tabular-nums; letter-spacing: .06em; }
 .gallery-arrow { position: absolute; z-index: 1; top: 50%; transform: translateY(-50%); display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #fff9; border-radius: 50%; padding: 0 0 4px; background: #fbf6eef0; color: var(--ink); font-size: 2rem; line-height: 1; cursor: pointer; box-shadow: 0 2px 12px #34251f30; transition: background .2s, transform .2s; }
 .gallery-arrow:hover { transform: translateY(-50%) scale(1.06); background: white; }

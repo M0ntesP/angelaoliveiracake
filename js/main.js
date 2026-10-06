@@ -41,12 +41,116 @@ function testimonialCard(item) {
   return `<figure class="testimonial"><blockquote>“${item.text}”</blockquote><figcaption>${item.name}</figcaption></figure>`;
 }
 function renderHome() {
-  const categoryTarget = document.querySelector("#home-categories");
-  if (categoryTarget) categoryTarget.innerHTML = categories.map((item) => `<article class="category-card"><img src="${imageUrl(item.image)}" alt="${item.name}" loading="lazy"><div class="card-copy"><h3>${item.name}</h3><p>${item.description}</p><a href="catalogo.html">Ver no catálogo</a></div></article>`).join("");
-  const productTarget = document.querySelector("#home-products");
-  if (productTarget) productTarget.innerHTML = products.slice(0, 6).map(productCard).join("");
+  renderHomeShowcase();
   const reviewTarget = document.querySelector("#home-testimonials");
   if (reviewTarget) reviewTarget.innerHTML = testimonials.map(testimonialCard).join("");
+}
+function renderHomeShowcase() {
+  const root = document.querySelector("#home-showcase");
+  const track = document.querySelector("#home-showcase-track");
+  if (!root || !track) return;
+
+  const items = [
+    ...categories.map((item) => ({ eyebrow: "Categoria", name: item.name, description: item.description, image: item.image, action: "Ver no catálogo", href: "catalogo.html" })),
+    ...products.slice(0, 6).map((item) => ({ eyebrow: item.category, name: item.name, description: item.description, image: item.image, action: "Encomendar no WhatsApp", href: site.whatsapp })),
+  ];
+  const dots = document.querySelector("#home-showcase-dots");
+  const counter = document.querySelector("#home-showcase-count");
+  const pauseButton = document.querySelector("#home-showcase-toggle");
+  let index = 0;
+  let timer;
+  let pointerStartX = null;
+  let swipeInProgress = false;
+  let userPaused = false;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let paused = reducedMotion.matches;
+
+  track.innerHTML = items.map((item, itemIndex) => `
+    <article class="home-showcase-slide" ${itemIndex > 1 ? 'inert aria-hidden="true"' : ""}>
+      <button class="home-showcase-photo" type="button" aria-label="${item.name}. Clique para avançar para a próxima foto.">
+        <img src="${imageUrl(item.image)}" alt="${item.name}" draggable="false" loading="${itemIndex < 2 ? "eager" : "lazy"}">
+      </button>
+      <div class="home-showcase-copy"><p class="eyebrow">${item.eyebrow}</p><h3>${item.name}</h3><p>${item.description}</p><a class="button button-outline" href="${item.href}">${item.action}</a></div>
+    </article>`).join("");
+  const slides = [...track.children];
+
+  function show(next) {
+    index = (next + items.length) % items.length;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    slides.forEach((slide, slideIndex) => {
+      const active = slideIndex === index;
+      slide.toggleAttribute("inert", !active);
+      slide.setAttribute("aria-hidden", String(!active));
+    });
+    counter.textContent = `${String(index + 1).padStart(2, "0")} / ${String(items.length).padStart(2, "0")}`;
+    dots.querySelectorAll("button").forEach((button, dotIndex) => {
+      const active = dotIndex === index;
+      button.classList.toggle("active", active);
+      if (active) button.setAttribute("aria-current", "true");
+      else button.removeAttribute("aria-current");
+    });
+  }
+  function restartTimer() {
+    clearTimeout(timer);
+    if (!paused && !document.hidden && !root.matches(":hover, :focus-within")) {
+      timer = setTimeout(() => { show(index + 1); restartTimer(); }, 4500);
+    }
+  }
+  function updatePauseButton() {
+    pauseButton.textContent = paused ? "Retomar apresentação" : "Pausar apresentação";
+    pauseButton.setAttribute("aria-pressed", String(paused));
+  }
+
+  dots.innerHTML = items.map((_, dotIndex) => `<button type="button" aria-label="Ir para foto ${dotIndex + 1}"></button>`).join("");
+  dots.addEventListener("click", (event) => {
+    const dotIndex = [...dots.children].indexOf(event.target);
+    if (dotIndex >= 0) { show(dotIndex); restartTimer(); }
+  });
+  root.querySelector(".previous").addEventListener("click", () => { show(index - 1); restartTimer(); });
+  root.querySelector(".next").addEventListener("click", () => { show(index + 1); restartTimer(); });
+  track.addEventListener("click", (event) => {
+    if (!event.target.closest(".home-showcase-photo")) return;
+    if (swipeInProgress) { swipeInProgress = false; event.preventDefault(); return; }
+    show(index + 1);
+    restartTimer();
+  });
+  root.addEventListener("pointerdown", (event) => {
+    if (event.target.closest(".gallery-arrow")) return;
+    pointerStartX = event.clientX;
+  });
+  root.addEventListener("pointerup", (event) => {
+    if (pointerStartX === null) return;
+    const distance = event.clientX - pointerStartX;
+    pointerStartX = null;
+    if (Math.abs(distance) < 45) return;
+    swipeInProgress = true;
+    show(index + (distance < 0 ? 1 : -1));
+    restartTimer();
+  });
+  root.addEventListener("pointercancel", () => { pointerStartX = null; });
+  root.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") { show(index - 1); restartTimer(); }
+    if (event.key === "ArrowRight") { show(index + 1); restartTimer(); }
+  });
+  root.addEventListener("mouseenter", () => clearTimeout(timer));
+  root.addEventListener("mouseleave", restartTimer);
+  root.addEventListener("focusin", () => clearTimeout(timer));
+  root.addEventListener("focusout", (event) => { if (!root.contains(event.relatedTarget)) restartTimer(); });
+  pauseButton.addEventListener("click", () => {
+    userPaused = !userPaused;
+    paused = userPaused || reducedMotion.matches;
+    updatePauseButton();
+    restartTimer();
+  });
+  reducedMotion.addEventListener("change", () => {
+    paused = userPaused || reducedMotion.matches;
+    updatePauseButton();
+    restartTimer();
+  });
+  document.addEventListener("visibilitychange", restartTimer);
+  show(0);
+  updatePauseButton();
+  restartTimer();
 }
 function renderCatalog() {
   const filters = ["Todos", ...categories.map((item) => item.name)];
