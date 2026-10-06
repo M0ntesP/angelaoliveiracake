@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
-import footerLogo from "@/assets/angela-brasil-logo.png.asset.json";
+import footerLogo from "@/assets/angela-logo-oficial-completa.png.asset.json";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { site } from "@/lib/site";
 
@@ -12,8 +12,8 @@ export function SiteFooter() {
           <img
             src={footerLogo.url}
             alt="Ângela Oliveira — Confeitaria Brasileira"
-            width={268}
-            height={204}
+            width={271}
+            height={220}
             loading="lazy"
             className="h-auto w-56 max-w-full object-contain"
           />
