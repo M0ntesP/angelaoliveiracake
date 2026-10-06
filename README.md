@@ -1,26 +1,17 @@
-# Pimenta Rosa Vitrine
+# Ângela Oliveira — Confeitaria Brasileira
 
-Crie um site catálogo responsivo para a confeitaria Pimenta Rosa Festas, inspirado nas referências de Google Maps fornecidas. Objetivo: exibir bolos decorados, doces e salgados e direcionar os pedidos para WhatsApp, sem carrinho nem pagamento. Use o conteúdo público atual de https://beacons.ai/angelacake como fonte para links, contatos e informações disponíveis. Visual artesanal, delicado e premium, com rosa como cor predominante, vitrine de produtos, categorias, seção sobre, depoimentos e contato/entrega em São Paulo. Inclua botões claros de 'Fazer encomenda no WhatsApp' em toda a experiência.
+Site institucional feito com HTML, CSS e JavaScript sem framework.
 
-This project was built with [Lovable](https://lovable.dev).
+## Estrutura
 
-**Live app**: https://angelaoliveiracake.lovable.app
+- `index.html`, `catalogo.html`, `cardapio.html`, `portifolio.html` e `contato.html`: páginas do site.
+- `styles.css`: estilos e adaptação para celular.
+- `js/site-data.js`: textos, produtos, categorias e imagens.
+- `js/main.js`: cabeçalho, rodapé, filtros e galeria.
+- `public/images/`: cópias locais das imagens e do PDF usados pelo site.
 
-## Build with Lovable
+As páginas usam imagens locais, metadados de compartilhamento e um sitemap. A página de contato reúne prazos, entrega, pagamento e perguntas frequentes; o portfólio permite pausar a galeria.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/ef7b874d-f315-448a-9751-2f5d584223e3).
+## Abrir o site
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+Instale as dependências com `npm install`, inicie com `npm run dev` e abra o endereço mostrado no terminal. Para gerar os arquivos publicados, use `npm run build`; eles serão criados na pasta `dist`.
