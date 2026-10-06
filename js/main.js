@@ -73,43 +73,77 @@ function renderMenu() {
 }
 function renderPortfolio() {
   const image = document.querySelector("#gallery-image");
-  if (!image) return;
+  if (!image || !gallery.length) return;
   const dots = document.querySelector("#gallery-dots");
+  const counter = document.querySelector("#gallery-count");
   let index = 0;
   let timer;
-  let paused = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let userPaused = false;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let pointerStartX = null;
+  let paused = reducedMotion.matches;
   const pauseButton = document.querySelector("#gallery-toggle");
   function show(next) {
     index = (next + gallery.length) % gallery.length;
     image.src = gallery[index].image;
     image.alt = gallery[index].alt;
-    dots.querySelectorAll("button").forEach((button, dotIndex) => button.classList.toggle("active", dotIndex === index));
+    counter.textContent = `${String(index + 1).padStart(2, "0")} / ${String(gallery.length).padStart(2, "0")}`;
+    dots.querySelectorAll("button").forEach((button, dotIndex) => {
+      const active = dotIndex === index;
+      button.classList.toggle("active", active);
+      if (active) button.setAttribute("aria-current", "true");
+      else button.removeAttribute("aria-current");
+    });
   }
   function restartTimer() {
-    clearInterval(timer);
-    if (!paused) timer = setInterval(() => show(index + 1), 4000);
+    clearTimeout(timer);
+    if (!paused && !document.hidden && !document.querySelector("#gallery:hover") && !document.querySelector("#gallery:focus-within")) {
+      timer = setTimeout(() => { show(index + 1); restartTimer(); }, 4500);
+    }
   }
   function updatePauseButton() {
-    pauseButton.textContent = paused ? "Retomar rotação" : "Pausar rotação";
+    pauseButton.textContent = paused ? "Retomar apresentação" : "Pausar apresentação";
     pauseButton.setAttribute("aria-pressed", String(paused));
   }
   pauseButton.addEventListener("click", () => {
-    paused = !paused;
+    userPaused = !userPaused;
+    paused = userPaused || reducedMotion.matches;
     updatePauseButton();
     restartTimer();
   });
   document.addEventListener("visibilitychange", () => {
-    if (document.hidden) clearInterval(timer);
-    else restartTimer();
+    restartTimer();
   });
-  window.matchMedia("(prefers-reduced-motion: reduce)").addEventListener("change", (event) => {
-    if (event.matches) {
-      paused = true;
-      updatePauseButton();
-      restartTimer();
-    }
+  const galleryElement = document.querySelector("#gallery");
+  galleryElement.addEventListener("mouseenter", () => clearTimeout(timer));
+  galleryElement.addEventListener("mouseleave", restartTimer);
+  galleryElement.addEventListener("focusin", () => clearTimeout(timer));
+  galleryElement.addEventListener("focusout", (event) => {
+    if (!galleryElement.contains(event.relatedTarget)) restartTimer();
   });
-  dots.innerHTML = gallery.map((_, dotIndex) => `<button aria-label="Ir para foto ${dotIndex + 1}"></button>`).join("");
+  galleryElement.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") { show(index - 1); restartTimer(); }
+    if (event.key === "ArrowRight") { show(index + 1); restartTimer(); }
+  });
+  galleryElement.addEventListener("pointerdown", (event) => {
+    if (event.target.closest("button")) return;
+    pointerStartX = event.clientX;
+  });
+  galleryElement.addEventListener("pointerup", (event) => {
+    if (pointerStartX === null) return;
+    const distance = event.clientX - pointerStartX;
+    pointerStartX = null;
+    if (Math.abs(distance) < 45) return;
+    show(index + (distance < 0 ? 1 : -1));
+    restartTimer();
+  });
+  galleryElement.addEventListener("pointercancel", () => { pointerStartX = null; });
+  reducedMotion.addEventListener("change", () => {
+    paused = userPaused || reducedMotion.matches;
+    updatePauseButton();
+    restartTimer();
+  });
+  dots.innerHTML = gallery.map((_, dotIndex) => `<button type="button" aria-label="Ir para foto ${dotIndex + 1}"></button>`).join("");
   dots.addEventListener("click", (event) => {
     const dotIndex = [...dots.children].indexOf(event.target);
     if (dotIndex >= 0) { show(dotIndex); restartTimer(); }
