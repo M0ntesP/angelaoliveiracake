@@ -1,3 +1,5 @@
+import footerLogoAsset from "../src/assets/angela-logo-rodape-circular.png.asset.json";
+
 // Conteúdo do site em um só lugar para facilitar as atualizações.
 export const site = {
   name: "Ângela Oliveira",
@@ -7,6 +9,7 @@ export const site = {
   instagram: "https://www.instagram.com/angelaoliveira.cakedesing/",
   links: "https://beacons.ai/angelacake",
   logo: "/images/angela-logo-oficial-completa.png",
+  footerLogo: footerLogoAsset.url,
 };
 
 export const categories = [

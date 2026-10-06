@@ -27,7 +27,7 @@ function renderHeader() {
 function renderFooter() {
   document.querySelector("#site-footer").innerHTML = `
     <footer class="site-footer"><div class="container footer-grid">
-      <div><img class="footer-logo" src="${site.logo}" alt="Ângela Oliveira — Confeitaria Brasileira" loading="lazy"><p>Confeitaria Brasileira. Sabores que contam histórias. Encomendas sob medida em ${site.city}.</p></div>
+      <div><img class="footer-logo" src="${site.footerLogo}" alt="Ângela Oliveira — Confeitaria Brasileira" width="486" height="486" loading="lazy"><p>Confeitaria Brasileira. Sabores que contam histórias. Encomendas sob medida em ${site.city}.</p></div>
       <div><p class="eyebrow">Navegar</p><ul>${pageLinks.slice(1).map(([, label, url]) => `<li><a href="${url}">${label}</a></li>`).join("")}<li><a href="${site.instagram}" target="_blank" rel="noopener">Instagram</a></li><li><a href="${site.links}" target="_blank" rel="noopener">Todos os links</a></li></ul></div>
       <div><p class="eyebrow">Pedidos apenas por WhatsApp</p><a class="button" href="${site.whatsapp}">Fazer encomenda</a><p>Sem carrinho e sem pagamento online: combinamos tudo na conversa.</p></div>
     </div><div class="copyright">© ${new Date().getFullYear()} ${site.name} · ${site.city}</div></footer>
