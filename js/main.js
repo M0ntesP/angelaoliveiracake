@@ -1,3 +1,5 @@
+import { site, categories, products, testimonials, menuPages, gallery } from "./site-data.js";
+
 // Elementos compartilhados e interações pequenas do site.
 const pageLinks = [
   ["inicio", "Início", "index.html"], ["catalogo", "Catálogo", "catalogo.html"],

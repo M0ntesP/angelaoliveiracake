@@ -1,5 +1,5 @@
 // Conteúdo do site em um só lugar para facilitar as atualizações.
-const site = {
+export const site = {
   name: "Ângela Oliveira",
   oldName: "antiga Pimenta Rosa Festas",
   city: "São Paulo, SP",
@@ -9,13 +9,13 @@ const site = {
   logo: "/images/angela-logo-oficial-completa.png",
 };
 
-const categories = [
+export const categories = [
   { name: "Bolos temáticos", image: "bolo-7.jpg", description: "Personagens, cores e cenários montados à mão para festas infantis e temas favoritos de qualquer idade." },
   { name: "Bolos comemorativos", image: "bolo-3.jpg", description: "Aniversários, 15 anos e datas especiais com acabamento delicado, topo personalizado e detalhes em dourado." },
   { name: "Bolos florais e frutas", image: "bolo-1.jpg", description: "Chantilly, frutas frescas e flores naturais para quem prefere um bolo clássico, leve e elegante." },
 ];
 
-const products = [
+export const products = [
   { name: "Bolo de morangos com chantilly", category: "Bolos florais e frutas", description: "Chantilly em bico rendado, morangos frescos no topo e laço de cetim.", detail: "Andar único · sabores a combinar", image: "bolo-1.jpg" },
   { name: "Bolo tropical flamingo", category: "Bolos temáticos", description: "Dois andares em rosetas rosa e turquesa, com folhagens e topo de flamingos.", detail: "Dois andares", image: "bolo-2.jpg" },
   { name: "Bolo pink 15 anos", category: "Bolos comemorativos", description: "Pink metálico espatulado, rosas em papel e nome personalizado em dourado.", detail: "Andar único · nome personalizado", image: "bolo-3.jpg" },
@@ -28,15 +28,15 @@ const products = [
   { name: "Bolo afro com flores", category: "Bolos florais e frutas", description: "Andares com estampas africanas, flores naturais amarelas e nome no topo.", detail: "Dois andares · flores naturais", image: "bolo-10.jpg" },
 ];
 
-const testimonials = [
+export const testimonials = [
   { name: "Juliana M.", text: "O bolo da festa da minha filha ficou lindo demais e o sabor surpreendeu todo mundo. Já encomendei de novo!" },
   { name: "Carlos e Renata", text: "Atendimento carinhoso do começo ao fim. Os bem-casados do nosso casamento foram elogiados por todos os convidados." },
   { name: "Patrícia S.", text: "Doces fresquinhos, entregues no horário combinado na Zona Leste. Confiança total." },
 ];
 
-const menuPages = Array.from({ length: 6 }, (_, index) => `/images/cardapio-pagina-${index + 1}.jpg`);
+export const menuPages = Array.from({ length: 6 }, (_, index) => `/images/cardapio-pagina-${index + 1}.jpg`);
 
-const gallery = [
+export const gallery = [
   ["Bolo de cenoura com casca de chocolate, raspas e farofa crocante", "pascoa-1.jpg"],
   ["Bolo vulcão de Páscoa com coelhinho de chocolate e confeitos coloridos", "pascoa-2.jpg"],
   ["Ovo de Páscoa de chocolate branco embalado com laço dourado", "pascoa-3.jpg"],
