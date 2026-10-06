@@ -1,3 +1,5 @@
+import footerLogoAsset from "../src/assets/angela-logo-rodape-circular.png.asset.json";
+
 // Conteúdo do site em um só lugar para facilitar as atualizações.
 export const site = {
   name: "Ângela Oliveira",
@@ -6,7 +8,8 @@ export const site = {
   whatsapp: "https://wa.me/message/2NQZ64SODALVE1",
   instagram: "https://www.instagram.com/angelaoliveira.cakedesing/",
   links: "https://beacons.ai/angelacake",
-  logo: "/images/angela-logo-oficial-completa.png",
+  logo: new URL(footerLogoAsset.url, "https://angelaoliveiracake.lovable.app").href,
+  footerLogo: new URL(footerLogoAsset.url, "https://angelaoliveiracake.lovable.app").href,
 };
 
 export const categories = [

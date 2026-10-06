@@ -1,5 +1,7 @@
 # Roadmap
 
+- [x] Usar a logo circular enviada também no topo e no ícone da aba do navegador
+
 - [x] Corrigir configuração de compilação que bloqueia a publicação
 
 - [x] Aplicar manual Brasil Afetivo, logo oficial, segunda imagem como capa e retrato enviado
