@@ -9,7 +9,7 @@ export const site = {
   instagram: "https://www.instagram.com/angelaoliveira.cakedesing/",
   links: "https://beacons.ai/angelacake",
   logo: "/images/angela-logo-oficial-completa.png",
-  footerLogo: footerLogoAsset.url,
+  footerLogo: new URL(footerLogoAsset.url, "https://angelaoliveiracake.lovable.app").href,
 };
 
 export const categories = [
