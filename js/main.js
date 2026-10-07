@@ -1,26 +1,39 @@
 import { site, categories, products, testimonials, menuPages, gallery } from "./site-data.js";
+import { setupAnalytics, trackEvent } from "./analytics.js";
 
 // Elementos compartilhados e interações pequenas do site.
 const pageLinks = [
   ["inicio", "Início", "index.html"], ["catalogo", "Catálogo", "catalogo.html"],
   ["cardapio", "Cardápio", "cardapio.html"], ["portifolio", "Portfólio", "portifolio.html"],
-  ["contato", "Contato", "contato.html"],
+  ["endereco", "Endereço", "endereco.html"], ["contato", "Contato", "contato.html"],
 ];
 const currentPage = document.body.dataset.page;
 const imageUrl = (name) => `/images/${name}`;
 
 function renderHeader() {
   document.querySelector("#site-header").innerHTML = `
+    <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
     <header class="site-header"><div class="container header-inner">
       <a class="brand" href="index.html" aria-label="Ângela Oliveira — início"><img src="${site.logo}" alt="Ângela Oliveira — Confeitaria Brasileira"></a>
-      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
-      <nav class="main-nav" aria-label="Navegação principal">${pageLinks.map(([id, label, url]) => `<a ${currentPage === id ? 'aria-current="page"' : ""} href="${url}">${label}</a>`).join("")}<a class="button nav-order" href="${site.whatsapp}">Encomendar</a></nav>
+      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-controls="main-navigation" aria-expanded="false">☰</button>
+      <nav class="main-nav" id="main-navigation" aria-label="Navegação principal">${pageLinks.map(([id, label, url]) => `<a ${currentPage === id ? 'aria-current="page"' : ""} href="${url}">${label}</a>`).join("")}<a class="button nav-order" href="${site.whatsapp}">Encomendar</a></nav>
     </div></header>`;
   const toggle = document.querySelector(".menu-toggle");
+  const navigation = document.querySelector("#main-navigation");
+  function setMenuOpen(isOpen) {
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    toggle.setAttribute("aria-label", isOpen ? "Fechar menu" : "Abrir menu");
+    toggle.textContent = isOpen ? "×" : "☰";
+    navigation.classList.toggle("is-open", isOpen);
+  }
   toggle.addEventListener("click", () => {
-    const isOpen = toggle.getAttribute("aria-expanded") === "true";
-    toggle.setAttribute("aria-expanded", String(!isOpen));
-    document.querySelector(".main-nav").classList.toggle("is-open", !isOpen);
+    setMenuOpen(toggle.getAttribute("aria-expanded") !== "true");
+  });
+  navigation.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+      setMenuOpen(false);
+      toggle.focus();
+    }
   });
 }
 
@@ -30,12 +43,11 @@ function renderFooter() {
       <div><img class="footer-logo" src="${site.footerLogo}" alt="Ângela Oliveira — Confeitaria Brasileira" width="486" height="486" loading="lazy"><p>Confeitaria Brasileira. Sabores que contam histórias. Encomendas sob medida em ${site.city}.</p></div>
       <div><p class="eyebrow">Navegar</p><ul>${pageLinks.slice(1).map(([, label, url]) => `<li><a href="${url}">${label}</a></li>`).join("")}<li><a href="${site.instagram}" target="_blank" rel="noopener">Instagram</a></li><li><a href="${site.links}" target="_blank" rel="noopener">Todos os links</a></li></ul></div>
       <div><p class="eyebrow">Pedidos apenas por WhatsApp</p><a class="button" href="${site.whatsapp}">Fazer encomenda</a><p>Sem carrinho e sem pagamento online: combinamos tudo na conversa.</p></div>
-    </div><div class="copyright">© ${new Date().getFullYear()} ${site.name} · ${site.city}</div></footer>
-    <a class="floating-order button" href="${site.whatsapp}" aria-label="Fazer encomenda no WhatsApp">WhatsApp</a>`;
+    </div><div class="copyright">© ${new Date().getFullYear()} ${site.name} · ${site.city}</div></footer>`;
 }
 
 function productCard(product) {
-  return `<article class="product-card"><img src="${imageUrl(product.image)}" alt="${product.name}" loading="lazy"><div class="card-copy"><p class="eyebrow">${product.category}</p><h3>${product.name}</h3><p>${product.description}</p>${product.detail ? `<p class="muted">${product.detail}</p>` : ""}<a class="button button-outline full-button" href="${site.whatsapp}">Encomendar no WhatsApp</a></div></article>`;
+  return `<article class="product-card"><img src="${imageUrl(product.image)}" alt="${product.name}" loading="lazy" decoding="async"><div class="card-copy"><p class="eyebrow">${product.category}</p><h3>${product.name}</h3><p>${product.description}</p>${product.detail ? `<p class="muted">${product.detail}</p>` : ""}<a class="button button-outline full-button" href="${site.whatsapp}">Encomendar no WhatsApp</a></div></article>`;
 }
 function testimonialCard(item) {
   return `<figure class="testimonial"><blockquote>“${item.text}”</blockquote><figcaption>${item.name}</figcaption></figure>`;
@@ -68,7 +80,7 @@ function renderHomeShowcase() {
   track.innerHTML = items.map((item, itemIndex) => `
     <article class="home-showcase-slide" ${itemIndex > 1 ? 'inert aria-hidden="true"' : ""}>
       <button class="home-showcase-photo" type="button" aria-label="${item.name}. Clique para avançar para a próxima foto.">
-        <img src="${imageUrl(item.image)}" alt="${item.name}" draggable="false" loading="${itemIndex < 2 ? "eager" : "lazy"}">
+        <img src="${imageUrl(item.image)}" alt="${item.name}" draggable="false" loading="${itemIndex < 2 ? "eager" : "lazy"}" decoding="async">
       </button>
       <div class="home-showcase-copy"><p class="eyebrow">${item.eyebrow}</p><h3>${item.name}</h3><p>${item.description}</p><a class="button button-outline" href="${item.href}">${item.action}</a></div>
     </article>`).join("");
@@ -173,7 +185,7 @@ function renderCatalog() {
 }
 function renderMenu() {
   const target = document.querySelector("#menu-pages");
-  if (target) target.innerHTML = menuPages.map((url, index) => `<img src="${url}" alt="Cardápio — página ${index + 1} de ${menuPages.length}" loading="${index === 0 ? "eager" : "lazy"}">`).join("");
+  if (target) target.innerHTML = menuPages.map((url, index) => `<img src="${url}" alt="Cardápio — página ${index + 1} de ${menuPages.length}" loading="${index === 0 ? "eager" : "lazy"}" decoding="async">`).join("");
 }
 function renderPortfolio() {
   const track = document.querySelector("#gallery-track");
@@ -190,7 +202,7 @@ function renderPortfolio() {
   const pauseButton = document.querySelector("#gallery-toggle");
   track.innerHTML = gallery.map((item, slideIndex) => `
     <button class="gallery-photo" type="button" aria-label="Foto ${slideIndex + 1} de ${gallery.length}: ${item.alt}. Clique para avançar." ${slideIndex > 1 ? 'tabindex="-1" inert' : ""}>
-      <img src="${item.image}" alt="${item.alt}" draggable="false" loading="${slideIndex < 2 ? "eager" : "lazy"}">
+      <img src="${item.image}" alt="${item.alt}" draggable="false" loading="${slideIndex < 2 ? "eager" : "lazy"}" decoding="async">
     </button>`).join("");
   const slides = [...track.children];
   function show(next) {
@@ -283,9 +295,46 @@ function renderPortfolio() {
   restartTimer();
 }
 
+function setupQuoteForm() {
+  const form = document.querySelector("#quote-form");
+  if (!form) return;
+
+  const dateInput = form.elements.namedItem("date");
+  const now = new Date();
+  dateInput.min = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const values = new FormData(form);
+    const details = [
+      ["Nome", values.get("name")],
+      ["Data da comemoração", new Date(`${values.get("date")}T12:00:00`).toLocaleDateString("pt-BR")],
+      ["Convidados", values.get("guests")],
+      ["Encomenda", values.get("product")],
+      ["Entrega ou retirada", values.get("delivery")],
+      values.get("neighborhood") ? ["Bairro", values.get("neighborhood")] : null,
+      values.get("details") ? ["Detalhes", values.get("details")] : null,
+    ].filter(Boolean);
+    const message = `Olá, Ângela! Gostaria de pedir um orçamento:\n\n${details.map(([label, value]) => `${label}: ${value}`).join("\n")}\n\nPodemos conversar sobre disponibilidade e valores?`;
+    const whatsappUrl = new URL(`https://wa.me/${site.whatsappPhone}`);
+    whatsappUrl.searchParams.set("text", message);
+
+    const link = document.querySelector("#quote-whatsapp-link");
+    link.href = whatsappUrl.href;
+    link.hidden = false;
+    document.querySelector("#quote-status").textContent = "Mensagem pronta. Confira as informações e abra o WhatsApp para enviar.";
+    link.focus();
+    trackEvent("quote_form_prepared");
+  });
+}
+
 renderHeader();
 renderFooter();
 renderHome();
 renderCatalog();
 renderMenu();
 renderPortfolio();
+setupQuoteForm();
+setupAnalytics();

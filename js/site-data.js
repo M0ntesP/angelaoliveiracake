@@ -6,6 +6,7 @@ export const site = {
   oldName: "antiga Pimenta Rosa Festas",
   city: "São Paulo, SP",
   whatsapp: "https://wa.me/message/2NQZ64SODALVE1",
+  whatsappPhone: "5511984383266",
   instagram: "https://www.instagram.com/angelaoliveira.cakedesing/",
   links: "https://beacons.ai/angelacake",
   logo: new URL(footerLogoAsset.url, "https://angelaoliveiracake.lovable.app").href,
