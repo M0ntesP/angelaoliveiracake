@@ -1,4 +1,4 @@
-import { site, categories, products, homeFeaturedProducts, testimonials, menuPages, gallery, processVideos } from "./site-data.js";
+import { site, categories, products, homeFeaturedProducts, menuPages, gallery, processVideos } from "./site-data.js";
 import imageManifest from "./image-manifest.json";
 import { setupAnalytics, trackEvent } from "./analytics.js";
 
@@ -115,13 +115,8 @@ function productCard(product) {
   orderUrl.searchParams.set("text", "Olá, Ângela! Tenho interesse em " + product.name + ". Você pode me informar as opções e os valores para a minha data?");
   return `<article class="product-card" data-product-name="${product.name}">${imageMarkup(product.image, product.name, { loading: "lazy", sizes: productImageSizes })}<div class="card-copy"><p class="eyebrow">${product.category}</p><h3>${product.name}</h3><p>${product.description}</p>${product.detail ? `<p class="muted">${product.detail}</p>` : ""}<a class="button button-outline full-button" data-product-order="${product.name}" href="${orderUrl.href}">Quero encomendar</a></div></article>`;
 }
-function testimonialCard(item) {
-  return `<figure class="testimonial"><blockquote>“${item.text}”</blockquote><figcaption>${item.name}</figcaption></figure>`;
-}
 function renderHome() {
   renderHomeShowcase();
-  const reviewTarget = document.querySelector("#home-testimonials");
-  if (reviewTarget) reviewTarget.innerHTML = testimonials.map(testimonialCard).join("");
 }
 function renderHomeShowcase() {
   const root = document.querySelector("#home-showcase");
@@ -401,7 +396,6 @@ function renderPortfolio() {
   });
   document.querySelector(".gallery .previous").addEventListener("click", () => { show(index - 1); restartTimer(); });
   document.querySelector(".gallery .next").addEventListener("click", () => { show(index + 1); restartTimer(); });
-  document.querySelector("#portfolio-testimonials").innerHTML = testimonials.map(testimonialCard).join("");
   show(0);
   updatePauseButton();
   restartTimer();

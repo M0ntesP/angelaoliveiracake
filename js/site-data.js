@@ -55,12 +55,6 @@ const homeFeaturedImagePaths = new Set([
 ]);
 export const homeFeaturedProducts = products.filter((item) => homeFeaturedImagePaths.has(item.image));
 
-export const testimonials = [
-  { name: "Juliana M.", text: "O bolo da festa da minha filha ficou lindo demais e o sabor surpreendeu todo mundo. Já encomendei de novo!" },
-  { name: "Carlos e Renata", text: "Atendimento carinhoso do começo ao fim. Os bem-casados do nosso casamento foram elogiados por todos os convidados." },
-  { name: "Patrícia S.", text: "Doces fresquinhos, entregues no horário combinado na Zona Leste. Confiança total." },
-];
-
 export const menuPages = Array.from({ length: 6 }, (_, index) => `/images/cardapio/cardapio-pagina-${index + 1}.jpg`);
 
 export const gallery = [
