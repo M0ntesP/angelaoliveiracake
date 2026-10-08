@@ -58,9 +58,13 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: rgb(113 60 
 .card-grid { display: grid; gap: 26px; margin-top: 30px; }
 .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.product-card, .testimonial, .category-note { overflow: hidden; border: 1px solid #dbcbb8b5; border-radius: 13px; background: var(--paper-light); box-shadow: 0 12px 30px -18px #713c5547; }
+.product-card, .testimonial, .category-note, .process-card { overflow: hidden; border: 1px solid #dbcbb8b5; border-radius: 13px; background: var(--paper-light); box-shadow: 0 12px 30px -18px #713c5547; }
 .product-card > img { width: 100%; aspect-ratio: 3 / 3.65; object-fit: cover; transition: transform .4s; }
 .product-card:hover > img { transform: scale(1.025); }
+.process-video { display: block; width: 100%; aspect-ratio: 9 / 16; background: #34251f; object-fit: contain; }
+.process-card figcaption { padding-block: 18px 20px; }
+.process-card figcaption h3 { margin-top: 5px; }
+.process-video-error { margin: 0; padding: 0 22px 20px; color: var(--muted); font-size: .88rem; }
 .card-copy { padding: 22px; }
 .card-copy h3 { margin-top: 5px; }
 .card-copy p { color: var(--muted); font-size: .9rem; }

@@ -336,5 +336,215 @@
     "width": 994,
     "height": 1405,
     "sources": []
+  },
+  "celebracao-familiar-bolo-rosa.jpg": {
+    "width": 1200,
+    "height": 1600,
+    "sources": [
+      {
+        "url": "/images/optimized/celebracao-familiar-bolo-rosa-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/celebracao-familiar-bolo-rosa-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "equipe-confeitaria-uniformes.jpg": {
+    "width": 864,
+    "height": 1152,
+    "sources": [
+      {
+        "url": "/images/optimized/equipe-confeitaria-uniformes-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/equipe-confeitaria-uniformes-864.webp",
+        "width": 864
+      }
+    ]
+  },
+  "equipe-confeitaria-retrato.jpg": {
+    "width": 925,
+    "height": 1065,
+    "sources": [
+      {
+        "url": "/images/optimized/equipe-confeitaria-retrato-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/equipe-confeitaria-retrato-925.webp",
+        "width": 925
+      }
+    ]
+  },
+  "confeiteiras-em-evento.jpg": {
+    "width": 864,
+    "height": 1152,
+    "sources": [
+      {
+        "url": "/images/optimized/confeiteiras-em-evento-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/confeiteiras-em-evento-864.webp",
+        "width": 864
+      }
+    ]
+  },
+  "bolo-drip-vinho-uvas.jpg": {
+    "width": 1204,
+    "height": 1600,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-drip-vinho-uvas-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-drip-vinho-uvas-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-rosa-flores-douradas.jpg": {
+    "width": 1128,
+    "height": 1417,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-rosa-flores-douradas-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-rosa-flores-douradas-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-rosa-floral-topo-personalizado.jpg": {
+    "width": 1200,
+    "height": 1600,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-rosa-floral-topo-personalizado-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-rosa-floral-topo-personalizado-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "coracao-de-chocolate-decorado.jpg": {
+    "width": 1599,
+    "height": 1200,
+    "sources": [
+      {
+        "url": "/images/optimized/coracao-de-chocolate-decorado-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/coracao-de-chocolate-decorado-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-infantil-personagens-azul.jpg": {
+    "width": 1200,
+    "height": 1599,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-infantil-personagens-azul-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-infantil-personagens-azul-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-cha-de-bebe-lilas.jpg": {
+    "width": 1196,
+    "height": 1387,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-cha-de-bebe-lilas-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-cha-de-bebe-lilas-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-azul-coracao.jpg": {
+    "width": 1510,
+    "height": 1599,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-azul-coracao-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-azul-coracao-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-lilas-borboletas.jpg": {
+    "width": 1204,
+    "height": 1600,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-lilas-borboletas-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-lilas-borboletas-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-branco-coracoes.jpg": {
+    "width": 1204,
+    "height": 1600,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-branco-coracoes-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-branco-coracoes-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-morangos-mirtilos.jpg": {
+    "width": 1204,
+    "height": 1600,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-morangos-mirtilos-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-morangos-mirtilos-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-verde-menta-perolado.jpg": {
+    "width": 1370,
+    "height": 1600,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-verde-menta-perolado-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-verde-menta-perolado-960.webp",
+        "width": 960
+      }
+    ]
   }
 }

@@ -1,4 +1,4 @@
-import { site, categories, products, testimonials, menuPages, gallery } from "./site-data.js";
+import { site, categories, products, testimonials, menuPages, gallery, processVideos } from "./site-data.js";
 import imageManifest from "./image-manifest.json";
 import { setupAnalytics, trackEvent } from "./analytics.js";
 
@@ -113,7 +113,7 @@ function renderFooter() {
 function productCard(product) {
   const orderUrl = new URL("https://wa.me/" + site.whatsappPhone);
   orderUrl.searchParams.set("text", "Olá, Ângela! Tenho interesse em " + product.name + ". Você pode me informar as opções e os valores para a minha data?");
-  return `<article class="product-card" data-product-name="${product.name}">${imageMarkup(product.image, product.name, { loading: "lazy", sizes: productImageSizes })}<div class="card-copy"><p class="eyebrow">${product.category}</p><h3>${product.name}</h3><p>${product.description}</p>${product.detail ? `<p class="muted">${product.detail}</p>` : ""}<a class="button button-outline full-button" data-product-order="${product.name}" href="${orderUrl.href}">Quero este bolo</a></div></article>`;
+  return `<article class="product-card" data-product-name="${product.name}">${imageMarkup(product.image, product.name, { loading: "lazy", sizes: productImageSizes })}<div class="card-copy"><p class="eyebrow">${product.category}</p><h3>${product.name}</h3><p>${product.description}</p>${product.detail ? `<p class="muted">${product.detail}</p>` : ""}<a class="button button-outline full-button" data-product-order="${product.name}" href="${orderUrl.href}">Quero encomendar</a></div></article>`;
 }
 function testimonialCard(item) {
   return `<figure class="testimonial"><blockquote>“${item.text}”</blockquote><figcaption>${item.name}</figcaption></figure>`;
@@ -279,6 +279,23 @@ function renderMenu() {
   if (target) target.innerHTML = menuPages.map((url, index) => imageMarkup(url, "Cardápio — página " + (index + 1) + " de " + menuPages.length, { loading: index === 0 ? "eager" : "lazy", sizes: "(max-width: 850px) calc(100vw - 40px), 850px" })).join("");
 }
 function renderPortfolio() {
+  const processBox = document.querySelector("#process-videos");
+  if (processBox) {
+    processBox.innerHTML = processVideos.map((item, index) => `
+      <figure class="process-card">
+        <video class="process-video" controls preload="metadata" playsinline aria-labelledby="process-video-title-${index + 1}">
+          <source src="${item.src}" type="video/mp4">
+          Seu navegador não consegue reproduzir este vídeo.
+        </video>
+        <figcaption class="card-copy"><p class="eyebrow">Processo de criação</p><h3 id="process-video-title-${index + 1}">${item.title}</h3></figcaption>
+        <p class="process-video-error" role="status" hidden>Não foi possível carregar este vídeo. Tente novamente mais tarde.</p>
+      </figure>`).join("");
+    processBox.querySelectorAll("video").forEach((video) => {
+      video.addEventListener("error", () => {
+        video.closest(".process-card").querySelector(".process-video-error").hidden = false;
+      });
+    });
+  }
   const track = document.querySelector("#gallery-track");
   if (!track || !gallery.length) return;
   const dots = document.querySelector("#gallery-dots");
