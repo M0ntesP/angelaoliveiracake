@@ -45,6 +45,16 @@ export const products = [
   { name: "Bolo verde-menta com pérolas douradas", category: "Bolos comemorativos", description: "Acabamento verde-menta com trabalho de bicos e pérolas douradas.", detail: "Cores personalizáveis", image: "catalogo/bolo-verde-menta-perolado.jpg" },
 ];
 
+// Seleção variada de fotos para a vitrine da página inicial, sem repetir imagens.
+const homeFeaturedImagePaths = new Set([
+  "catalogo/bolo-1.jpg", "catalogo/bolo-3.jpg", "catalogo/bolo-5.jpg",
+  "catalogo/bolo-7.jpg", "catalogo/bolo-9.jpg", "catalogo/bolo-10.jpg",
+  "catalogo/bolo-drip-vinho-uvas.jpg", "catalogo/bolo-rosa-flores-douradas.jpg",
+  "catalogo/bolo-rosa-floral-topo-personalizado.jpg", "catalogo/coracao-de-chocolate-decorado.jpg",
+  "catalogo/bolo-infantil-personagens-azul.jpg", "catalogo/bolo-lilas-borboletas.jpg",
+]);
+export const homeFeaturedProducts = products.filter((item) => homeFeaturedImagePaths.has(item.image));
+
 export const testimonials = [
   { name: "Juliana M.", text: "O bolo da festa da minha filha ficou lindo demais e o sabor surpreendeu todo mundo. Já encomendei de novo!" },
   { name: "Carlos e Renata", text: "Atendimento carinhoso do começo ao fim. Os bem-casados do nosso casamento foram elogiados por todos os convidados." },

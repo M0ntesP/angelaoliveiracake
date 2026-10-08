@@ -1,4 +1,4 @@
-import { site, categories, products, testimonials, menuPages, gallery, processVideos } from "./site-data.js";
+import { site, categories, products, homeFeaturedProducts, testimonials, menuPages, gallery, processVideos } from "./site-data.js";
 import imageManifest from "./image-manifest.json";
 import { setupAnalytics, trackEvent } from "./analytics.js";
 
@@ -128,10 +128,14 @@ function renderHomeShowcase() {
   const track = document.querySelector("#home-showcase-track");
   if (!root || !track) return;
 
-  const items = [
-    ...categories.map((item) => ({ eyebrow: "Categoria", name: item.name, description: item.description, image: item.image, action: "Ver no catálogo", href: "catalogo.html" })),
-    ...products.slice(0, 6).map((item) => ({ eyebrow: item.category, name: item.name, description: item.description, image: item.image, action: "Encomendar no WhatsApp", href: site.whatsapp })),
-  ];
+  const items = homeFeaturedProducts.map((item) => ({
+    eyebrow: item.category,
+    name: item.name,
+    description: item.description,
+    image: item.image,
+    action: "Ver no catálogo",
+    href: "catalogo.html",
+  }));
   const dots = document.querySelector("#home-showcase-dots");
   const counter = document.querySelector("#home-showcase-count");
   const pauseButton = document.querySelector("#home-showcase-toggle");
