@@ -4,14 +4,22 @@ Site institucional feito com HTML, CSS e JavaScript sem framework.
 
 ## Estrutura
 
-- `index.html`, `catalogo.html`, `cardapio.html`, `portifolio.html`, `endereco.html` e `contato.html`: páginas do site.
-- `styles.css`: estilos e adaptação para celular.
+- `index.html`, `catalogo.html`, `cardapio.html`, `portifolio.html`, `endereco.html`, `contato.html` e `404.html`: páginas de entrada do Vite, mantidas na raiz para preservar as URLs atuais.
+- `css/styles.css`: estilos e adaptação para celular.
 - `js/site-data.js`: textos, produtos, categorias e imagens.
 - `js/image-manifest.json`: dimensões e variantes responsivas das fotos otimizadas.
 - `js/main.js`: cabeçalho, rodapé, filtros e galeria.
-- `public/images/`: cópias locais das imagens e do PDF usados pelo site.
+- `public/images/catalogo/`: fotos dos bolos e doces do catálogo.
+- `public/images/portfolio/`: fotos do portfólio e das celebrações.
+- `public/images/perfil/`: retratos e fotos da equipe usados na apresentação.
+- `public/images/cardapio/`: PDF e páginas do cardápio.
+- `public/images/marca/`: logo pública do site; a arte oficial do rodapé usa o ponteiro de CDN em `src/assets/`.
+- `public/images/optimized/`: versões WebP separadas por catálogo, portfólio e perfil.
+- `public/videos/`: vídeos dos bastidores de criação.
+- `archive/brand-history/`: versões antigas de artes preservadas fora dos arquivos publicados.
+- `docs/roadmap.md`: histórico e próximos passos do projeto.
 
-As páginas usam imagens locais, metadados de compartilhamento e um sitemap. As fotos de produto e do carrossel têm variantes WebP responsivas, enquanto os arquivos originais permanecem preservados. A página de contato reúne prazos, entrega, pagamento e perguntas frequentes; o portfólio permite pausar a galeria.
+As páginas usam imagens locais, metadados de compartilhamento e um sitemap. As fotos de produto e do carrossel têm variantes WebP responsivas, enquanto os originais permanecem preservados. A página de contato reúne prazos, entrega, pagamento e perguntas frequentes; o portfólio permite pausar a galeria e assistir aos vídeos do processo.
 
 ## Orçamento e métricas
 
