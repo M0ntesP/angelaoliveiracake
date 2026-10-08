@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://angelaoliveiracake.lovable.app/sitemap.xml
+Sitemap: https://angelaoliveira.lovable.app/sitemap.xml

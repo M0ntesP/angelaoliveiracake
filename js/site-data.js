@@ -10,8 +10,8 @@ export const site = {
   email: "angelaoliveira.cakedesigner@gmail.com",
   instagram: "https://www.instagram.com/angelaoliveira.cakedesing/",
   links: "https://beacons.ai/angelacake",
-  logo: new URL(footerLogoAsset.url, "https://angelaoliveiracake.lovable.app").href,
-  footerLogo: new URL(footerLogoAsset.url, "https://angelaoliveiracake.lovable.app").href,
+  logo: footerLogoAsset.url,
+  footerLogo: footerLogoAsset.url,
 };
 
 export const categories = [
