@@ -30,6 +30,10 @@ function startAnalytics() {
     allow_google_signals: false,
     allow_ad_personalization_signals: false,
   });
+  if (document.body.dataset.page === "catalogo") {
+    window.gtag("event", "catalog_view", { transport_type: "beacon" });
+  }
+  window.dispatchEvent(new Event("analytics-consent-granted"));
 
   const script = document.createElement("script");
   script.async = true;
@@ -37,9 +41,10 @@ function startAnalytics() {
   document.head.append(script);
 }
 
-export function trackEvent(name) {
-  if (!measurementId || !consentAllowed || typeof window.gtag !== "function") return;
-  window.gtag("event", name, { transport_type: "beacon" });
+export function trackEvent(name, parameters = {}) {
+  if (!measurementId || !consentAllowed || typeof window.gtag !== "function") return false;
+  window.gtag("event", name, { ...parameters, transport_type: "beacon" });
+  return true;
 }
 
 function showConsentBanner() {
@@ -95,8 +100,14 @@ export function setupAnalytics() {
     if (!link) return;
 
     const url = new URL(link.href, window.location.href);
+    if (link.dataset.productOrder) {
+      trackEvent("product_order_click", { item_name: link.dataset.productOrder });
+    }
     if (url.hostname === "wa.me" || url.hostname.endsWith("whatsapp.com")) {
       trackEvent("whatsapp_click");
+    }
+    if (url.hostname === "www.instagram.com") {
+      trackEvent("instagram_click");
     }
     if (url.pathname.toLowerCase().endsWith("/catalogo.html")) {
       trackEvent("catalog_click");

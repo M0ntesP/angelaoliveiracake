@@ -1,0 +1,340 @@
+{
+  "angela-brasil-retrato.jpg": {
+    "width": 1234,
+    "height": 1274,
+    "sources": [
+      {
+        "url": "/images/optimized/angela-brasil-retrato-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/angela-brasil-retrato-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "angela-equipe.jpg": {
+    "width": 1440,
+    "height": 1920,
+    "sources": [
+      {
+        "url": "/images/optimized/angela-equipe-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/angela-equipe-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-1.jpg": {
+    "width": 1204,
+    "height": 1600,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-1-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-1-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-2.jpg": {
+    "width": 581,
+    "height": 1032,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-2-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-2-581.webp",
+        "width": 581
+      }
+    ]
+  },
+  "bolo-3.jpg": {
+    "width": 1204,
+    "height": 1600,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-3-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-3-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-4.jpg": {
+    "width": 1204,
+    "height": 1600,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-4-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-4-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-5.jpg": {
+    "width": 1224,
+    "height": 1395,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-5-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-5-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-6.jpg": {
+    "width": 1200,
+    "height": 1599,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-6-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-6-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-7.jpg": {
+    "width": 1200,
+    "height": 1599,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-7-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-7-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-8.jpg": {
+    "width": 1200,
+    "height": 1599,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-8-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-8-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-9.jpg": {
+    "width": 1200,
+    "height": 1599,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-9-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-9-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "bolo-10.jpg": {
+    "width": 780,
+    "height": 1040,
+    "sources": [
+      {
+        "url": "/images/optimized/bolo-10-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/bolo-10-780.webp",
+        "width": 780
+      }
+    ]
+  },
+  "pascoa-1.jpg": {
+    "width": 1280,
+    "height": 960,
+    "sources": [
+      {
+        "url": "/images/optimized/pascoa-1-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/pascoa-1-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "pascoa-2.jpg": {
+    "width": 736,
+    "height": 579,
+    "sources": [
+      {
+        "url": "/images/optimized/pascoa-2-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/pascoa-2-736.webp",
+        "width": 736
+      }
+    ]
+  },
+  "pascoa-3.jpg": {
+    "width": 1200,
+    "height": 1599,
+    "sources": [
+      {
+        "url": "/images/optimized/pascoa-3-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/pascoa-3-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "pascoa-4.jpg": {
+    "width": 1200,
+    "height": 1599,
+    "sources": [
+      {
+        "url": "/images/optimized/pascoa-4-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/pascoa-4-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "pascoa-5.jpg": {
+    "width": 1599,
+    "height": 1200,
+    "sources": [
+      {
+        "url": "/images/optimized/pascoa-5-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/pascoa-5-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "pascoa-6.jpg": {
+    "width": 1599,
+    "height": 1200,
+    "sources": [
+      {
+        "url": "/images/optimized/pascoa-6-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/pascoa-6-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "pascoa-7.jpg": {
+    "width": 1599,
+    "height": 1200,
+    "sources": [
+      {
+        "url": "/images/optimized/pascoa-7-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/pascoa-7-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "pascoa-8.jpg": {
+    "width": 1200,
+    "height": 1599,
+    "sources": [
+      {
+        "url": "/images/optimized/pascoa-8-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/pascoa-8-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "pascoa-9.jpg": {
+    "width": 1599,
+    "height": 1200,
+    "sources": [
+      {
+        "url": "/images/optimized/pascoa-9-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/pascoa-9-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "pascoa-10.jpg": {
+    "width": 1599,
+    "height": 1200,
+    "sources": [
+      {
+        "url": "/images/optimized/pascoa-10-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/pascoa-10-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "cardapio-pagina-1.jpg": {
+    "width": 994,
+    "height": 1405,
+    "sources": []
+  },
+  "cardapio-pagina-2.jpg": {
+    "width": 994,
+    "height": 1405,
+    "sources": []
+  },
+  "cardapio-pagina-3.jpg": {
+    "width": 994,
+    "height": 1405,
+    "sources": []
+  },
+  "cardapio-pagina-4.jpg": {
+    "width": 994,
+    "height": 1405,
+    "sources": []
+  },
+  "cardapio-pagina-5.jpg": {
+    "width": 994,
+    "height": 1405,
+    "sources": []
+  },
+  "cardapio-pagina-6.jpg": {
+    "width": 994,
+    "height": 1405,
+    "sources": []
+  }
+}
