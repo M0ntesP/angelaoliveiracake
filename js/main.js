@@ -25,6 +25,13 @@ function imageMarkup(name, alt, { loading = "lazy", sizes = "100vw", imageClass 
   return `<img${className} src="${path}"${responsive}${fallback} alt="${alt}"${dimensions} loading="${loading}" decoding="async"${dragAttribute}>`;
 }
 
+function framedImageMarkup(name, alt, options = {}) {
+  const path = imagePath(name);
+  const asset = imageManifest[path.split("/").pop()];
+  const backdropPath = asset?.sources?.[0]?.url || path;
+  return `<span class="photo-frame" style="--photo-backdrop: url('${backdropPath}')"><span class="photo-frame-backdrop" aria-hidden="true"></span>${imageMarkup(name, alt, { ...options, imageClass: "photo-frame-image" })}</span>`;
+}
+
 function setupImageFeedback() {
   const fallbackSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1200"><rect width="960" height="1200" fill="#fbf6ee"/><path d="M330 450h300v250H330z" fill="none" stroke="#c99e53" stroke-width="18" stroke-linejoin="round"/><circle cx="410" cy="520" r="24" fill="#52765e"/><path d="m350 660 95-95 65 64 50-45 50 76" fill="none" stroke="#713c55" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><text x="480" y="780" text-anchor="middle" fill="#746967" font-family="Arial,sans-serif" font-size="30">Imagem temporariamente indisponível</text></svg>';
   const fallbackUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(fallbackSvg)}`;
@@ -113,7 +120,7 @@ function renderFooter() {
 function productCard(product) {
   const orderUrl = new URL("https://wa.me/" + site.whatsappPhone);
   orderUrl.searchParams.set("text", "Olá, Ângela! Tenho interesse em " + product.name + ". Você pode me informar as opções e os valores para a minha data?");
-  return `<article class="product-card" data-product-name="${product.name}">${imageMarkup(product.image, product.name, { loading: "lazy", sizes: productImageSizes })}<div class="card-copy"><p class="eyebrow">${product.category}</p><h3>${product.name}</h3><p>${product.description}</p>${product.detail ? `<p class="muted">${product.detail}</p>` : ""}<a class="button button-outline full-button" data-product-order="${product.name}" href="${orderUrl.href}">Quero encomendar</a></div></article>`;
+  return `<article class="product-card" data-product-name="${product.name}">${framedImageMarkup(product.image, product.name, { loading: "lazy", sizes: productImageSizes })}<div class="card-copy"><p class="eyebrow">${product.category}</p><h3>${product.name}</h3><p>${product.description}</p>${product.detail ? `<p class="muted">${product.detail}</p>` : ""}<a class="button button-outline full-button" data-product-order="${product.name}" href="${orderUrl.href}">Quero encomendar</a></div></article>`;
 }
 function renderHome() {
   renderHomeShowcase();
@@ -145,7 +152,7 @@ function renderHomeShowcase() {
   track.innerHTML = items.map((item, itemIndex) => `
     <article class="home-showcase-slide" ${itemIndex > 1 ? 'inert aria-hidden="true"' : ""}>
       <button class="home-showcase-photo" type="button" aria-label="${item.name}. Clique para avançar para a próxima foto.">
-        ${imageMarkup(item.image, item.name, { loading: itemIndex < 2 ? "eager" : "lazy", sizes: carouselImageSizes, draggable: true })}
+        ${framedImageMarkup(item.image, item.name, { loading: itemIndex < 2 ? "eager" : "lazy", sizes: carouselImageSizes, draggable: true })}
       </button>
       <div class="home-showcase-copy"><p class="eyebrow">${item.eyebrow}</p><h3>${item.name}</h3><p>${item.description}</p><a class="button button-outline" href="${item.href}">${item.action}</a></div>
     </article>`).join("");
@@ -309,7 +316,7 @@ function renderPortfolio() {
   const pauseButton = document.querySelector("#gallery-toggle");
   track.innerHTML = gallery.map((item, slideIndex) => `
     <button class="gallery-photo" type="button" aria-label="Foto ${slideIndex + 1} de ${gallery.length}: ${item.alt}. Clique para avançar." ${slideIndex > 1 ? 'tabindex="-1" inert' : ""}>
-      ${imageMarkup(item.image, item.alt, { loading: slideIndex < 2 ? "eager" : "lazy", sizes: carouselImageSizes, draggable: true })}
+      ${framedImageMarkup(item.image, item.alt, { loading: slideIndex < 2 ? "eager" : "lazy", sizes: carouselImageSizes, draggable: true })}
     </button>`).join("");
   const slides = [...track.children];
   function show(next) {
