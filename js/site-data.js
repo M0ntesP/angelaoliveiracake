@@ -7,6 +7,7 @@ export const site = {
   city: "São Paulo, SP",
   whatsapp: "https://wa.me/message/2NQZ64SODALVE1",
   whatsappPhone: "5511984383266",
+  email: "angelaoliveira.cakedesigner@gmail.com",
   instagram: "https://www.instagram.com/angelaoliveira.cakedesing/",
   links: "https://beacons.ai/angelacake",
   logo: new URL(footerLogoAsset.url, "https://angelaoliveiracake.lovable.app").href,
