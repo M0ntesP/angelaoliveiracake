@@ -74,6 +74,34 @@ export const gallery = [
   ["Duas confeiteiras posam juntas durante um evento", "confeiteiras-em-evento.jpg"],
 ].map(([alt, image]) => ({ image: `/images/portfolio/${image}`, alt }));
 
+// Registros reais de celebrações e da equipe para a seção de avaliações e feedback.
+export const customerMoments = [
+  {
+    image: "/images/portfolio/celebracao-familiar-bolo-rosa.jpg",
+    alt: "Família reunida ao lado de um bolo de aniversário decorado em rosa",
+    category: "Celebrações",
+    title: "Um aniversário em família",
+  },
+  {
+    image: "/images/portfolio/equipe-confeitaria-uniformes.jpg",
+    alt: "Ângela e duas integrantes da equipe de confeitaria usando uniformes pretos",
+    category: "Nossa equipe",
+    title: "O carinho também está em quem prepara",
+  },
+  {
+    image: "/images/portfolio/equipe-confeitaria-retrato.jpg",
+    alt: "Integrantes da equipe de confeitaria reunidas para uma foto",
+    category: "Nossa equipe",
+    title: "Uma história feita em conjunto",
+  },
+  {
+    image: "/images/portfolio/confeiteiras-em-evento.jpg",
+    alt: "Duas confeiteiras posam juntas durante um evento",
+    category: "Bastidores",
+    title: "Parcerias que fazem parte da trajetória",
+  },
+];
+
 export const processVideos = [
   { title: "Momento 1", src: "/videos/processo-bolo-01.mp4" },
   { title: "Momento 2", src: "/videos/processo-bolo-02.mp4" },

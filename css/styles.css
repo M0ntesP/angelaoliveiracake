@@ -121,6 +121,17 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: rgb(113 60 
 .gallery-controls { display: grid; justify-items: center; gap: 14px; margin-top: 16px; }
 .gallery-toggle { border: 1px solid var(--line); border-radius: 999px; padding: 9px 16px; background: var(--paper-light); color: var(--ink); font: 500 .85rem var(--sans); cursor: pointer; }
 .gallery-toggle:hover { border-color: var(--ink); }
+.moments-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
+.moment-card { overflow: hidden; border: 1px solid #dbcbb8b5; border-radius: 15px; background: var(--paper-light); box-shadow: 0 12px 30px -18px #713c5547; }
+.moment-card-copy { min-height: 112px; padding: 16px 17px 19px; }
+.moment-card-copy .eyebrow { margin-bottom: 7px; font-size: .65rem; }
+.moment-card-copy h3 { font-size: clamp(1.05rem, 1.6vw, 1.25rem); }
+.feedback-callout { display: flex; align-items: center; justify-content: space-between; gap: 26px; margin-top: 26px; border-radius: 18px; padding: 24px clamp(22px, 4vw, 38px); background: var(--ink); color: var(--paper); }
+.feedback-callout .eyebrow { color: var(--gold); }
+.feedback-callout h3 { font-size: clamp(1.35rem, 2.6vw, 1.8rem); }
+.feedback-callout p:not(.eyebrow) { margin-bottom: 0; color: #f5eadc; font-size: .9rem; }
+.feedback-callout .button { flex: 0 0 auto; }
+.reviews-section .intro { margin-bottom: 0; }
 .instagram-cta { margin: 22px 0 0; color: var(--muted); font-size: .9rem; text-align: center; }
 .instagram-cta a { color: var(--ink); font-weight: 600; text-underline-offset: 4px; }
 .quote-section { margin-top: 52px; padding: clamp(22px, 5vw, 40px); border: 1px solid var(--line); border-radius: 18px; background: var(--paper-light); box-shadow: 0 12px 30px -18px #713c5547; }
@@ -182,6 +193,7 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: rgb(113 60 
   .hero-copy, .split { grid-template-columns: 1fr; flex-direction: column; align-items: flex-start; }
   .hero-copy .button-row { justify-content: flex-start; }
   .three { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .moments-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .process-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 16px; }
 }
 @media (max-width: 580px) {
@@ -192,6 +204,9 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: rgb(113 60 
   .hero-copy .button-row { align-items: stretch; flex-direction: column; width: 100%; }
   .button-row .button { text-align: center; }
   .quote-fields { grid-template-columns: 1fr; }
+  .moment-card-copy { min-height: 100px; padding: 13px 12px 16px; }
+  .feedback-callout { align-items: flex-start; flex-direction: column; }
+  .feedback-callout .button { width: 100%; text-align: center; }
   .form-field-wide { grid-column: auto; }
   .quote-form > .button, .quote-whatsapp-link { width: 100%; text-align: center; }
   .address-actions { align-items: stretch; flex-direction: column; }
@@ -202,6 +217,7 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: rgb(113 60 
   .section-heading { align-items: flex-start; flex-direction: column; }
 }
 @media (max-width: 380px) {
+  .moments-grid { grid-template-columns: 1fr; }
   .process-steps { grid-template-columns: 1fr; }
   .gallery-dots { gap: 4px; }
   .gallery-dots button { width: 24px; }
