@@ -1,4 +1,4 @@
-import { site, categories, products, homeFeaturedProducts, menuPages, gallery, customerMoments, processVideos } from "./site-data.js";
+import { site, categories, products, homeFeaturedProducts, menuPages, gallery, processVideos } from "./site-data.js";
 import imageManifest from "./image-manifest.json";
 import { setupAnalytics, trackEvent } from "./analytics.js";
 
@@ -6,7 +6,7 @@ import { setupAnalytics, trackEvent } from "./analytics.js";
 const pageLinks = [
   ["inicio", "Início", "index.html"], ["catalogo", "Catálogo", "catalogo.html"],
   ["cardapio", "Cardápio", "cardapio.html"], ["portifolio", "Portfólio", "portifolio.html"],
-  ["endereco", "Endereço", "endereco.html"], ["contato", "Contato", "contato.html"],
+  ["feedback", "Feedback", "feedback.html"], ["endereco", "Endereço", "endereco.html"], ["contato", "Contato", "contato.html"],
 ];
 const currentPage = document.body.dataset.page;
 const imagePath = (name) => name.startsWith("/images/") ? name : `/images/${name}`;
@@ -124,29 +124,6 @@ function productCard(product) {
 }
 function renderHome() {
   renderHomeShowcase();
-  renderCustomerMoments();
-}
-
-function renderCustomerMoments() {
-  const cards = customerMoments.map((item) => `
-    <article class="moment-card">
-      ${framedImageMarkup(item.image, item.alt, { loading: "lazy", sizes: "(max-width: 580px) calc((100vw - 48px) / 2), (max-width: 850px) calc((100vw - 64px) / 2), 260px" })}
-      <div class="moment-card-copy">
-        <p class="eyebrow">${item.category}</p>
-        <h3>${item.title}</h3>
-      </div>
-    </article>`).join("");
-
-  document.querySelectorAll("[data-customer-moments]").forEach((target) => {
-    target.innerHTML = cards;
-  });
-
-  const feedbackLink = document.querySelector("#feedback-whatsapp");
-  if (feedbackLink) {
-    const feedbackUrl = new URL(`https://wa.me/${site.whatsappPhone}`);
-    feedbackUrl.searchParams.set("text", "Olá, Ângela! Já fiz uma encomenda e gostaria de compartilhar meu feedback:");
-    feedbackLink.href = feedbackUrl.href;
-  }
 }
 function renderHomeShowcase() {
   const root = document.querySelector("#home-showcase");

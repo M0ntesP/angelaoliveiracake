@@ -68,39 +68,7 @@ export const gallery = [
   ["Ovos de Páscoa artesanais de chocolate branco com relevo de corações", "pascoa-8.jpg"],
   ["Casca de ovo de Páscoa de chocolate branco com pedaços crocantes", "pascoa-9.jpg"],
   ["Ovo de colher com brigadeiro e massa amanteigada", "pascoa-10.jpg"],
-  ["Família reunida ao lado de um bolo de aniversário decorado em rosa", "celebracao-familiar-bolo-rosa.jpg"],
-  ["Três integrantes da equipe de confeitaria com uniformes pretos e detalhes florais rosa", "equipe-confeitaria-uniformes.jpg"],
-  ["Integrantes da equipe de confeitaria reunidas para uma foto", "equipe-confeitaria-retrato.jpg"],
-  ["Duas confeiteiras posam juntas durante um evento", "confeiteiras-em-evento.jpg"],
 ].map(([alt, image]) => ({ image: `/images/portfolio/${image}`, alt }));
-
-// Registros reais de celebrações e da equipe para a seção de avaliações e feedback.
-export const customerMoments = [
-  {
-    image: "/images/portfolio/celebracao-familiar-bolo-rosa.jpg",
-    alt: "Família reunida ao lado de um bolo de aniversário decorado em rosa",
-    category: "Celebrações",
-    title: "Um aniversário em família",
-  },
-  {
-    image: "/images/portfolio/equipe-confeitaria-uniformes.jpg",
-    alt: "Ângela e duas integrantes da equipe de confeitaria usando uniformes pretos",
-    category: "Nossa equipe",
-    title: "O carinho também está em quem prepara",
-  },
-  {
-    image: "/images/portfolio/equipe-confeitaria-retrato.jpg",
-    alt: "Integrantes da equipe de confeitaria reunidas para uma foto",
-    category: "Nossa equipe",
-    title: "Uma história feita em conjunto",
-  },
-  {
-    image: "/images/portfolio/confeiteiras-em-evento.jpg",
-    alt: "Duas confeiteiras posam juntas durante um evento",
-    category: "Bastidores",
-    title: "Parcerias que fazem parte da trajetória",
-  },
-];
 
 export const processVideos = [
   { title: "Momento 1", src: "/videos/processo-bolo-01.mp4" },
