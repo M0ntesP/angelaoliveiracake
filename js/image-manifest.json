@@ -307,50 +307,6 @@
       }
     ]
   },
-  "cardapio-pagina-1.jpg": {
-    "width": 994,
-    "height": 1405,
-    "sources": []
-  },
-  "cardapio-pagina-2.jpg": {
-    "width": 994,
-    "height": 1405,
-    "sources": []
-  },
-  "cardapio-pagina-3.jpg": {
-    "width": 994,
-    "height": 1405,
-    "sources": []
-  },
-  "cardapio-pagina-4.jpg": {
-    "width": 994,
-    "height": 1405,
-    "sources": []
-  },
-  "cardapio-pagina-5.jpg": {
-    "width": 994,
-    "height": 1405,
-    "sources": []
-  },
-  "cardapio-pagina-6.jpg": {
-    "width": 994,
-    "height": 1405,
-    "sources": []
-  },
-  "celebracao-familiar-bolo-rosa.jpg": {
-    "width": 1200,
-    "height": 1600,
-    "sources": [
-      {
-        "url": "/images/optimized/portfolio/celebracao-familiar-bolo-rosa-480.webp",
-        "width": 480
-      },
-      {
-        "url": "/images/optimized/portfolio/celebracao-familiar-bolo-rosa-960.webp",
-        "width": 960
-      }
-    ]
-  },
   "equipe-confeitaria-uniformes.jpg": {
     "width": 864,
     "height": 1152,
@@ -390,20 +346,6 @@
       {
         "url": "/images/optimized/portfolio/confeiteiras-em-evento-864.webp",
         "width": 864
-      }
-    ]
-  },
-  "bolo-drip-vinho-uvas.jpg": {
-    "width": 1204,
-    "height": 1600,
-    "sources": [
-      {
-        "url": "/images/optimized/catalogo/bolo-drip-vinho-uvas-480.webp",
-        "width": 480
-      },
-      {
-        "url": "/images/optimized/catalogo/bolo-drip-vinho-uvas-960.webp",
-        "width": 960
       }
     ]
   },
