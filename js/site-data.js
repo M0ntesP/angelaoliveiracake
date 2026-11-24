@@ -173,7 +173,7 @@ export const gallery = [
 ].map(([alt, image]) => ({ image: `/images/portfolio/${image}`, alt }));
 
 export const processVideos = [
-  { title: "Cupcakes de chocolate no forno", src: "/videos/processo-bolo-01.mp4", poster: "/images/portfolio/videos/processo-bolo-01.webp", muted: true },
-  { title: "Massa branca crescendo", src: "/videos/processo-bolo-02.mp4", poster: "/images/portfolio/videos/processo-bolo-02.webp" },
-  { title: "Pão de ló no ponto", src: "/videos/processo-bolo-03.mp4", poster: "/images/portfolio/videos/processo-bolo-03.webp" },
+  { title: "Cupcakes de chocolate no forno", description: "Uma fôrma com doze cupcakes de chocolate crescendo no forno. Vídeo curto, sem som.", src: "/videos/processo-bolo-01.mp4", poster: "/images/portfolio/videos/processo-bolo-01.webp", muted: true },
+  { title: "Massa branca crescendo", description: "Cupcakes de massa branca em forminhas de papel, crescendo e dourando no forno.", src: "/videos/processo-bolo-02.mp4", poster: "/images/portfolio/videos/processo-bolo-02.webp" },
+  { title: "Pão de ló no ponto", description: "Duas fôrmas redondas de pão de ló dourando no forno: a base dos bolos recheados.", src: "/videos/processo-bolo-03.mp4", poster: "/images/portfolio/videos/processo-bolo-03.webp" },
 ];

@@ -399,11 +399,11 @@ function renderPortfolio() {
   if (processBox) {
     processBox.innerHTML = processVideos.map((item, index) => `
       <figure class="process-card">
-        <video class="process-video" controls preload="none" playsinline${item.muted ? " muted" : ""}${item.poster ? ` poster="${item.poster}"` : ""} width="848" height="478" aria-labelledby="process-video-title-${index + 1}">
+        <video class="process-video" controls preload="none" playsinline${item.muted ? " muted" : ""}${item.poster ? ` poster="${item.poster}"` : ""} width="848" height="478" aria-labelledby="process-video-title-${index + 1}"${item.description ? ` aria-describedby="process-video-description-${index + 1}"` : ""}>
           <source src="${item.src}" type="video/mp4">
           Seu navegador não consegue reproduzir este vídeo.
         </video>
-        <figcaption class="card-copy"><p class="eyebrow">Bastidores · ${index + 1} de ${processVideos.length}</p><h3 id="process-video-title-${index + 1}">${item.title}</h3></figcaption>
+        <figcaption class="card-copy"><p class="eyebrow">Bastidores · ${index + 1} de ${processVideos.length}</p><h3 id="process-video-title-${index + 1}">${item.title}</h3>${item.description ? `<p id="process-video-description-${index + 1}">${item.description}</p>` : ""}</figcaption>
         <p class="process-video-error" role="status" hidden>Não foi possível carregar este vídeo. Tente novamente mais tarde.</p>
       </figure>`).join("");
     processBox.querySelectorAll("video").forEach((video) => {
