@@ -6,6 +6,7 @@ export const site = {
   oldName: "antiga Pimenta Rosa Festas",
   city: "São Paulo, SP",
   whatsappPhone: "5511984383266",
+  phoneDisplay: "(11) 98438-3266",
   // Link padrão do WhatsApp, com mensagem pronta. Use o mesmo formato (wa.me/número?text=...) em todo o site.
   whatsapp: `https://wa.me/5511984383266?text=${encodeURIComponent("Olá, Ângela! Vim pelo site e gostaria de fazer uma encomenda.")}`,
   email: "angelaoliveira.cakedesigner@gmail.com",
@@ -47,15 +48,33 @@ export const products = [
   { name: "Bolo verde-menta com pérolas douradas", category: "Bolos comemorativos", description: "Acabamento verde-menta com trabalho de bicos e pérolas douradas.", detail: "Cores personalizáveis", image: "catalogo/bolo-verde-menta-perolado.jpg" },
 ];
 
-// Seleção variada de fotos para a vitrine da página inicial, sem repetir imagens.
-const homeFeaturedImagePaths = new Set([
-  "catalogo/bolo-1.jpg", "catalogo/bolo-3.jpg", "catalogo/bolo-5.jpg",
-  "catalogo/bolo-7.jpg", "catalogo/bolo-9.jpg", "catalogo/bolo-10.jpg",
-  "catalogo/bolo-4.jpg", "catalogo/bolo-rosa-flores-douradas.jpg",
-  "catalogo/bolo-rosa-floral-topo-personalizado.jpg", "catalogo/coracao-de-chocolate-decorado.jpg",
-  "catalogo/bolo-infantil-personagens-azul.jpg", "catalogo/bolo-lilas-borboletas.jpg",
-]);
-export const homeFeaturedProducts = products.filter((item) => homeFeaturedImagePaths.has(item.image));
+// Vitrine da página inicial, na ordem em que aparece. O bolo de morangos (bolo-1) fica de fora
+// porque já é a foto de capa logo acima.
+const homeFeaturedImagePaths = [
+  "catalogo/bolo-3.jpg", "catalogo/bolo-7.jpg", "catalogo/bolo-rosa-flores-douradas.jpg",
+  "catalogo/bolo-10.jpg", "catalogo/bolo-5.jpg", "catalogo/bolo-lilas-borboletas.jpg",
+  "catalogo/bolo-4.jpg", "catalogo/bolo-9.jpg", "catalogo/bolo-rosa-floral-topo-personalizado.jpg",
+  "catalogo/bolo-infantil-personagens-azul.jpg", "catalogo/coracao-de-chocolate-decorado.jpg",
+];
+export const homeFeaturedProducts = homeFeaturedImagePaths.map((path) => products.find((item) => item.image === path)).filter(Boolean);
+
+// Fotos enviadas por clientes. Aparecem na página de Feedback e na página inicial.
+export const clientPhotos = [
+  { image: "/images/feedback/bolo-azul-primeiro-aniversario.jpg", alt: "Bolo azul de aniversário de 1 ano com tema Poderoso Chefinho", caption: "Bolo temático do primeiro aniversário" },
+  { image: "/images/feedback/familia-bolo-infantil-azul.jpg", alt: "Família reunida ao lado de bolo infantil azul em uma comemoração", caption: "Uma comemoração em família" },
+  { image: "/images/feedback/bolo-festa-15-anos.jpg", alt: "Jovem comemora 15 anos diante de uma mesa com bolo decorado em tons de azul", caption: "Uma festa de 15 anos em azul e dourado" },
+  { image: "/images/feedback/familia-bolo-comemoracao-rosa.jpg", alt: "Família reunida ao lado de um bolo de aniversário decorado em rosa", caption: "Um aniversário para guardar na memória" },
+];
+
+// Calculadora "Quanto bolo eu preciso?" (cardápio e formulário de orçamento).
+// CONFIRMAR COM A ÂNGELA: gramas por convidado, pedido mínimo e prazos.
+export const partyPlanning = {
+  gramsPerGuest: 100,       // fatia média de festa (~100 g por pessoa)
+  minimumKg: 1,             // menor bolo aceito
+  roundToKg: 0.5,           // arredonda a sugestão para cima, de meio em meio quilo
+  decoratedLeadDays: 7,     // antecedência ideal para bolos decorados (mesmo texto do FAQ)
+  sweetsLeadDays: 3,        // antecedência mínima para doces (FAQ: 3 a 5 dias)
+};
 
 // Cardápio transcrito do PDF de setembro de 2026. Para mudar um preço ou sabor, edite aqui.
 export const menuSections = [
@@ -154,7 +173,7 @@ export const gallery = [
 ].map(([alt, image]) => ({ image: `/images/portfolio/${image}`, alt }));
 
 export const processVideos = [
-  { title: "Cupcakes de chocolate no forno", src: "/videos/processo-bolo-01.mp4", poster: "/images/portfolio/videos/processo-bolo-01.webp", muted: true },
-  { title: "Massa branca crescendo", src: "/videos/processo-bolo-02.mp4", poster: "/images/portfolio/videos/processo-bolo-02.webp" },
-  { title: "Pão de ló no ponto", src: "/videos/processo-bolo-03.mp4", poster: "/images/portfolio/videos/processo-bolo-03.webp" },
+  { title: "Cupcakes de chocolate no forno", description: "Uma fôrma com doze cupcakes de chocolate crescendo no forno. Vídeo curto, sem som.", src: "/videos/processo-bolo-01.mp4", poster: "/images/portfolio/videos/processo-bolo-01.webp", muted: true },
+  { title: "Massa branca crescendo", description: "Cupcakes de massa branca em forminhas de papel, crescendo e dourando no forno.", src: "/videos/processo-bolo-02.mp4", poster: "/images/portfolio/videos/processo-bolo-02.webp" },
+  { title: "Pão de ló no ponto", description: "Duas fôrmas redondas de pão de ló dourando no forno: a base dos bolos recheados.", src: "/videos/processo-bolo-03.mp4", poster: "/images/portfolio/videos/processo-bolo-03.webp" },
 ];

@@ -4,11 +4,15 @@ Site institucional feito com HTML, CSS e JavaScript sem framework.
 
 ## Estrutura
 
-- `index.html`, `catalogo.html`, `cardapio.html`, `portifolio.html`, `endereco.html`, `contato.html` e `404.html`: páginas de entrada do Vite, mantidas na raiz para preservar as URLs atuais.
+- `index.html`, `catalogo.html`, `cardapio.html`, `portfolio.html`, `endereco.html`, `contato.html` e `404.html`: páginas de entrada do Vite, mantidas na raiz para preservar as URLs atuais.
 - `css/styles.css`: estilos e adaptação para celular.
 - `js/site-data.js`: textos, produtos, categorias e imagens.
 - `js/image-manifest.json`: dimensões e variantes responsivas das fotos otimizadas.
 - `js/main.js`: cabeçalho, rodapé, filtros e galeria.
+- `js/lightbox.js`: visualizador de fotos em tela cheia (catálogo e fotos de clientes).
+- `js/inspirations.js`: lista "Minhas inspirações" — o cliente salva bolos do catálogo e envia a lista pelo WhatsApp ou junto com o pedido.
+- `js/party-planning.js`: calculadora "Quanto bolo eu preciso?" (cardápio) e aviso de prazo no formulário. As regras (gramas por convidado, pedido mínimo, antecedência) ficam em `partyPlanning`, em `js/site-data.js`.
+- `portifolio.html`: endereço antigo, só redireciona para `portfolio.html`.
 - `public/images/catalogo/`: fotos dos bolos e doces do catálogo.
 - `public/images/portfolio/`: fotos do portfólio e das celebrações.
 - `public/images/perfil/`: retratos e fotos da equipe usados na apresentação.

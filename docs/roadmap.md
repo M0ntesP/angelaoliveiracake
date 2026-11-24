@@ -18,3 +18,14 @@
 - [x] Links reais de WhatsApp e Instagram
 - [x] Logo circular oficial no cabeçalho e rodapé
 - [x] Cardápio em PDF com visualização e download
+
+- [x] Botão fixo de WhatsApp e telefone visível no rodapé e no contato
+- [x] Fotos do catálogo e de clientes ampliáveis, com "Quero um assim"
+- [x] "Minhas inspirações": salvar bolos e enviar a lista para a Ângela
+- [x] Calculadora "Quanto bolo eu preciso?" com estimativa pelo cardápio
+- [x] Aviso de prazo e sugestão de tamanho no formulário de orçamento
+- [x] Endereço do portfólio corrigido (portfolio.html), com redirecionamento do antigo
+- [ ] Confirmar com a Ângela: gramas por convidado, pedido mínimo e prazos (`partyPlanning`)
+- [ ] Horário de atendimento, formas de pagamento e sinal
+- [ ] Mais fotos de bolos decorados, doces, casamentos e eventos corporativos
+- [ ] Depoimentos escritos autorizados e avaliações do Google
