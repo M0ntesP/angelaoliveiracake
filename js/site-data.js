@@ -25,16 +25,16 @@ export const categories = [
 ];
 
 export const products = [
-  { name: "Bolo de morangos com chantilly", category: "Bolos florais e frutas", description: "Chantilly em bico rendado, morangos frescos no topo e laço de cetim.", detail: "Andar único · sabores a combinar", image: "catalogo/bolo-1.jpg" },
+  { name: "Bolo de morangos com chantilly", category: "Bolos florais e frutas", description: "Chantilly em bico rendado, morangos frescos no topo e laço de cetim.", detail: "Andar único, sabores a combinar", image: "catalogo/bolo-1.jpg" },
   { name: "Bolo tropical flamingo", category: "Bolos temáticos", description: "Dois andares em rosetas rosa e turquesa, com folhagens e topo de flamingos.", detail: "Dois andares", image: "catalogo/bolo-2.jpg" },
-  { name: "Bolo pink 15 anos", category: "Bolos comemorativos", description: "Pink metálico espatulado, rosas em papel e nome personalizado em dourado.", detail: "Andar único · nome personalizado", image: "catalogo/bolo-3.jpg" },
+  { name: "Bolo pink 15 anos", category: "Bolos comemorativos", description: "Pink metálico espatulado, rosas em papel e nome personalizado em dourado.", detail: "Andar único, nome personalizado", image: "catalogo/bolo-3.jpg" },
   { name: "Bolo uvas e vinho", category: "Bolos florais e frutas", description: "Drip vinho sobre chantilly texturizado, com uvas frescas e detalhes cintilantes.", detail: "Andar único", image: "catalogo/bolo-4.jpg" },
   { name: "Bolo rock'n'roll", category: "Bolos temáticos", description: "Cobertura preta acetinada, topo de guitarra, estrelas e nome em relevo.", detail: "Andar único", image: "catalogo/bolo-5.jpg" },
   { name: "Bolo tema redes sociais", category: "Bolos temáticos", description: "Espatulado rosa e azul com respingos dourados e topo com os aplicativos favoritos.", detail: "Andar único", image: "catalogo/bolo-6.jpg" },
   { name: "Bolo safári", category: "Bolos temáticos", description: "Dois andares com tronco em chocolate texturizado, gramado e bichinhos da savana.", detail: "Dois andares", image: "catalogo/bolo-7.jpg" },
-  { name: "Bolo unicórnio surpresa", category: "Bolos comemorativos", description: "Azul em rosetas e babados, confeitos coloridos e unicórnio modelado à mão.", detail: "Andar único · recheio surpresa", image: "catalogo/bolo-8.jpg" },
+  { name: "Bolo unicórnio surpresa", category: "Bolos comemorativos", description: "Azul em rosetas e babados, confeitos coloridos e unicórnio modelado à mão.", detail: "Andar único, recheio surpresa", image: "catalogo/bolo-8.jpg" },
   { name: "Bolo super-herói", category: "Bolos temáticos", description: "Cenário em relevo com base dourada, verde vibrante e topo do herói preferido.", detail: "Dois andares", image: "catalogo/bolo-9.jpg" },
-  { name: "Bolo afro com flores", category: "Bolos florais e frutas", description: "Andares com estampas africanas, flores naturais amarelas e nome no topo.", detail: "Dois andares · flores naturais", image: "catalogo/bolo-10.jpg" },
+  { name: "Bolo afro com flores", category: "Bolos florais e frutas", description: "Andares com estampas africanas, flores naturais amarelas e nome no topo.", detail: "Dois andares, flores naturais", image: "catalogo/bolo-10.jpg" },
   { name: "Bolo rosa com flores e detalhes dourados", category: "Bolos comemorativos", description: "Decoração rosa com flores, borboleta e detalhes dourados para uma celebração especial.", detail: "Tema e cores personalizáveis", image: "catalogo/bolo-rosa-flores-douradas.jpg" },
   { name: "Bolo rosa floral com topo personalizado", category: "Bolos comemorativos", description: "Acabamento em rosa e branco, flores decorativas, borboletas e topo personalizado.", detail: "Topo personalizado", image: "catalogo/bolo-rosa-floral-topo-personalizado.jpg" },
   { name: "Coração de chocolate decorado", category: "Doces artesanais", description: "Peça em formato de coração com acabamento dourado e doces decorados ao redor.", detail: "Decoração sob encomenda", image: "catalogo/coracao-de-chocolate-decorado.jpg" },
@@ -47,19 +47,10 @@ export const products = [
   { name: "Bolo verde-menta com pérolas douradas", category: "Bolos comemorativos", description: "Acabamento verde-menta com trabalho de bicos e pérolas douradas.", detail: "Cores personalizáveis", image: "catalogo/bolo-verde-menta-perolado.jpg" },
 ];
 
-// Seleção variada de fotos para a vitrine da página inicial, sem repetir imagens.
-const homeFeaturedImagePaths = new Set([
-  "catalogo/bolo-1.jpg", "catalogo/bolo-3.jpg", "catalogo/bolo-5.jpg",
-  "catalogo/bolo-7.jpg", "catalogo/bolo-9.jpg", "catalogo/bolo-10.jpg",
-  "catalogo/bolo-4.jpg", "catalogo/bolo-rosa-flores-douradas.jpg",
-  "catalogo/bolo-rosa-floral-topo-personalizado.jpg", "catalogo/coracao-de-chocolate-decorado.jpg",
-  "catalogo/bolo-infantil-personagens-azul.jpg", "catalogo/bolo-lilas-borboletas.jpg",
-]);
-export const homeFeaturedProducts = products.filter((item) => homeFeaturedImagePaths.has(item.image));
 
 // Cardápio transcrito do PDF de setembro de 2026. Para mudar um preço ou sabor, edite aqui.
 export const menuSections = [
-  { id: "moda-da-casa", title: "Bolos à Moda da Casa",
+  { id: "moda-da-casa", short: "Moda da Casa", title: "Bolos à Moda da Casa",
     items: [
       { name: "Luxo de Pêssego", price: "R$ 98,00/kg", description: "Pão-de-ló branco, recheio de doce de leite com pêssego e creme especial de pêssego, coberto com chantilly ou marshmallow." },
       { name: "Baianinho", price: "R$ 95,00/kg", description: "Pão-de-ló branco, recheio de doce de leite com cocada mole e creme de coco, coberto com chantilly ou marshmallow." },
@@ -71,7 +62,7 @@ export const menuSections = [
       { name: "Floresta Branco Encantado", price: "R$ 110,00/kg", description: "Pão-de-ló branco, trufa de chocolate branco e mousse de chocolate branco com cereja, finalizado com raspas ou decoração de chocolate." },
       { name: "Pina Colado", price: "R$ 99,00/kg", description: "Pão-de-ló branco, recheio de doce de abacaxi com coco e doce de leite, coberto com chantilly ou marshmallow." },
     ] },
-  { id: "sucesso-da-casa", title: "Bolos de Sucesso da Casa",
+  { id: "sucesso-da-casa", short: "Sucesso da Casa", title: "Bolos de Sucesso da Casa",
     items: [
       { name: "Criança Feliz", price: "R$ 115,00/kg", description: "Pão-de-ló de chocolate com brigadeiro gourmet e prestígio, coberto com chantilly ou chantininho." },
       { name: "Brigadeiro Gourmet", price: "R$ 125,00/kg", description: "Pão-de-ló de chocolate com recheio de brigadeiro gourmet, coberto com chantilly, chantininho ou chantilly de chocolate." },
@@ -93,7 +84,7 @@ export const menuSections = [
       { name: "Ninho Trufado", price: "R$ 125,00/kg", description: "O famoso das confeitarias: massa branca em dupla camada de mousse de ninho especial." },
       { name: "Kauan", price: "R$ 135,00/kg", description: "Massa branca com mousse de leite ninho e trufa especial de limão siciliano com chocolate branco e cream cheese." },
     ] },
-  { id: "bombons", title: "Bolos Bombons Famosos",
+  { id: "bombons", short: "Bombons", title: "Bolos Bombons Famosos",
     items: [
       { name: "Tipo Kit Kat", price: "R$ 135,00/kg", description: "Brigadeiro de chocolate com creme de avelã/Nutella e pedaços de Kit Kat, ganache de chocolate. Kit Kat cobrado à parte." },
       { name: "Tipo Raffaello", price: "R$ 150,00/kg", description: "Pão-de-ló branco com recheio de chocolate branco, coco, amêndoas e Raffaello picado, coberto com ganache de chocolate branco." },
@@ -105,7 +96,7 @@ export const menuSections = [
       { name: "Tentação de Cereja", price: "R$ 145,00/kg", description: "Trufa de chocolate com cereja, finalizado com raspas ou decoração de chocolate." },
       { name: "Kinder Bueno", price: "R$ 125,00/kg", description: "Brigadeiro de Kinder Bueno, coberto com chantilly ou chantininho." },
     ] },
-  { id: "moca-cremosa", title: "Bolos com Moça Cremosa (Nestlé)",
+  { id: "moca-cremosa", short: "Moça Cremosa", title: "Bolos com Moça Cremosa (Nestlé)",
     items: [
       { name: "Moça Cremosa", price: "R$ 115,00/kg", description: "Pão-de-ló branco com leite condensado encorpado branco, exclusivo Nestlé." },
       { name: "Moça Cremosa com Morangos", price: "R$ 135,00/kg", description: "Mesma receita da Moça Cremosa, com morangos — sujeito à época." },
@@ -115,7 +106,7 @@ export const menuSections = [
       { name: "2 Amores", price: "R$ 125,00/kg", description: "Massa de chocolate com brigadeiro de chocolate escuro e brigadeiro de chocolate branco." },
       { name: "Juliana — Surpresa de Uva", price: "R$ 125,00/kg", description: "Brigadeiro de leite Ninho com uvas verdes sem sementes e mousse de leite Ninho com geleia de uvas verdes." },
     ] },
-  { id: "gelados", title: "Bolos Gelados Embrulhados",
+  { id: "gelados", short: "Gelados", title: "Bolos Gelados Embrulhados",
     intro: "Sabores mais pedidos, embalados com embalagem especial para bolos gelados.",
     prices: [["Apenas com cobertura (massa branca ou de chocolate)", "R$ 7,50 / un"], ["Com recheio e cobertura", "a partir de R$ 10,00 / un"]],
     items: [

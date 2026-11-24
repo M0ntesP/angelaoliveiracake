@@ -1,4 +1,4 @@
-import { site, categories, products, homeFeaturedProducts, menuSections, menuNotes, gallery, processVideos } from "./site-data.js";
+import { site, categories, products, menuSections, menuNotes, gallery, processVideos } from "./site-data.js";
 import imageManifest from "./image-manifest.json";
 import { setupAnalytics, trackEvent } from "./analytics.js";
 
@@ -119,16 +119,13 @@ function renderFooter() {
       <div><img class="footer-logo" src="${site.footerLogo}" data-fallback-src="${site.logoFallback}" alt="Ângela Oliveira — Confeitaria Brasileira" width="486" height="486" loading="lazy"><p>Confeitaria Brasileira. Sabores que contam histórias. Encomendas sob medida em ${site.city}.</p></div>
       <div><p class="eyebrow">Navegar</p><ul>${pageLinks.slice(1).map(([, label, url]) => `<li><a href="${url}">${label}</a></li>`).join("")}<li><a href="${site.instagram}" target="_blank" rel="noopener">Instagram</a></li><li><a href="${site.links}" target="_blank" rel="noopener">Todos os links</a></li></ul></div>
       <div><p class="eyebrow">Pedidos e contato</p><a class="button" href="${site.whatsapp}">Fazer encomenda pelo WhatsApp</a><p>Pedidos combinados pelo WhatsApp, sem carrinho ou pagamento online.</p><p class="eyebrow">E-mail</p><a class="footer-email" href="mailto:${site.email}">${site.email}</a></div>
-    </div><div class="copyright">© ${new Date().getFullYear()} ${site.name} · ${site.city}</div></footer>`;
+    </div><div class="copyright">© ${new Date().getFullYear()} ${site.name}, ${site.city}</div></footer>`;
 }
 
 function productCard(product) {
   const orderUrl = new URL("https://wa.me/" + site.whatsappPhone);
   orderUrl.searchParams.set("text", "Olá, Ângela! Tenho interesse em " + product.name + ". Você pode me informar as opções e os valores para a minha data?");
   return `<article class="product-card" data-product-name="${product.name}">${framedImageMarkup(product.image, product.name, { loading: "lazy", sizes: productImageSizes, frameRatio: 4 / 5 })}<div class="card-copy"><p class="eyebrow">${product.category}</p><h3>${product.name}</h3><p>${product.description}</p>${product.detail ? `<p class="muted">${product.detail}</p>` : ""}<a class="button button-outline full-button" data-product-order="${product.name}" href="${orderUrl.href}">Quero encomendar</a></div></article>`;
-}
-function renderHome() {
-  renderHomeShowcase();
 }
 // Carrossel compartilhado pela vitrine da home e pela galeria do portfólio.
 function setupCarousel({ root, track, dots, counter, pauseButton, photoSelector }) {
@@ -217,25 +214,6 @@ function setupCarousel({ root, track, dots, counter, pauseButton, photoSelector 
   restartTimer();
 }
 
-function renderHomeShowcase() {
-  const root = document.querySelector("#home-showcase");
-  const track = document.querySelector("#home-showcase-track");
-  if (!root || !track) return;
-  track.innerHTML = homeFeaturedProducts.map((item, itemIndex) => `
-    <article class="home-showcase-slide">
-      <button class="home-showcase-photo" type="button" aria-label="${item.name}. Clique para avançar para a próxima foto.">
-        ${framedImageMarkup(item.image, item.name, { loading: itemIndex < 1 ? "eager" : "lazy", sizes: carouselImageSizes, draggable: true })}
-      </button>
-      <div class="home-showcase-copy"><p class="eyebrow">${item.category}</p><h3>${item.name}</h3><p>${item.description}</p><a class="button button-outline" href="catalogo.html">Ver no catálogo</a></div>
-    </article>`).join("");
-  setupCarousel({
-    root, track,
-    dots: document.querySelector("#home-showcase-dots"),
-    counter: document.querySelector("#home-showcase-count"),
-    pauseButton: document.querySelector("#home-showcase-toggle"),
-    photoSelector: ".home-showcase-photo",
-  });
-}
 function renderCatalog() {
   const filters = ["Todos", ...categories.map((item) => item.name)];
   const buttonBox = document.querySelector("#catalog-filters");
@@ -284,7 +262,7 @@ function renderMenu() {
   const target = document.querySelector("#menu-sections");
   if (!target) return;
   const nav = document.querySelector("#menu-nav");
-  if (nav) nav.innerHTML = menuSections.map((section) => `<a class="filter-button" href="#${section.id}">${section.title.replace(/^Bolos /, "")}</a>`).join("");
+  if (nav) nav.innerHTML = menuSections.map((section) => `<a class="filter-button" href="#${section.id}">${section.short}</a>`).join("");
   target.innerHTML = menuSections.map((section) => `
     <section class="menu-section" id="${section.id}" aria-labelledby="${section.id}-title">
       <h2 id="${section.id}-title">${section.title}</h2>
@@ -308,7 +286,7 @@ function renderPortfolio() {
           <source src="${item.src}" type="video/mp4">
           Seu navegador não consegue reproduzir este vídeo.
         </video>
-        <figcaption class="card-copy"><p class="eyebrow">Bastidores · ${index + 1} de ${processVideos.length}</p><h3 id="process-video-title-${index + 1}">${item.title}</h3></figcaption>
+        <figcaption class="card-copy"><h3 id="process-video-title-${index + 1}">${item.title}</h3></figcaption>
         <p class="process-video-error" role="status" hidden>Não foi possível carregar este vídeo. Tente novamente mais tarde.</p>
       </figure>`).join("");
     processBox.querySelectorAll("video").forEach((video) => {
@@ -322,7 +300,7 @@ function renderPortfolio() {
   if (!track || !gallery.length) return;
   track.innerHTML = gallery.map((item, slideIndex) => `
     <button class="gallery-photo" type="button" aria-label="Foto ${slideIndex + 1} de ${gallery.length}: ${item.alt}. Clique para avançar.">
-      ${framedImageMarkup(item.image, item.alt, { loading: slideIndex < 1 ? "eager" : "lazy", sizes: carouselImageSizes, draggable: true })}
+      ${framedImageMarkup(item.image, item.alt, { loading: slideIndex < 1 ? "eager" : "lazy", sizes: carouselImageSizes, draggable: true, frameRatio: 4 / 3 })}
     </button>`).join("");
   setupCarousel({
     root: document.querySelector("#gallery"),
@@ -392,7 +370,6 @@ function setupAddressMap() {
 
 renderHeader();
 renderFooter();
-renderHome();
 renderCatalog();
 renderMenu();
 renderPortfolio();
