@@ -6,6 +6,7 @@ let index = 0;
 let returnFocus = null;
 let pointerStartX = null;
 let onShow = null;
+let onClose = null;
 
 function ensureDialog() {
   if (dialog) return dialog;
@@ -53,6 +54,7 @@ function ensureDialog() {
   stage.addEventListener("pointercancel", () => { pointerStartX = null; });
   dialog.addEventListener("close", () => {
     document.documentElement.classList.remove("lightbox-open");
+    onClose?.();
     returnFocus?.focus?.();
   });
   return dialog;
@@ -73,11 +75,12 @@ function show(next) {
   onShow?.(item);
 }
 
-export function openLightbox(list, startIndex = 0, { onItemShow } = {}) {
+export function openLightbox(list, startIndex = 0, { onItemShow, onDialogClose } = {}) {
   if (!list.length) return;
   ensureDialog();
   items = list;
   onShow = onItemShow || null;
+  onClose = onDialogClose || null;
   returnFocus = document.activeElement;
   show(startIndex);
   document.documentElement.classList.add("lightbox-open");

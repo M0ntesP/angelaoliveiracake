@@ -1,14 +1,18 @@
 // "Minhas inspirações": o cliente marca os bolos de que gostou no catálogo e envia a lista
 // para a Ângela pelo WhatsApp (ou junto com o pedido de orçamento). Fica salvo só no
 // navegador da pessoa; se o armazenamento estiver bloqueado, vale enquanto a página estiver aberta.
+import { products } from "./site-data.js";
+
 const storageKey = "inspiracoes-v1";
+// Só nomes que ainda existem no catálogo: um bolo renomeado ou removido sai da lista sozinho.
+const knownNames = new Set(products.map((item) => item.name));
 const listeners = new Set();
 let saved = load();
 
 function load() {
   try {
     const value = JSON.parse(localStorage.getItem(storageKey) || "[]");
-    return Array.isArray(value) ? value.filter((name) => typeof name === "string") : [];
+    return Array.isArray(value) ? value.filter((name) => knownNames.has(name)) : [];
   } catch {
     return [];
   }

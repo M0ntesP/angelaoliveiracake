@@ -133,7 +133,7 @@ function renderFooter() {
     <a class="whatsapp-float" href="${site.whatsapp}" aria-label="Conversar com a Ângela pelo WhatsApp"><svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 3C6.9 3 3 6.6 3 11.2c0 2.3 1 4.4 2.7 5.9L5 21l4.2-2c.9.2 1.8.4 2.8.4 5.1 0 9-3.6 9-8.2S17.1 3 12 3Zm-4 9.4a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Zm4 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Zm4 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Z"/></svg><span>Encomendar</span></a>`;
 }
 
-const productOrderLink = (product) => whatsappLink(`Olá, Ângela! Tenho interesse em um bolo como o "${product.name}" do seu catálogo. Você pode me informar as opções e os valores para a minha data?`);
+const productOrderLink = (product) => whatsappLink(`Olá, Ângela! Tenho interesse em um bolo como o “${product.name}” do seu catálogo. Você pode me informar as opções e os valores para a minha data?`);
 function productCard(product) {
   return `<article class="product-card" data-product-name="${product.name}"><div class="product-media"><button class="product-photo" type="button" data-zoom="${product.name}" aria-label="Ampliar foto: ${product.name}">${framedImageMarkup(product.image, product.name, { loading: "lazy", sizes: productImageSizes, frameRatio: 4 / 5 })}<span class="zoom-hint" aria-hidden="true">Ampliar</span></button>${saveToggleMarkup(product.name, { compact: true })}</div><div class="card-copy"><p class="eyebrow">${product.category}</p><h3>${product.name}</h3><p>${product.description}</p>${product.detail ? `<p class="muted">${product.detail}</p>` : ""}<a class="button button-outline full-button" data-product-order="${product.name}" href="${productOrderLink(product)}">Quero encomendar</a></div></article>`;
 }
@@ -163,6 +163,10 @@ function setupCarousel({ root, track, dots, counter, pauseButton, photoSelector 
 
   function show(next) {
     index = (next + total) % total;
+    // Carrega já as fotos vizinhas, para a próxima não aparecer vazia ao avançar.
+    [index - 1, index + 1].forEach((neighbour) => {
+      slides[(neighbour + total) % total].querySelectorAll('img[loading="lazy"]').forEach((image) => { image.loading = "eager"; });
+    });
     track.style.transform = `translateX(-${index * 100}%)`;
     slides.forEach((slide, slideIndex) => {
       const active = slideIndex === index;
@@ -304,6 +308,11 @@ function renderCatalog() {
   }
   function showProducts(active) {
     activeFilter = active;
+    // O filtro fica no endereço (catalogo.html?categoria=...), para a Ângela mandar o link de uma categoria.
+    const url = new URL(window.location.href);
+    if (active === "Todos") url.searchParams.delete("categoria");
+    else url.searchParams.set("categoria", active === savedFilter ? "inspiracoes" : active);
+    history.replaceState(null, "", url);
     visibleProducts = products.filter((item) => active === "Todos" || item.category === active || (active === savedFilter && inspirations.has(item.name)));
     productBox.innerHTML = visibleProducts.length ? visibleProducts.map(productCard).join("") : `<p class="empty-state">Você ainda não salvou nenhuma inspiração. Toque em <strong>♡ Salvar</strong> nos bolos de que gostar para montar a sua lista.</p>`;
     buttonBox.querySelectorAll("button").forEach((button) => {
@@ -318,6 +327,7 @@ function renderCatalog() {
     const start = visibleProducts.findIndex((item) => item.name === zoom.dataset.zoom);
     openLightbox(visibleProducts.map(productLightboxItem), Math.max(start, 0), {
       onItemShow: (item) => trackEvent("product_zoom", { item_name: item.title }),
+      onDialogClose: () => { if (activeFilter === savedFilter) showProducts(savedFilter); },
     });
   });
   inspirations.subscribe(() => {
@@ -329,7 +339,8 @@ function renderCatalog() {
   buttonBox.addEventListener("click", (event) => {
     if (event.target.matches("button")) showProducts(event.target.textContent);
   });
-  showProducts("Todos");
+  const requested = new URLSearchParams(window.location.search).get("categoria");
+  showProducts(requested === "inspiracoes" ? savedFilter : filters.includes(requested) ? requested : "Todos");
   if (productObserver) {
     window.addEventListener("analytics-consent-granted", () => {
       productBox.querySelectorAll(".product-card:not([data-view-tracked])").forEach((card) => {
@@ -487,11 +498,8 @@ function setupQuoteForm() {
       inspirations.list().length ? ["Inspirações do catálogo", inspirations.list().join("; ")] : null,
     ].filter(Boolean);
     const message = `Olá, Ângela! Gostaria de pedir um orçamento:\n\n${details.map(([label, value]) => `${label}: ${value}`).join("\n")}\n\nPodemos conversar sobre disponibilidade e valores?`;
-    const whatsappUrl = new URL(`https://wa.me/${site.whatsappPhone}`);
-    whatsappUrl.searchParams.set("text", message);
-
     const link = document.querySelector("#quote-whatsapp-link");
-    link.href = whatsappUrl.href;
+    link.href = whatsappLink(message);
     link.hidden = false;
     document.querySelector("#quote-status").textContent = "Mensagem pronta. Confira as informações e abra o WhatsApp para enviar.";
     link.focus();
