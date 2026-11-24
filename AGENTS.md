@@ -10,7 +10,7 @@
 <!-- LOVABLE:END -->
 
 - Keep brand colors and fonts in global semantic tokens and official logo artwork in CDN asset pointers, so identity changes stay consistent across pages.
-- Keep the local copy `public/images/marca/angela-logo-circular.png` (referenced as `site.logoFallback`) in sync with the CDN logo; it is the fallback when the CDN asset cannot load.
+- Keep the local copy `public/images/marca/angela-logo-circular.webp` (referenced as `site.logoFallback`) in sync with the CDN logo; it is the fallback when the CDN asset cannot load.
 - Keep header and footer logo references separate in shared site data, so a footer artwork change does not replace the header artwork.
 - The homepage cover uses the upper campaign band cropped from the supplied brand board; never display the technical specification board as page content.
 - Keep `build` and `build:dev` available and include JavaScript sources in `tsconfig.json`, so the publishing pipeline can validate and bundle the site.
