@@ -47,7 +47,6 @@ export const products = [
   { name: "Bolo verde-menta com pérolas douradas", category: "Bolos comemorativos", description: "Acabamento verde-menta com trabalho de bicos e pérolas douradas.", detail: "Cores personalizáveis", image: "catalogo/bolo-verde-menta-perolado.jpg" },
 ];
 
-
 // Cardápio transcrito do PDF de setembro de 2026. Para mudar um preço ou sabor, edite aqui.
 export const menuSections = [
   { id: "moda-da-casa", short: "Moda da Casa", title: "Bolos à Moda da Casa",

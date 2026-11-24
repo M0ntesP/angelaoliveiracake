@@ -61,7 +61,6 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: rgb(113 60 
 .photo-frame-backdrop { position: absolute; z-index: -1; inset: -10%; transform: scale(1.08); background-image: var(--photo-backdrop); background-position: center; background-size: cover; filter: blur(22px) saturate(.78); opacity: .22; }
 .photo-frame::after { position: absolute; z-index: 0; inset: 0; background: linear-gradient(145deg, #fff5, transparent 58%, #713c550b); content: ""; pointer-events: none; }
 .photo-frame-image { position: relative; z-index: 1; width: 100%; height: 100%; background: transparent; object-fit: contain; object-position: center; }
-.script-text { color: var(--ink); font: 1.7rem var(--serif); }
 .card-grid { display: grid; gap: 26px; margin-top: 30px; }
 .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -118,7 +117,7 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: rgb(113 60 
 .menu-item p { margin: 4px 0 0; color: var(--muted); font-size: .9rem; }
 .menu-notes ul { margin: 12px 0 0; padding-left: 20px; color: var(--muted); font-size: .92rem; }
 .menu-notes li + li { margin-top: 6px; }
-.menu-final-cta { margin-top: 34px; }
+.menu-final-cta { margin: 34px 0 0; padding-bottom: 76px; }
 .portfolio-intro { margin-top: 38px; }
 .portfolio-intro h2 { max-width: 17ch; }
 .portfolio-photo-group { width: min(100%, 520px); margin: 0 auto; }
@@ -144,7 +143,6 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: rgb(113 60 
 .gallery-track { display: flex; width: 100%; transition: transform .45s cubic-bezier(.22,.61,.36,1); will-change: transform; }
 .gallery-photo { display: block; flex: 0 0 100%; width: 100%; border: 0; padding: 0; background: transparent; cursor: pointer; }
 .gallery-photo .photo-frame { aspect-ratio: 4 / 3; }
-.home-gallery .gallery-arrow { top: 38%; }
 .gallery-count { position: absolute; z-index: 1; top: 16px; right: 16px; border: 1px solid #fff8; border-radius: 999px; padding: 5px 10px; background: #34251fc7; color: white; font-size: .76rem; font-variant-numeric: tabular-nums; letter-spacing: .06em; }
 .gallery-arrow { position: absolute; z-index: 1; top: 50%; transform: translateY(-50%); display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #fff9; border-radius: 50%; padding: 0 0 4px; background: #fbf6eef0; color: var(--ink); font-size: 2rem; line-height: 1; cursor: pointer; box-shadow: 0 2px 12px #34251f30; transition: background .2s, transform .2s; }
 .gallery-arrow:hover { transform: translateY(-50%) scale(1.06); background: white; }
@@ -163,7 +161,6 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: rgb(113 60 
 .feedback-callout h2, .feedback-callout h3 { font-size: clamp(1.35rem, 2.6vw, 1.8rem); }
 .feedback-callout p:not(.eyebrow) { margin-bottom: 0; color: #f5eadc; font-size: .9rem; }
 .feedback-callout .button { flex: 0 0 auto; }
-.reviews-section .intro { margin-bottom: 0; }
 .feedback-intro { max-width: 760px; margin-bottom: 34px; }
 .feedback-layout { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); align-items: start; gap: clamp(24px, 4vw, 48px); }
 .feedback-layout-single { grid-template-columns: 1fr; }
@@ -240,6 +237,7 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: rgb(113 60 
   .main-nav.is-open { display: flex; }
   .main-nav a:not(.button) { padding: 10px 0; }
   .nav-order { text-align: center; }
+  .split { grid-template-columns: 1fr; gap: 32px; }
   .three { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .feedback-layout { grid-template-columns: 1fr; }
   .process-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 16px; }
@@ -272,7 +270,7 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: rgb(113 60 
   .gallery-dots button { width: 24px; }
   .gallery-dots button.active::before { width: 20px; }
 }
-/* ---- Home: retrato da Ângela com o nome invadindo a foto ---- */
+/* ---- Home: retrato da Ângela com o nome invadindo a foto e vitrine de bolos ---- */
 .intro-hero { display: grid; grid-template-columns: minmax(0, 48fr) minmax(0, 52fr); align-items: center; min-height: min(calc(100svh - 83px), 780px); }
 .intro-portrait { align-self: stretch; height: 100%; min-height: 560px; margin: 0; overflow: hidden; }
 .intro-portrait img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 40% 28%; }
@@ -303,13 +301,15 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: rgb(113 60 
   .intro-copy { padding-inline: 15px; }
   .intro-actions .button { width: 100%; text-align: center; }
   .showcase-name { font-size: 1rem; }
+}
+/* ---- Catálogo no celular: duas colunas compactas, sem descrição ---- */
+@media (max-width: 580px) {
   #catalog-products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   #catalog-products .card-copy { padding: 12px; }
-  #catalog-products .card-copy h3 { font-size: 1rem; }
+  #catalog-products .card-copy h3 { margin-bottom: 12px; font-size: 1rem; }
   #catalog-products .card-copy .eyebrow { font-size: .75rem; }
   #catalog-products .card-copy > p:not(.eyebrow) { display: none; }
-  #catalog-products .full-button { margin-top: auto; padding: 9px 8px; font-size: .8rem; }
-  #catalog-products .card-copy h3 { margin-bottom: 12px; }
+  #catalog-products .full-button { padding: 9px 8px; font-size: .8rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }

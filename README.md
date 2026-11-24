@@ -8,7 +8,7 @@ Site institucional feito com HTML, CSS e JavaScript sem framework.
 - `css/styles.css`: estilos e adaptação para celular.
 - `js/site-data.js`: textos, produtos, categorias e imagens.
 - `js/image-manifest.json`: dimensões e variantes responsivas das fotos otimizadas.
-- `js/main.js`: cabeçalho, rodapé, filtros e galeria.
+- `js/main.js`: cabeçalho, rodapé, filtros do catálogo, cardápio, galeria e vídeos do portfólio, formulário de orçamento e mapa.
 - `public/images/catalogo/`: fotos dos bolos e doces do catálogo.
 - `public/images/portfolio/`: fotos do portfólio e das celebrações.
 - `public/images/perfil/`: retratos e fotos da equipe usados na apresentação.

@@ -10,7 +10,7 @@ const pageLinks = [
 ];
 const currentPage = document.body.dataset.page;
 const imagePath = (name) => name.startsWith("/images/") ? name : `/images/${name}`;
-const productImageSizes = "(max-width: 580px) calc(100vw - 30px), (max-width: 850px) calc((100vw - 66px) / 2), 356px";
+const productImageSizes = "(max-width: 580px) calc((100vw - 42px) / 2), (max-width: 850px) calc((100vw - 66px) / 2), 356px";
 const carouselImageSizes = "(max-width: 630px) calc(100vw - 30px), 600px";
 
 function imageMarkup(name, alt, { loading = "lazy", sizes = "100vw", imageClass = "", draggable = false } = {}) {
@@ -127,7 +127,7 @@ function productCard(product) {
   orderUrl.searchParams.set("text", "Olá, Ângela! Tenho interesse em " + product.name + ". Você pode me informar as opções e os valores para a minha data?");
   return `<article class="product-card" data-product-name="${product.name}">${framedImageMarkup(product.image, product.name, { loading: "lazy", sizes: productImageSizes, frameRatio: 4 / 5 })}<div class="card-copy"><p class="eyebrow">${product.category}</p><h3>${product.name}</h3><p>${product.description}</p>${product.detail ? `<p class="muted">${product.detail}</p>` : ""}<a class="button button-outline full-button" data-product-order="${product.name}" href="${orderUrl.href}">Quero encomendar</a></div></article>`;
 }
-// Carrossel compartilhado pela vitrine da home e pela galeria do portfólio.
+// Carrossel da galeria do portfólio (setas, pontos, toque e pausa automática).
 function setupCarousel({ root, track, dots, counter, pauseButton, photoSelector }) {
   const slides = [...track.children];
   const total = slides.length;
