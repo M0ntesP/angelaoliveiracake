@@ -544,5 +544,19 @@
         "width": 960
       }
     ]
+  },
+  "angela-oliveira-dolma-amarela.jpg": {
+    "width": 1024,
+    "height": 1024,
+    "sources": [
+      {
+        "url": "/images/optimized/perfil/angela-oliveira-dolma-amarela-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/perfil/angela-oliveira-dolma-amarela-960.webp",
+        "width": 960
+      }
+    ]
   }
 }
