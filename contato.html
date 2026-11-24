@@ -39,6 +39,12 @@
       <a class="button button-outline" href="https://wa.me/5511984383266?text=Ol%C3%A1%2C%20%C3%82ngela%21%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20uma%20encomenda.">Falar direto pelo WhatsApp</a>
       <a class="button button-outline" href="mailto:angelaoliveira.cakedesigner@gmail.com">Enviar e-mail</a>
     </div>
+    <ul class="contact-list" aria-label="Formas de contato">
+      <li><span class="eyebrow">WhatsApp e telefone</span><a href="tel:+5511984383266">(11) 98438-3266</a></li>
+      <li><span class="eyebrow">E-mail</span><a href="mailto:angelaoliveira.cakedesigner@gmail.com">angelaoliveira.cakedesigner@gmail.com</a></li>
+      <li><span class="eyebrow">Instagram</span><a href="https://www.instagram.com/angelaoliveira.cakedesing/" target="_blank" rel="noopener">@angelaoliveira.cakedesing</a></li>
+      <li><span class="eyebrow">Endereço</span><a href="endereco.html">Vila Espanhola, São Paulo/SP</a></li>
+    </ul>
 
     <section class="quote-section" aria-labelledby="quote-title">
       <div class="quote-heading">
@@ -54,7 +60,8 @@
           </div>
           <div class="form-field">
             <label for="quote-date">Data da comemoração</label>
-            <input id="quote-date" name="date" type="date" required>
+            <input id="quote-date" name="date" type="date" aria-describedby="quote-date-hint" required>
+            <p id="quote-date-hint" class="form-hint" aria-live="polite"></p>
           </div>
           <div class="form-field">
             <label for="quote-event">Tipo de evento</label>
@@ -69,7 +76,8 @@
           </div>
           <div class="form-field">
             <label for="quote-guests">Número de convidados</label>
-            <input id="quote-guests" name="guests" type="number" min="1" max="10000" inputmode="numeric" required>
+            <input id="quote-guests" name="guests" type="number" min="1" max="10000" inputmode="numeric" aria-describedby="quote-guests-hint" required>
+            <p id="quote-guests-hint" class="form-hint" aria-live="polite"></p>
           </div>
           <div class="form-field">
             <label for="quote-product">O que deseja encomendar?</label>
@@ -102,6 +110,11 @@
             <textarea id="quote-details" name="details" rows="4" maxlength="600" placeholder="Conte o que já imaginou para a sua festa"></textarea>
             <p class="form-help">Tem uma foto de referência? Você poderá anexá-la depois de abrir o WhatsApp.</p>
           </div>
+        </div>
+        <div id="quote-inspirations" class="quote-inspirations" hidden>
+          <p class="form-label">Inspirações salvas no catálogo</p>
+          <p class="form-help">Elas vão junto na mensagem. Toque no × para tirar alguma.</p>
+          <ul></ul>
         </div>
         <button class="button" type="submit">Preparar mensagem para o WhatsApp</button>
         <p id="quote-status" class="quote-status" role="status" aria-live="polite"></p>

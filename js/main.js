@@ -1,17 +1,27 @@
-import { site, categories, products, homeFeaturedProducts, menuSections, menuNotes, gallery, processVideos } from "./site-data.js";
+import { site, categories, products, homeFeaturedProducts, clientPhotos, menuSections, menuNotes, gallery, processVideos, partyPlanning } from "./site-data.js";
 import imageManifest from "./image-manifest.json";
 import { setupAnalytics, trackEvent } from "./analytics.js";
+import { openLightbox } from "./lightbox.js";
+import { inspirations, saveToggleMarkup, setupSaveToggles, inspirationsMessage } from "./inspirations.js";
+import { pricePerKg, suggestedKg, formatKg, formatMoney, daysUntil, leadTimeHint } from "./party-planning.js";
 
 // Elementos compartilhados e interações pequenas do site.
 const pageLinks = [
   ["inicio", "Início", "index.html"], ["catalogo", "Catálogo", "catalogo.html"],
-  ["cardapio", "Cardápio", "cardapio.html"], ["portifolio", "Portfólio", "portifolio.html"],
+  ["cardapio", "Cardápio", "cardapio.html"], ["portfolio", "Portfólio", "portfolio.html"],
   ["feedback", "Feedback", "feedback.html"], ["endereco", "Endereço", "endereco.html"], ["contato", "Contato", "contato.html"],
 ];
 const currentPage = document.body.dataset.page;
 const imagePath = (name) => name.startsWith("/images/") ? name : `/images/${name}`;
 const productImageSizes = "(max-width: 580px) calc(100vw - 30px), (max-width: 850px) calc((100vw - 66px) / 2), 356px";
 const carouselImageSizes = "(max-width: 630px) calc(100vw - 30px), 600px";
+const lightboxImageSizes = "(max-width: 900px) 100vw, 640px";
+const siteOrigin = "https://angelaoliveira.lovable.app";
+function whatsappLink(message) {
+  const url = new URL(`https://wa.me/${site.whatsappPhone}`);
+  url.searchParams.set("text", message);
+  return url.href;
+}
 
 function imageMarkup(name, alt, { loading = "lazy", sizes = "100vw", imageClass = "", draggable = false } = {}) {
   const path = imagePath(name);
@@ -118,14 +128,23 @@ function renderFooter() {
     <footer class="site-footer"><div class="container footer-grid">
       <div><img class="footer-logo" src="${site.footerLogo}" data-fallback-src="${site.logoFallback}" alt="Ângela Oliveira — Confeitaria Brasileira" width="486" height="486" loading="lazy"><p>Confeitaria Brasileira. Sabores que contam histórias. Encomendas sob medida em ${site.city}.</p></div>
       <div><p class="eyebrow">Navegar</p><ul>${pageLinks.slice(1).map(([, label, url]) => `<li><a href="${url}">${label}</a></li>`).join("")}<li><a href="${site.instagram}" target="_blank" rel="noopener">Instagram</a></li><li><a href="${site.links}" target="_blank" rel="noopener">Todos os links</a></li></ul></div>
-      <div><p class="eyebrow">Pedidos e contato</p><a class="button" href="${site.whatsapp}">Fazer encomenda pelo WhatsApp</a><p>Pedidos combinados pelo WhatsApp, sem carrinho ou pagamento online.</p><p class="eyebrow">E-mail</p><a class="footer-email" href="mailto:${site.email}">${site.email}</a></div>
-    </div><div class="copyright">© ${new Date().getFullYear()} ${site.name} · ${site.city}</div></footer>`;
+      <div><p class="eyebrow">Pedidos e contato</p><a class="button" href="${site.whatsapp}">Fazer encomenda pelo WhatsApp</a><p>Pedidos combinados pelo WhatsApp, sem carrinho ou pagamento online.</p><p class="eyebrow">Telefone e WhatsApp</p><a class="footer-email" href="tel:+${site.whatsappPhone}">${site.phoneDisplay}</a><p class="eyebrow">E-mail</p><a class="footer-email" href="mailto:${site.email}">${site.email}</a></div>
+    </div><div class="copyright">© ${new Date().getFullYear()} ${site.name} · ${site.city}</div></footer>
+    <a class="whatsapp-float" href="${site.whatsapp}" aria-label="Conversar com a Ângela pelo WhatsApp"><svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 3C6.9 3 3 6.6 3 11.2c0 2.3 1 4.4 2.7 5.9L5 21l4.2-2c.9.2 1.8.4 2.8.4 5.1 0 9-3.6 9-8.2S17.1 3 12 3Zm-4 9.4a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Zm4 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Zm4 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Z"/></svg><span>Encomendar</span></a>`;
 }
 
+const productOrderLink = (product) => whatsappLink(`Olá, Ângela! Tenho interesse em um bolo como o "${product.name}" do seu catálogo. Você pode me informar as opções e os valores para a minha data?`);
 function productCard(product) {
-  const orderUrl = new URL("https://wa.me/" + site.whatsappPhone);
-  orderUrl.searchParams.set("text", "Olá, Ângela! Tenho interesse em " + product.name + ". Você pode me informar as opções e os valores para a minha data?");
-  return `<article class="product-card" data-product-name="${product.name}">${framedImageMarkup(product.image, product.name, { loading: "lazy", sizes: productImageSizes, frameRatio: 4 / 5 })}<div class="card-copy"><p class="eyebrow">${product.category}</p><h3>${product.name}</h3><p>${product.description}</p>${product.detail ? `<p class="muted">${product.detail}</p>` : ""}<a class="button button-outline full-button" data-product-order="${product.name}" href="${orderUrl.href}">Quero encomendar</a></div></article>`;
+  return `<article class="product-card" data-product-name="${product.name}"><div class="product-media"><button class="product-photo" type="button" data-zoom="${product.name}" aria-label="Ampliar foto: ${product.name}">${framedImageMarkup(product.image, product.name, { loading: "lazy", sizes: productImageSizes, frameRatio: 4 / 5 })}<span class="zoom-hint" aria-hidden="true">Ampliar</span></button>${saveToggleMarkup(product.name, { compact: true })}</div><div class="card-copy"><p class="eyebrow">${product.category}</p><h3>${product.name}</h3><p>${product.description}</p>${product.detail ? `<p class="muted">${product.detail}</p>` : ""}<a class="button button-outline full-button" data-product-order="${product.name}" href="${productOrderLink(product)}">Quero encomendar</a></div></article>`;
+}
+function productLightboxItem(product) {
+  return {
+    imageHtml: imageMarkup(product.image, product.name, { loading: "eager", sizes: lightboxImageSizes }),
+    eyebrow: product.category,
+    title: product.name,
+    description: [product.description, product.detail].filter(Boolean).join(" · "),
+    actionsHtml: `<a class="button" data-product-order="${product.name}" href="${productOrderLink(product)}">Quero um assim</a>${saveToggleMarkup(product.name)}`,
+  };
 }
 function renderHome() {
   renderHomeShowcase();
@@ -236,8 +255,34 @@ function renderHomeShowcase() {
     photoSelector: ".home-showcase-photo",
   });
 }
+function clientPhotoCard(item, itemIndex, { sizes, loading }) {
+  return `<figure class="feedback-photo-card"><a class="feedback-photo-link" href="${item.image}" data-client-photo="${itemIndex}" aria-label="Ampliar foto: ${item.caption}">${framedImageMarkup(item.image, item.alt, { loading, sizes })}</a><figcaption>${item.caption}</figcaption></figure>`;
+}
+function renderClientPhotos() {
+  const targets = document.querySelectorAll("[data-client-photos]");
+  targets.forEach((target) => {
+    const limit = Number(target.dataset.clientPhotos) || clientPhotos.length;
+    const sizes = "(max-width: 850px) calc((100vw - 52px) / 2), 270px";
+    target.innerHTML = clientPhotos.slice(0, limit).map((item, itemIndex) => clientPhotoCard(item, itemIndex, { sizes, loading: itemIndex < 2 && currentPage === "feedback" ? "eager" : "lazy" })).join("");
+    target.addEventListener("click", (event) => {
+      const link = event.target.closest("[data-client-photo]");
+      if (!link) return;
+      event.preventDefault();
+      openLightbox(clientPhotos.map((item) => ({
+        imageHtml: imageMarkup(item.image, item.alt, { loading: "eager", sizes: lightboxImageSizes }),
+        eyebrow: "Foto de cliente",
+        title: item.caption,
+        description: item.alt,
+      })), Number(link.dataset.clientPhoto));
+    });
+  });
+}
+
 function renderCatalog() {
-  const filters = ["Todos", ...categories.map((item) => item.name)];
+  const savedFilter = "♥ Minhas inspirações";
+  const filters = ["Todos", ...categories.map((item) => item.name), savedFilter];
+  let activeFilter = "Todos";
+  let visibleProducts = products;
   const buttonBox = document.querySelector("#catalog-filters");
   if (!buttonBox) return;
   const productBox = document.querySelector("#catalog-products");
@@ -258,13 +303,28 @@ function renderCatalog() {
     productBox.querySelectorAll(".product-card:not([data-view-tracked])").forEach((card) => productObserver?.observe(card));
   }
   function showProducts(active) {
-    productBox.innerHTML = products.filter((item) => active === "Todos" || item.category === active).map(productCard).join("");
+    activeFilter = active;
+    visibleProducts = products.filter((item) => active === "Todos" || item.category === active || (active === savedFilter && inspirations.has(item.name)));
+    productBox.innerHTML = visibleProducts.length ? visibleProducts.map(productCard).join("") : `<p class="empty-state">Você ainda não salvou nenhuma inspiração. Toque em <strong>♡ Salvar</strong> nos bolos de que gostar para montar a sua lista.</p>`;
     buttonBox.querySelectorAll("button").forEach((button) => {
       button.classList.toggle("active", button.textContent === active);
       button.setAttribute("aria-pressed", String(button.textContent === active));
     });
     observeProductCards();
   }
+  productBox.addEventListener("click", (event) => {
+    const zoom = event.target.closest("[data-zoom]");
+    if (!zoom) return;
+    const start = visibleProducts.findIndex((item) => item.name === zoom.dataset.zoom);
+    openLightbox(visibleProducts.map(productLightboxItem), Math.max(start, 0), {
+      onItemShow: (item) => trackEvent("product_zoom", { item_name: item.title }),
+    });
+  });
+  inspirations.subscribe(() => {
+    // Na lista de inspirações, remover um bolo tira o cartão da tela.
+    if (activeFilter === savedFilter && !document.querySelector(".lightbox[open]")) showProducts(savedFilter);
+  });
+  renderInspirationBar(() => showProducts(savedFilter));
   buttonBox.innerHTML = filters.map((label) => `<button type="button" class="filter-button">${label}</button>`).join("");
   buttonBox.addEventListener("click", (event) => {
     if (event.target.matches("button")) showProducts(event.target.textContent);
@@ -280,6 +340,30 @@ function renderCatalog() {
   }
   document.querySelector("#catalog-categories").innerHTML = categories.map((item) => `<article class="category-note"><h2>${item.name}</h2><p>${item.description}</p></article>`).join("");
 }
+function renderInspirationBar(showSaved) {
+  const bar = document.createElement("aside");
+  bar.className = "inspiration-bar";
+  bar.setAttribute("aria-label", "Minhas inspirações");
+  document.body.append(bar);
+  function update() {
+    const names = inspirations.list();
+    bar.hidden = names.length === 0;
+    document.body.classList.toggle("has-inspiration-bar", names.length > 0);
+    if (!names.length) return;
+    bar.innerHTML = `<p><span aria-hidden="true">♥</span> <strong>${names.length} ${names.length === 1 ? "inspiração salva" : "inspirações salvas"}</strong></p>
+      <div class="inspiration-bar-actions"><button class="button button-outline" type="button" data-show-saved>Ver lista</button><a class="button" data-send-inspirations href="${whatsappLink(inspirationsMessage(names, `${siteOrigin}/catalogo.html`))}">Enviar para a Ângela</a></div>`;
+  }
+  bar.addEventListener("click", (event) => {
+    if (event.target.closest("[data-show-saved]")) {
+      showSaved();
+      document.querySelector("#catalog-filters")?.scrollIntoView({ block: "start" });
+    }
+    if (event.target.closest("[data-send-inspirations]")) trackEvent("inspirations_send", { items: inspirations.list().length });
+  });
+  inspirations.subscribe(update);
+  update();
+}
+
 function renderMenu() {
   const target = document.querySelector("#menu-sections");
   if (!target) return;
@@ -346,6 +430,44 @@ function setupQuoteForm() {
   const now = new Date();
   dateInput.min = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
 
+  // Dados vindos da calculadora do cardápio (contato.html?convidados=30&sabor=...).
+  const params = new URLSearchParams(window.location.search);
+  const guestsInput = form.elements.namedItem("guests");
+  const flavorInput = form.elements.namedItem("flavor");
+  if (/^\d{1,5}$/.test(params.get("convidados") || "")) guestsInput.value = params.get("convidados");
+  if (params.get("sabor")) flavorInput.value = params.get("sabor").slice(0, 120);
+
+  const dateHint = document.querySelector("#quote-date-hint");
+  const guestsHint = document.querySelector("#quote-guests-hint");
+  function updateHints() {
+    const hint = leadTimeHint(daysUntil(dateInput.value));
+    if (dateHint) {
+      dateHint.textContent = hint?.text || "";
+      dateHint.dataset.tone = hint?.tone || "";
+    }
+    const kg = suggestedKg(Number(guestsInput.value));
+    if (guestsHint) guestsHint.textContent = kg ? `Sugestão: cerca de ${formatKg(kg)} de bolo (porção média de ${partyPlanning.gramsPerGuest} g por pessoa).` : "";
+  }
+  dateInput.addEventListener("input", updateHints);
+  dateInput.addEventListener("change", updateHints);
+  guestsInput.addEventListener("input", updateHints);
+  updateHints();
+
+  // Inspirações salvas no catálogo entram no pedido.
+  const savedBox = document.querySelector("#quote-inspirations");
+  function renderSaved() {
+    if (!savedBox) return;
+    const names = inspirations.list();
+    savedBox.hidden = names.length === 0;
+    savedBox.querySelector("ul").innerHTML = names.map((name) => `<li><span>${name}</span><button type="button" data-remove-inspiration="${name}" aria-label="Tirar do pedido: ${name}">×</button></li>`).join("");
+  }
+  savedBox?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-remove-inspiration]");
+    if (button) inspirations.remove(button.dataset.removeInspiration);
+  });
+  inspirations.subscribe(renderSaved);
+  renderSaved();
+
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     if (!form.reportValidity()) return;
@@ -356,11 +478,13 @@ function setupQuoteForm() {
       ["Data da comemoração", new Date(`${values.get("date")}T12:00:00`).toLocaleDateString("pt-BR")],
       ["Evento", values.get("event")],
       ["Convidados", values.get("guests")],
+      suggestedKg(Number(values.get("guests"))) ? ["Tamanho sugerido pelo site", `cerca de ${formatKg(suggestedKg(Number(values.get("guests"))))}`] : null,
       ["Encomenda", values.get("product")],
       values.get("flavor") ? ["Sabor ou recheio", values.get("flavor")] : null,
       ["Entrega ou retirada", values.get("delivery")],
       values.get("neighborhood") ? ["Bairro", values.get("neighborhood")] : null,
       values.get("details") ? ["Detalhes", values.get("details")] : null,
+      inspirations.list().length ? ["Inspirações do catálogo", inspirations.list().join("; ")] : null,
     ].filter(Boolean);
     const message = `Olá, Ângela! Gostaria de pedir um orçamento:\n\n${details.map(([label, value]) => `${label}: ${value}`).join("\n")}\n\nPodemos conversar sobre disponibilidade e valores?`;
     const whatsappUrl = new URL(`https://wa.me/${site.whatsappPhone}`);
@@ -373,6 +497,58 @@ function setupQuoteForm() {
     link.focus();
     trackEvent("budget_prepared");
   });
+}
+
+function setupPartyCalculator() {
+  const form = document.querySelector("#party-calculator");
+  if (!form) return;
+  const flavorSelect = form.elements.namedItem("flavor");
+  const guestsInput = form.elements.namedItem("guests");
+  const output = document.querySelector("#party-calculator-result");
+  flavorSelect.innerHTML = `<option value="">Ainda não sei o sabor</option>` + menuSections
+    .map((section) => ({ section, items: section.items.filter((item) => pricePerKg(item.price)) }))
+    .filter(({ items }) => items.length)
+    .map(({ section, items }) => `<optgroup label="${section.title}">${items.map((item) => `<option value="${item.name}" data-price="${pricePerKg(item.price)}">${item.name} — ${item.price}</option>`).join("")}</optgroup>`)
+    .join("");
+
+  let tracked = false;
+  function update() {
+    const guests = Number(guestsInput.value);
+    const kg = suggestedKg(guests);
+    if (!kg) {
+      output.innerHTML = `<p class="calculator-empty">Informe o número de convidados para ver a sugestão.</p>`;
+      return;
+    }
+    const option = flavorSelect.selectedOptions[0];
+    const price = Number(option?.dataset.price) || null;
+    const flavor = flavorSelect.value;
+    const estimate = price ? formatMoney(kg * price) : null;
+    const message = [
+      "Olá, Ângela! Usei a calculadora do site:",
+      "",
+      `Convidados: ${guests}`,
+      `Tamanho sugerido: cerca de ${formatKg(kg)}`,
+      flavor ? `Sabor: ${flavor}` : "Sabor: ainda vou escolher",
+      estimate ? `Estimativa só do bolo: ${estimate}` : null,
+      "",
+      "Pode me ajudar com a decoração, a disponibilidade e o valor final?",
+    ].filter((line) => line !== null).join("\n");
+    const contactUrl = new URL("contato.html", window.location.href);
+    contactUrl.searchParams.set("convidados", String(guests));
+    if (flavor) contactUrl.searchParams.set("sabor", flavor);
+    contactUrl.hash = "quote-title";
+    output.innerHTML = `
+      <div class="calculator-figures">
+        <div><span class="calculator-label">Tamanho sugerido</span><strong>${formatKg(kg)}</strong><span class="calculator-note">para ${guests} ${guests === 1 ? "pessoa" : "pessoas"}, cerca de ${partyPlanning.gramsPerGuest} g cada</span></div>
+        ${estimate ? `<div><span class="calculator-label">Estimativa só do bolo</span><strong>${estimate}</strong><span class="calculator-note">${flavor} · ${option.textContent.split(" — ")[1]}</span></div>` : ""}
+      </div>
+      <p class="calculator-disclaimer">Estimativa pelo preço por quilo do cardápio. Decoração, topo personalizado, andares e entrega são orçados à parte, e a Ângela confirma o tamanho ideal.</p>
+      <div class="button-row"><a class="button" data-calculator-send href="${whatsappLink(message)}">Pedir orçamento com esses dados</a><a class="button button-outline" href="${contactUrl.pathname + contactUrl.search + contactUrl.hash}">Preencher pedido completo</a></div>`;
+    if (!tracked && trackEvent("calculator_use")) tracked = true;
+  }
+  form.addEventListener("input", update);
+  form.addEventListener("submit", (event) => event.preventDefault());
+  update();
 }
 
 function setupAddressMap() {
@@ -396,6 +572,9 @@ renderHome();
 renderCatalog();
 renderMenu();
 renderPortfolio();
+renderClientPhotos();
+setupSaveToggles((name, active) => { if (active) trackEvent("inspiration_save", { item_name: name }); });
+setupPartyCalculator();
 setupImageFeedback();
 setupQuoteForm();
 setupAddressMap();
