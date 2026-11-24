@@ -25,11 +25,16 @@ function imageMarkup(name, alt, { loading = "lazy", sizes = "100vw", imageClass 
   return `<img${className} src="${path}"${responsive}${fallback} alt="${alt}"${dimensions} loading="${loading}" decoding="async"${dragAttribute}>`;
 }
 
-function framedImageMarkup(name, alt, options = {}) {
+// Preenche o quadro quando a foto tem quase a mesma proporção dele (corta pouco);
+// caso contrário, mostra a foto inteira sobre um fundo desfocado.
+const coverTolerance = 0.2;
+function framedImageMarkup(name, alt, { frameRatio, ...options } = {}) {
   const path = imagePath(name);
   const asset = imageManifest[path.split("/").pop()];
   const backdropPath = asset?.sources?.[0]?.url || path;
-  return `<span class="photo-frame" style="--photo-backdrop: url('${backdropPath}')"><span class="photo-frame-backdrop" aria-hidden="true"></span>${imageMarkup(name, alt, { ...options, imageClass: "photo-frame-image" })}</span>`;
+  const photoRatio = asset ? asset.width / asset.height : null;
+  const cover = frameRatio && photoRatio && Math.abs(photoRatio - frameRatio) / frameRatio <= coverTolerance;
+  return `<span class="photo-frame${cover ? " photo-frame-cover" : ""}" style="--photo-backdrop: url('${backdropPath}')"><span class="photo-frame-backdrop" aria-hidden="true"></span>${imageMarkup(name, alt, { ...options, imageClass: "photo-frame-image" })}</span>`;
 }
 
 function setupImageFeedback() {
@@ -120,53 +125,33 @@ function renderFooter() {
 function productCard(product) {
   const orderUrl = new URL("https://wa.me/" + site.whatsappPhone);
   orderUrl.searchParams.set("text", "Olá, Ângela! Tenho interesse em " + product.name + ". Você pode me informar as opções e os valores para a minha data?");
-  return `<article class="product-card" data-product-name="${product.name}">${framedImageMarkup(product.image, product.name, { loading: "lazy", sizes: productImageSizes })}<div class="card-copy"><p class="eyebrow">${product.category}</p><h3>${product.name}</h3><p>${product.description}</p>${product.detail ? `<p class="muted">${product.detail}</p>` : ""}<a class="button button-outline full-button" data-product-order="${product.name}" href="${orderUrl.href}">Quero encomendar</a></div></article>`;
+  return `<article class="product-card" data-product-name="${product.name}">${framedImageMarkup(product.image, product.name, { loading: "lazy", sizes: productImageSizes, frameRatio: 4 / 5 })}<div class="card-copy"><p class="eyebrow">${product.category}</p><h3>${product.name}</h3><p>${product.description}</p>${product.detail ? `<p class="muted">${product.detail}</p>` : ""}<a class="button button-outline full-button" data-product-order="${product.name}" href="${orderUrl.href}">Quero encomendar</a></div></article>`;
 }
 function renderHome() {
   renderHomeShowcase();
 }
-function renderHomeShowcase() {
-  const root = document.querySelector("#home-showcase");
-  const track = document.querySelector("#home-showcase-track");
-  if (!root || !track) return;
-
-  const items = homeFeaturedProducts.map((item) => ({
-    eyebrow: item.category,
-    name: item.name,
-    description: item.description,
-    image: item.image,
-    action: "Ver no catálogo",
-    href: "catalogo.html",
-  }));
-  const dots = document.querySelector("#home-showcase-dots");
-  const counter = document.querySelector("#home-showcase-count");
-  const pauseButton = document.querySelector("#home-showcase-toggle");
+// Carrossel compartilhado pela vitrine da home e pela galeria do portfólio.
+function setupCarousel({ root, track, dots, counter, pauseButton, photoSelector }) {
+  const slides = [...track.children];
+  const total = slides.length;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let index = 0;
   let timer;
   let pointerStartX = null;
   let swipeInProgress = false;
   let userPaused = false;
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let paused = reducedMotion.matches;
 
-  track.innerHTML = items.map((item, itemIndex) => `
-    <article class="home-showcase-slide" ${itemIndex > 1 ? 'inert aria-hidden="true"' : ""}>
-      <button class="home-showcase-photo" type="button" aria-label="${item.name}. Clique para avançar para a próxima foto.">
-        ${framedImageMarkup(item.image, item.name, { loading: itemIndex < 2 ? "eager" : "lazy", sizes: carouselImageSizes, draggable: true })}
-      </button>
-      <div class="home-showcase-copy"><p class="eyebrow">${item.eyebrow}</p><h3>${item.name}</h3><p>${item.description}</p><a class="button button-outline" href="${item.href}">${item.action}</a></div>
-    </article>`).join("");
-  const slides = [...track.children];
-
   function show(next) {
-    index = (next + items.length) % items.length;
+    index = (next + total) % total;
     track.style.transform = `translateX(-${index * 100}%)`;
     slides.forEach((slide, slideIndex) => {
       const active = slideIndex === index;
+      slide.classList.toggle("active", active);
       slide.toggleAttribute("inert", !active);
       slide.setAttribute("aria-hidden", String(!active));
     });
-    counter.textContent = `${String(index + 1).padStart(2, "0")} / ${String(items.length).padStart(2, "0")}`;
+    counter.textContent = `${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
     dots.querySelectorAll("button").forEach((button, dotIndex) => {
       const active = dotIndex === index;
       button.classList.toggle("active", active);
@@ -180,23 +165,28 @@ function renderHomeShowcase() {
       timer = setTimeout(() => { show(index + 1); restartTimer(); }, 4500);
     }
   }
+  function go(next) { show(next); restartTimer(); }
   function updatePauseButton() {
     pauseButton.textContent = paused ? "Retomar apresentação" : "Pausar apresentação";
     pauseButton.setAttribute("aria-pressed", String(paused));
   }
-
-  dots.innerHTML = items.map((_, dotIndex) => `<button type="button" aria-label="Ir para foto ${dotIndex + 1}"></button>`).join("");
-  dots.addEventListener("click", (event) => {
-    const dotIndex = [...dots.children].indexOf(event.target);
-    if (dotIndex >= 0) { show(dotIndex); restartTimer(); }
-  });
-  root.querySelector(".previous").addEventListener("click", () => { show(index - 1); restartTimer(); });
-  root.querySelector(".next").addEventListener("click", () => { show(index + 1); restartTimer(); });
-  track.addEventListener("click", (event) => {
-    if (!event.target.closest(".home-showcase-photo")) return;
-    if (swipeInProgress) { swipeInProgress = false; event.preventDefault(); return; }
-    show(index + 1);
+  function updatePaused() {
+    paused = userPaused || reducedMotion.matches;
+    updatePauseButton();
     restartTimer();
+  }
+
+  dots.innerHTML = slides.map((_, dotIndex) => `<button type="button" aria-label="Ir para foto ${dotIndex + 1}"></button>`).join("");
+  dots.addEventListener("click", (event) => {
+    const dotIndex = [...dots.children].indexOf(event.target.closest("button"));
+    if (dotIndex >= 0) go(dotIndex);
+  });
+  root.querySelector(".gallery-arrow.previous").addEventListener("click", () => go(index - 1));
+  root.querySelector(".gallery-arrow.next").addEventListener("click", () => go(index + 1));
+  track.addEventListener("click", (event) => {
+    if (!event.target.closest(photoSelector)) return;
+    if (swipeInProgress) { swipeInProgress = false; event.preventDefault(); return; }
+    go(index + 1);
   });
   root.addEventListener("pointerdown", (event) => {
     if (event.target.closest(".gallery-arrow")) return;
@@ -208,33 +198,43 @@ function renderHomeShowcase() {
     pointerStartX = null;
     if (Math.abs(distance) < 45) return;
     swipeInProgress = true;
-    show(index + (distance < 0 ? 1 : -1));
-    restartTimer();
+    go(index + (distance < 0 ? 1 : -1));
   });
   root.addEventListener("pointercancel", () => { pointerStartX = null; });
   root.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft") { show(index - 1); restartTimer(); }
-    if (event.key === "ArrowRight") { show(index + 1); restartTimer(); }
+    if (event.key === "ArrowLeft") go(index - 1);
+    if (event.key === "ArrowRight") go(index + 1);
   });
   root.addEventListener("mouseenter", () => clearTimeout(timer));
   root.addEventListener("mouseleave", restartTimer);
   root.addEventListener("focusin", () => clearTimeout(timer));
   root.addEventListener("focusout", (event) => { if (!root.contains(event.relatedTarget)) restartTimer(); });
-  pauseButton.addEventListener("click", () => {
-    userPaused = !userPaused;
-    paused = userPaused || reducedMotion.matches;
-    updatePauseButton();
-    restartTimer();
-  });
-  reducedMotion.addEventListener("change", () => {
-    paused = userPaused || reducedMotion.matches;
-    updatePauseButton();
-    restartTimer();
-  });
+  pauseButton.addEventListener("click", () => { userPaused = !userPaused; updatePaused(); });
+  reducedMotion.addEventListener("change", updatePaused);
   document.addEventListener("visibilitychange", restartTimer);
   show(0);
   updatePauseButton();
   restartTimer();
+}
+
+function renderHomeShowcase() {
+  const root = document.querySelector("#home-showcase");
+  const track = document.querySelector("#home-showcase-track");
+  if (!root || !track) return;
+  track.innerHTML = homeFeaturedProducts.map((item, itemIndex) => `
+    <article class="home-showcase-slide">
+      <button class="home-showcase-photo" type="button" aria-label="${item.name}. Clique para avançar para a próxima foto.">
+        ${framedImageMarkup(item.image, item.name, { loading: itemIndex < 1 ? "eager" : "lazy", sizes: carouselImageSizes, draggable: true })}
+      </button>
+      <div class="home-showcase-copy"><p class="eyebrow">${item.category}</p><h3>${item.name}</h3><p>${item.description}</p><a class="button button-outline" href="catalogo.html">Ver no catálogo</a></div>
+    </article>`).join("");
+  setupCarousel({
+    root, track,
+    dots: document.querySelector("#home-showcase-dots"),
+    counter: document.querySelector("#home-showcase-count"),
+    pauseButton: document.querySelector("#home-showcase-toggle"),
+    photoSelector: ".home-showcase-photo",
+  });
 }
 function renderCatalog() {
   const filters = ["Todos", ...categories.map((item) => item.name)];
@@ -304,123 +304,34 @@ function renderPortfolio() {
   if (processBox) {
     processBox.innerHTML = processVideos.map((item, index) => `
       <figure class="process-card">
-        <video class="process-video" controls preload="metadata" playsinline aria-labelledby="process-video-title-${index + 1}">
+        <video class="process-video" controls preload="none" playsinline${item.muted ? " muted" : ""}${item.poster ? ` poster="${item.poster}"` : ""} width="848" height="478" aria-labelledby="process-video-title-${index + 1}">
           <source src="${item.src}" type="video/mp4">
           Seu navegador não consegue reproduzir este vídeo.
         </video>
-        <figcaption class="card-copy"><p class="eyebrow">Processo de criação</p><h3 id="process-video-title-${index + 1}">${item.title}</h3></figcaption>
+        <figcaption class="card-copy"><p class="eyebrow">Bastidores · ${index + 1} de ${processVideos.length}</p><h3 id="process-video-title-${index + 1}">${item.title}</h3></figcaption>
         <p class="process-video-error" role="status" hidden>Não foi possível carregar este vídeo. Tente novamente mais tarde.</p>
       </figure>`).join("");
     processBox.querySelectorAll("video").forEach((video) => {
-      video.addEventListener("error", () => {
-        video.closest(".process-card").querySelector(".process-video-error").hidden = false;
-      });
+      const showError = () => { video.closest(".process-card").querySelector(".process-video-error").hidden = false; };
+      // Falhas de rede/arquivo disparam "error" no <source>, não no <video>.
+      video.addEventListener("error", showError);
+      video.querySelector("source")?.addEventListener("error", showError);
     });
   }
   const track = document.querySelector("#gallery-track");
   if (!track || !gallery.length) return;
-  const dots = document.querySelector("#gallery-dots");
-  const counter = document.querySelector("#gallery-count");
-  let index = 0;
-  let timer;
-  let userPaused = false;
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  let pointerStartX = null;
-  let swipeInProgress = false;
-  let paused = reducedMotion.matches;
-  const pauseButton = document.querySelector("#gallery-toggle");
   track.innerHTML = gallery.map((item, slideIndex) => `
-    <button class="gallery-photo" type="button" aria-label="Foto ${slideIndex + 1} de ${gallery.length}: ${item.alt}. Clique para avançar." ${slideIndex > 1 ? 'tabindex="-1" inert' : ""}>
-      ${framedImageMarkup(item.image, item.alt, { loading: slideIndex < 2 ? "eager" : "lazy", sizes: carouselImageSizes, draggable: true })}
+    <button class="gallery-photo" type="button" aria-label="Foto ${slideIndex + 1} de ${gallery.length}: ${item.alt}. Clique para avançar.">
+      ${framedImageMarkup(item.image, item.alt, { loading: slideIndex < 1 ? "eager" : "lazy", sizes: carouselImageSizes, draggable: true })}
     </button>`).join("");
-  const slides = [...track.children];
-  function show(next) {
-    index = (next + gallery.length) % gallery.length;
-    track.style.transform = `translateX(-${index * 100}%)`;
-    slides.forEach((slide, slideIndex) => {
-      const active = slideIndex === index;
-      slide.classList.toggle("active", active);
-      slide.toggleAttribute("inert", !active);
-      slide.setAttribute("aria-hidden", String(!active));
-      slide.tabIndex = active ? 0 : -1;
-    });
-    counter.textContent = `${String(index + 1).padStart(2, "0")} / ${String(gallery.length).padStart(2, "0")}`;
-    dots.querySelectorAll("button").forEach((button, dotIndex) => {
-      const active = dotIndex === index;
-      button.classList.toggle("active", active);
-      if (active) button.setAttribute("aria-current", "true");
-      else button.removeAttribute("aria-current");
-    });
-  }
-  function restartTimer() {
-    clearTimeout(timer);
-    if (!paused && !document.hidden && !document.querySelector("#gallery:hover") && !document.querySelector("#gallery:focus-within")) {
-      timer = setTimeout(() => { show(index + 1); restartTimer(); }, 4500);
-    }
-  }
-  function updatePauseButton() {
-    pauseButton.textContent = paused ? "Retomar apresentação" : "Pausar apresentação";
-    pauseButton.setAttribute("aria-pressed", String(paused));
-  }
-  pauseButton.addEventListener("click", () => {
-    userPaused = !userPaused;
-    paused = userPaused || reducedMotion.matches;
-    updatePauseButton();
-    restartTimer();
+  setupCarousel({
+    root: document.querySelector("#gallery"),
+    track,
+    dots: document.querySelector("#gallery-dots"),
+    counter: document.querySelector("#gallery-count"),
+    pauseButton: document.querySelector("#gallery-toggle"),
+    photoSelector: ".gallery-photo",
   });
-  document.addEventListener("visibilitychange", () => {
-    restartTimer();
-  });
-  const galleryElement = document.querySelector("#gallery");
-  galleryElement.addEventListener("mouseenter", () => clearTimeout(timer));
-  galleryElement.addEventListener("mouseleave", restartTimer);
-  galleryElement.addEventListener("focusin", () => clearTimeout(timer));
-  galleryElement.addEventListener("focusout", (event) => {
-    if (!galleryElement.contains(event.relatedTarget)) restartTimer();
-  });
-  galleryElement.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft") { show(index - 1); restartTimer(); }
-    if (event.key === "ArrowRight") { show(index + 1); restartTimer(); }
-  });
-  galleryElement.addEventListener("pointerdown", (event) => {
-    if (event.target.closest(".gallery-arrow")) return;
-    pointerStartX = event.clientX;
-  });
-  galleryElement.addEventListener("pointerup", (event) => {
-    if (pointerStartX === null) return;
-    const distance = event.clientX - pointerStartX;
-    pointerStartX = null;
-    if (Math.abs(distance) < 45) return;
-    swipeInProgress = true;
-    show(index + (distance < 0 ? 1 : -1));
-    restartTimer();
-  });
-  galleryElement.addEventListener("pointercancel", () => { pointerStartX = null; });
-  track.addEventListener("click", (event) => {
-    if (!event.target.closest(".gallery-photo")) return;
-    if (swipeInProgress) {
-      swipeInProgress = false;
-      event.preventDefault();
-      return;
-    }
-    show(index + 1);
-    restartTimer();
-  });
-  reducedMotion.addEventListener("change", () => {
-    paused = userPaused || reducedMotion.matches;
-    updatePauseButton();
-    restartTimer();
-  });
-  dots.innerHTML = gallery.map((_, dotIndex) => `<button type="button" aria-label="Ir para foto ${dotIndex + 1}"></button>`).join("");
-  dots.addEventListener("click", (event) => {
-    const dotIndex = [...dots.children].indexOf(event.target);
-    if (dotIndex >= 0) { show(dotIndex); restartTimer(); }
-  });
-  document.querySelector(".gallery .previous").addEventListener("click", () => { show(index - 1); restartTimer(); });
-  document.querySelector(".gallery .next").addEventListener("click", () => { show(index + 1); restartTimer(); });
-  show(0);
-  updatePauseButton();
-  restartTimer();
 }
 
 function setupQuoteForm() {
@@ -464,6 +375,21 @@ function setupQuoteForm() {
   });
 }
 
+function setupAddressMap() {
+  const frame = document.querySelector("#address-map");
+  if (!frame) return;
+  frame.querySelector("[data-load-map]")?.addEventListener("click", () => {
+    const iframe = document.createElement("iframe");
+    iframe.title = "Mapa com a localização da confeitaria";
+    iframe.src = `https://www.google.com/maps?q=${encodeURIComponent(frame.dataset.mapQuery)}&output=embed`;
+    iframe.loading = "lazy";
+    iframe.referrerPolicy = "no-referrer-when-downgrade";
+    iframe.allowFullscreen = true;
+    frame.replaceChildren(iframe);
+    iframe.focus();
+  });
+}
+
 renderHeader();
 renderFooter();
 renderHome();
@@ -472,4 +398,5 @@ renderMenu();
 renderPortfolio();
 setupImageFeedback();
 setupQuoteForm();
+setupAddressMap();
 setupAnalytics();

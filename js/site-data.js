@@ -5,15 +5,16 @@ export const site = {
   name: "Ângela Oliveira",
   oldName: "antiga Pimenta Rosa Festas",
   city: "São Paulo, SP",
-  whatsapp: "https://wa.me/message/2NQZ64SODALVE1",
   whatsappPhone: "5511984383266",
+  // Link padrão do WhatsApp, com mensagem pronta. Use o mesmo formato (wa.me/número?text=...) em todo o site.
+  whatsapp: `https://wa.me/5511984383266?text=${encodeURIComponent("Olá, Ângela! Vim pelo site e gostaria de fazer uma encomenda.")}`,
   email: "angelaoliveira.cakedesigner@gmail.com",
   instagram: "https://www.instagram.com/angelaoliveira.cakedesing/",
   links: "https://beacons.ai/angelacake",
   logo: footerLogoAsset.url,
   footerLogo: footerLogoAsset.url,
   // Cópia local usada se o CDN do Lovable não responder (por exemplo, fora da hospedagem do Lovable).
-  logoFallback: "/images/marca/angela-logo-circular.png",
+  logoFallback: "/images/marca/angela-logo-circular.webp",
 };
 
 export const categories = [
@@ -29,7 +30,7 @@ export const products = [
   { name: "Bolo pink 15 anos", category: "Bolos comemorativos", description: "Pink metálico espatulado, rosas em papel e nome personalizado em dourado.", detail: "Andar único · nome personalizado", image: "catalogo/bolo-3.jpg" },
   { name: "Bolo uvas e vinho", category: "Bolos florais e frutas", description: "Drip vinho sobre chantilly texturizado, com uvas frescas e detalhes cintilantes.", detail: "Andar único", image: "catalogo/bolo-4.jpg" },
   { name: "Bolo rock'n'roll", category: "Bolos temáticos", description: "Cobertura preta acetinada, topo de guitarra, estrelas e nome em relevo.", detail: "Andar único", image: "catalogo/bolo-5.jpg" },
-  { name: "Bolo TikTok", category: "Bolos temáticos", description: "Espatulado rosa e azul com respingos dourados e topo de aplicativos favoritos.", detail: "Andar único", image: "catalogo/bolo-6.jpg" },
+  { name: "Bolo tema redes sociais", category: "Bolos temáticos", description: "Espatulado rosa e azul com respingos dourados e topo com os aplicativos favoritos.", detail: "Andar único", image: "catalogo/bolo-6.jpg" },
   { name: "Bolo safári", category: "Bolos temáticos", description: "Dois andares com tronco em chocolate texturizado, gramado e bichinhos da savana.", detail: "Dois andares", image: "catalogo/bolo-7.jpg" },
   { name: "Bolo unicórnio surpresa", category: "Bolos comemorativos", description: "Azul em rosetas e babados, confeitos coloridos e unicórnio modelado à mão.", detail: "Andar único · recheio surpresa", image: "catalogo/bolo-8.jpg" },
   { name: "Bolo super-herói", category: "Bolos temáticos", description: "Cenário em relevo com base dourada, verde vibrante e topo do herói preferido.", detail: "Dois andares", image: "catalogo/bolo-9.jpg" },
@@ -153,7 +154,7 @@ export const gallery = [
 ].map(([alt, image]) => ({ image: `/images/portfolio/${image}`, alt }));
 
 export const processVideos = [
-  { title: "Momento 1", src: "/videos/processo-bolo-01.mp4" },
-  { title: "Momento 2", src: "/videos/processo-bolo-02.mp4" },
-  { title: "Momento 3", src: "/videos/processo-bolo-03.mp4" },
+  { title: "Cupcakes de chocolate no forno", src: "/videos/processo-bolo-01.mp4", poster: "/images/portfolio/videos/processo-bolo-01.webp", muted: true },
+  { title: "Massa branca crescendo", src: "/videos/processo-bolo-02.mp4", poster: "/images/portfolio/videos/processo-bolo-02.webp" },
+  { title: "Pão de ló no ponto", src: "/videos/processo-bolo-03.mp4", poster: "/images/portfolio/videos/processo-bolo-03.webp" },
 ];

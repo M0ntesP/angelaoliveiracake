@@ -488,5 +488,61 @@
         "width": 960
       }
     ]
+  },
+  "bolo-azul-primeiro-aniversario.jpg": {
+    "width": 517,
+    "height": 529,
+    "sources": [
+      {
+        "url": "/images/optimized/feedback/bolo-azul-primeiro-aniversario-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/feedback/bolo-azul-primeiro-aniversario-517.webp",
+        "width": 517
+      }
+    ]
+  },
+  "bolo-festa-15-anos.jpg": {
+    "width": 1200,
+    "height": 1600,
+    "sources": [
+      {
+        "url": "/images/optimized/feedback/bolo-festa-15-anos-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/feedback/bolo-festa-15-anos-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "familia-bolo-comemoracao-rosa.jpg": {
+    "width": 1200,
+    "height": 1600,
+    "sources": [
+      {
+        "url": "/images/optimized/feedback/familia-bolo-comemoracao-rosa-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/feedback/familia-bolo-comemoracao-rosa-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "familia-bolo-infantil-azul.jpg": {
+    "width": 1060,
+    "height": 1200,
+    "sources": [
+      {
+        "url": "/images/optimized/feedback/familia-bolo-infantil-azul-480.webp",
+        "width": 480
+      },
+      {
+        "url": "/images/optimized/feedback/familia-bolo-infantil-azul-960.webp",
+        "width": 960
+      }
+    ]
   }
 }
