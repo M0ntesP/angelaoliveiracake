@@ -1,4 +1,4 @@
-import { site, categories, products, homeFeaturedProducts, menuPages, gallery, processVideos } from "./site-data.js";
+import { site, categories, products, homeFeaturedProducts, menuSections, menuNotes, gallery, processVideos } from "./site-data.js";
 import imageManifest from "./image-manifest.json";
 import { setupAnalytics, trackEvent } from "./analytics.js";
 
@@ -85,7 +85,7 @@ function renderHeader() {
   document.querySelector("#site-header").innerHTML = `
     <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
     <header class="site-header"><div class="container header-inner">
-      <a class="brand" href="index.html" aria-label="Ângela Oliveira — início"><img src="${site.logo}" alt="Ângela Oliveira — Confeitaria Brasileira"></a>
+      <a class="brand" href="index.html" aria-label="Ângela Oliveira — início"><img src="${site.logo}" data-fallback-src="${site.logoFallback}" alt="Ângela Oliveira — Confeitaria Brasileira" width="360" height="360"></a>
       <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-controls="main-navigation" aria-expanded="false">☰</button>
       <nav class="main-nav" id="main-navigation" aria-label="Navegação principal">${pageLinks.map(([id, label, url]) => `<a ${currentPage === id ? 'aria-current="page"' : ""} href="${url}">${label}</a>`).join("")}<a class="button nav-order" href="${site.whatsapp}">Encomendar</a></nav>
     </div></header>`;
@@ -111,7 +111,7 @@ function renderHeader() {
 function renderFooter() {
   document.querySelector("#site-footer").innerHTML = `
     <footer class="site-footer"><div class="container footer-grid">
-      <div><img class="footer-logo" src="${site.footerLogo}" alt="Ângela Oliveira — Confeitaria Brasileira" width="486" height="486" loading="lazy"><p>Confeitaria Brasileira. Sabores que contam histórias. Encomendas sob medida em ${site.city}.</p></div>
+      <div><img class="footer-logo" src="${site.footerLogo}" data-fallback-src="${site.logoFallback}" alt="Ângela Oliveira — Confeitaria Brasileira" width="486" height="486" loading="lazy"><p>Confeitaria Brasileira. Sabores que contam histórias. Encomendas sob medida em ${site.city}.</p></div>
       <div><p class="eyebrow">Navegar</p><ul>${pageLinks.slice(1).map(([, label, url]) => `<li><a href="${url}">${label}</a></li>`).join("")}<li><a href="${site.instagram}" target="_blank" rel="noopener">Instagram</a></li><li><a href="${site.links}" target="_blank" rel="noopener">Todos os links</a></li></ul></div>
       <div><p class="eyebrow">Pedidos e contato</p><a class="button" href="${site.whatsapp}">Fazer encomenda pelo WhatsApp</a><p>Pedidos combinados pelo WhatsApp, sem carrinho ou pagamento online.</p><p class="eyebrow">E-mail</p><a class="footer-email" href="mailto:${site.email}">${site.email}</a></div>
     </div><div class="copyright">© ${new Date().getFullYear()} ${site.name} · ${site.city}</div></footer>`;
@@ -281,8 +281,23 @@ function renderCatalog() {
   document.querySelector("#catalog-categories").innerHTML = categories.map((item) => `<article class="category-note"><h2>${item.name}</h2><p>${item.description}</p></article>`).join("");
 }
 function renderMenu() {
-  const target = document.querySelector("#menu-pages");
-  if (target) target.innerHTML = menuPages.map((url, index) => imageMarkup(url, "Cardápio — página " + (index + 1) + " de " + menuPages.length, { loading: index === 0 ? "eager" : "lazy", sizes: "(max-width: 850px) calc(100vw - 40px), 850px" })).join("");
+  const target = document.querySelector("#menu-sections");
+  if (!target) return;
+  const nav = document.querySelector("#menu-nav");
+  if (nav) nav.innerHTML = menuSections.map((section) => `<a class="filter-button" href="#${section.id}">${section.title.replace(/^Bolos /, "")}</a>`).join("");
+  target.innerHTML = menuSections.map((section) => `
+    <section class="menu-section" id="${section.id}" aria-labelledby="${section.id}-title">
+      <h2 id="${section.id}-title">${section.title}</h2>
+      ${section.intro ? `<p class="menu-section-intro">${section.intro}</p>` : ""}
+      ${section.prices ? `<dl class="menu-unit-prices">${section.prices.map(([label, price]) => `<div><dt>${label}</dt><dd>${price}</dd></div>`).join("")}</dl>` : ""}
+      <ul class="menu-list">${section.items.map((item) => `
+        <li class="menu-item"><div class="menu-item-head"><h3>${item.name}</h3>${item.price ? `<span class="menu-leader" aria-hidden="true"></span><span class="menu-price">${item.price}</span>` : ""}</div><p>${item.description}</p></li>`).join("")}
+      </ul>
+    </section>`).join("") + `
+    <section class="menu-section menu-notes" aria-labelledby="menu-notes-title">
+      <h2 id="menu-notes-title">Observações</h2>
+      <ul>${menuNotes.map((note) => `<li>${note}</li>`).join("")}</ul>
+    </section>`;
 }
 function renderPortfolio() {
   const processBox = document.querySelector("#process-videos");

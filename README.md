@@ -12,8 +12,8 @@ Site institucional feito com HTML, CSS e JavaScript sem framework.
 - `public/images/catalogo/`: fotos dos bolos e doces do catálogo.
 - `public/images/portfolio/`: fotos do portfólio e das celebrações.
 - `public/images/perfil/`: retratos e fotos da equipe usados na apresentação.
-- `public/images/cardapio/`: PDF e páginas do cardápio.
-- `public/images/marca/`: logo pública do site; a arte oficial do rodapé usa o ponteiro de CDN em `src/assets/`.
+- `public/images/cardapio/`: PDF do cardápio. Os sabores e preços ficam em `js/site-data.js` (`menuSections`); o PDF é gerado imprimindo a página `cardapio.html` (Imprimir → Salvar como PDF, tamanho A4).
+- `public/images/marca/`: logo pública, cópia circular local do logo (reserva caso o CDN falhe) e `compartilhamento.jpg` (prévia de links, 1200×630); a arte oficial do topo e do rodapé usa o ponteiro de CDN em `src/assets/`.
 - `public/images/optimized/`: versões WebP separadas por catálogo, portfólio e perfil.
 - `public/videos/`: vídeos dos bastidores de criação.
 - `archive/brand-history/`: versões antigas de artes preservadas fora dos arquivos publicados.
