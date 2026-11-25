@@ -2,6 +2,7 @@
 // para a Ângela pelo WhatsApp (ou junto com o pedido de orçamento). Fica salvo só no
 // navegador da pessoa; se o armazenamento estiver bloqueado, vale enquanto a página estiver aberta.
 import { products } from "./site-data.js";
+import { saveToggleMarkup as toggleMarkup } from "./render.js";
 
 const storageKey = "inspiracoes-v1";
 // Só nomes que ainda existem no catálogo: um bolo renomeado ou removido sai da lista sozinho.
@@ -57,8 +58,7 @@ window.addEventListener("storage", (event) => {
 });
 
 export function saveToggleMarkup(name, { compact = false } = {}) {
-  const active = inspirations.has(name);
-  return `<button class="save-toggle${compact ? " save-toggle-compact" : ""}" type="button" data-save="${name}" aria-pressed="${active}" aria-label="${active ? "Remover das" : "Salvar nas"} minhas inspirações: ${name}"><span class="save-icon" aria-hidden="true">${active ? "♥" : "♡"}</span><span class="save-label">${active ? "Salvo" : "Salvar"}</span></button>`;
+  return toggleMarkup(name, { compact, active: inspirations.has(name) });
 }
 
 function syncToggleButtons() {
