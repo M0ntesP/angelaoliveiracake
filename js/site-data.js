@@ -1,9 +1,8 @@
-import footerLogoAsset from "../src/assets/angela-logo-rodape-circular.png.asset.json";
+import footerLogoAsset from "../src/assets/angela-logo-rodape-circular.png.asset.json" with { type: "json" };
 
 // Conteúdo do site em um só lugar para facilitar as atualizações.
 export const site = {
   name: "Ângela Oliveira",
-  oldName: "antiga Pimenta Rosa Festas",
   city: "São Paulo, SP",
   whatsappPhone: "5511984383266",
   phoneDisplay: "(11) 98438-3266",
@@ -49,13 +48,12 @@ export const products = [
   { name: "Bolo verde-menta com pérolas douradas", category: "Bolos comemorativos", description: "Acabamento verde-menta com trabalho de bicos e pérolas douradas.", detail: "Cores personalizáveis", image: "catalogo/bolo-verde-menta-perolado.jpg" },
 ];
 
-// Vitrine da página inicial, na ordem em que aparece. O bolo de morangos (bolo-1) fica de fora
-// porque já é a foto de capa logo acima.
+// Vitrine da página inicial (grade de 6 fotos), na ordem em que aparece. Ficam de fora as fotos
+// que a página inicial já mostra: as dos cartões "Escolha pela ocasião" (categories acima)
+// e a do bloco final "Pronta para adoçar a sua data?" (bolo-rosa-flores-douradas, em index.html).
 const homeFeaturedImagePaths = [
-  "catalogo/bolo-3.jpg", "catalogo/bolo-7.jpg", "catalogo/bolo-rosa-flores-douradas.jpg",
-  "catalogo/bolo-10.jpg", "catalogo/bolo-5.jpg", "catalogo/bolo-lilas-borboletas.jpg",
-  "catalogo/bolo-4.jpg", "catalogo/bolo-9.jpg", "catalogo/bolo-rosa-floral-topo-personalizado.jpg",
-  "catalogo/bolo-infantil-personagens-azul.jpg", "catalogo/coracao-de-chocolate-decorado.jpg",
+  "catalogo/bolo-1.jpg", "catalogo/bolo-3.jpg", "catalogo/bolo-10.jpg",
+  "catalogo/bolo-5.jpg", "catalogo/bolo-2.jpg", "catalogo/bolo-rosa-floral-topo-personalizado.jpg",
 ];
 export const homeFeaturedProducts = homeFeaturedImagePaths.map((path) => products.find((item) => item.image === path)).filter(Boolean);
 

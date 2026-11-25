@@ -1,51 +1,18 @@
-import { site, categories, products, homeFeaturedProducts, clientPhotos, menuSections, menuNotes, gallery, processVideos, partyPlanning } from "./site-data.js";
-import imageManifest from "./image-manifest.json";
+import { products, homeFeaturedProducts, clientPhotos, menuSections, gallery, processVideos, partyPlanning } from "./site-data.js";
 import { setupAnalytics, trackEvent } from "./analytics.js";
 import { openLightbox } from "./lightbox.js";
 import { inspirations, saveToggleMarkup, setupSaveToggles, inspirationsMessage } from "./inspirations.js";
 import { pricePerKg, suggestedKg, formatKg, formatMoney, daysUntil, leadTimeHint } from "./party-planning.js";
+import {
+  siteOrigin, savedFilter, heartIcon, catalogFilters, lightboxImageSizes, whatsappLink, imageMarkup, framedImageMarkup,
+  headerMarkup, footerMarkup, productOrderLink, productCard, catalogFiltersMarkup, categoryNotesMarkup,
+  occasionsMarkup, showcaseMarkup, clientPhotosMarkup, menuNavMarkup, menuSectionsMarkup,
+} from "./render.js";
 
-// Elementos compartilhados e interações pequenas do site.
-const pageLinks = [
-  ["inicio", "Início", "index.html"], ["catalogo", "Catálogo", "catalogo.html"],
-  ["cardapio", "Cardápio", "cardapio.html"], ["portfolio", "Portfólio", "portfolio.html"],
-  ["feedback", "Feedback", "feedback.html"], ["endereco", "Endereço", "endereco.html"], ["contato", "Contato", "contato.html"],
-];
+// Elementos compartilhados e interações pequenas do site. O HTML de cabeçalho, rodapé, catálogo,
+// cardápio e vitrine já vem pronto do build (render.js); aqui ele é montado de novo e ganha as interações.
 const currentPage = document.body.dataset.page;
-const imagePath = (name) => name.startsWith("/images/") ? name : `/images/${name}`;
-const productImageSizes = "(max-width: 580px) calc(100vw - 30px), (max-width: 850px) calc((100vw - 66px) / 2), 356px";
 const carouselImageSizes = "(max-width: 630px) calc(100vw - 30px), 600px";
-const lightboxImageSizes = "(max-width: 900px) 100vw, 640px";
-const siteOrigin = "https://angelaoliveira.lovable.app";
-function whatsappLink(message) {
-  const url = new URL(`https://wa.me/${site.whatsappPhone}`);
-  url.searchParams.set("text", message);
-  return url.href;
-}
-
-function imageMarkup(name, alt, { loading = "lazy", sizes = "100vw", imageClass = "", draggable = false } = {}) {
-  const path = imagePath(name);
-  const asset = imageManifest[path.split("/").pop()];
-  const sourceSet = asset?.sources?.map(({ url, width }) => `${url} ${width}w`).join(", ");
-  const responsive = sourceSet ? ` srcset="${sourceSet}" sizes="${sizes}"` : "";
-  const dimensions = asset ? ` width="${asset.width}" height="${asset.height}"` : "";
-  const fallback = asset?.sources?.length ? ` data-fallback-src="${path}"` : "";
-  const className = imageClass ? ` class="${imageClass}"` : "";
-  const dragAttribute = draggable ? ' draggable="false"' : "";
-  return `<img${className} src="${path}"${responsive}${fallback} alt="${alt}"${dimensions} loading="${loading}" decoding="async"${dragAttribute}>`;
-}
-
-// Preenche o quadro quando a foto tem quase a mesma proporção dele (corta pouco);
-// caso contrário, mostra a foto inteira sobre um fundo desfocado.
-const coverTolerance = 0.2;
-function framedImageMarkup(name, alt, { frameRatio, forceCover = false, ...options } = {}) {
-  const path = imagePath(name);
-  const asset = imageManifest[path.split("/").pop()];
-  const backdropPath = asset?.sources?.[0]?.url || path;
-  const photoRatio = asset ? asset.width / asset.height : null;
-  const cover = forceCover || (frameRatio && photoRatio && Math.abs(photoRatio - frameRatio) / frameRatio <= coverTolerance);
-  return `<span class="photo-frame${cover ? " photo-frame-cover" : ""}" style="--photo-backdrop: url('${backdropPath}')"><span class="photo-frame-backdrop" aria-hidden="true"></span>${imageMarkup(name, alt, { ...options, imageClass: "photo-frame-image" })}</span>`;
-}
 
 function setupImageFeedback() {
   const fallbackSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1200"><rect width="960" height="1200" fill="#fbf6ee"/><path d="M330 450h300v250H330z" fill="none" stroke="#c99e53" stroke-width="18" stroke-linejoin="round"/><circle cx="410" cy="520" r="24" fill="#52765e"/><path d="m350 660 95-95 65 64 50-45 50 76" fill="none" stroke="#713c55" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><text x="480" y="780" text-anchor="middle" fill="#746967" font-family="Arial,sans-serif" font-size="30">Imagem temporariamente indisponível</text></svg>';
@@ -97,19 +64,12 @@ function setupImageFeedback() {
 }
 
 function renderHeader() {
-  document.querySelector("#site-header").innerHTML = `
-    <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
-    <header class="site-header"><div class="container header-inner">
-      <a class="brand" href="index.html" aria-label="Ângela Oliveira — início"><img src="${site.logo}" data-fallback-src="${site.logoFallback}" alt="Ângela Oliveira — Confeitaria Brasileira" width="360" height="360"></a>
-      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-controls="main-navigation" aria-expanded="false">☰</button>
-      <nav class="main-nav" id="main-navigation" aria-label="Navegação principal">${pageLinks.map(([id, label, url]) => `<a ${currentPage === id ? 'aria-current="page"' : ""} href="${url}">${label}</a>`).join("")}<a class="button nav-order" href="${site.whatsapp}">Encomendar</a></nav>
-    </div></header>`;
+  document.querySelector("#site-header").innerHTML = headerMarkup(currentPage);
   const toggle = document.querySelector(".menu-toggle");
   const navigation = document.querySelector("#main-navigation");
   function setMenuOpen(isOpen) {
     toggle.setAttribute("aria-expanded", String(isOpen));
     toggle.setAttribute("aria-label", isOpen ? "Fechar menu" : "Abrir menu");
-    toggle.textContent = isOpen ? "×" : "☰";
     navigation.classList.toggle("is-open", isOpen);
   }
   toggle.addEventListener("click", () => {
@@ -135,12 +95,9 @@ function renderFooter() {
       <div><p class="eyebrow">Pedidos e contato</p><a class="button" href="${site.whatsapp}">Fazer encomenda pelo WhatsApp</a><p>Pedidos combinados pelo WhatsApp, sem carrinho ou pagamento online.</p><p class="eyebrow">Telefone e WhatsApp</p><a class="footer-email" href="tel:+${site.whatsappPhone}">${site.phoneDisplay}</a><p class="eyebrow">E-mail</p><a class="footer-email" href="mailto:${site.email}">${site.email}</a></div>
     </div><div class="copyright">© ${new Date().getFullYear()} ${site.name} · ${site.city}</div></footer>
     <a class="whatsapp-float" href="${site.whatsapp}" aria-label="Conversar com a Ângela pelo WhatsApp"><svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 3C6.9 3 3 6.6 3 11.2c0 2.3 1 4.4 2.7 5.9L5 21l4.2-2c.9.2 1.8.4 2.8.4 5.1 0 9-3.6 9-8.2S17.1 3 12 3Zm-4 9.4a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Zm4 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Zm4 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Z"/></svg><span>Encomendar</span></a>`;
+  document.querySelector("#site-footer").innerHTML = footerMarkup();
 }
 
-const productOrderLink = (product) => whatsappLink(`Olá, Ângela! Tenho interesse em um bolo como o “${product.name}” do seu catálogo. Você pode me informar as opções e os valores para a minha data?`);
-function productCard(product) {
-  return `<article class="product-card" data-product-name="${product.name}"><div class="product-media"><button class="product-photo" type="button" data-zoom="${product.name}" aria-label="Ampliar foto: ${product.name}">${framedImageMarkup(product.image, product.name, { loading: "lazy", sizes: productImageSizes, frameRatio: 4 / 5 })}<span class="zoom-hint" aria-hidden="true">Ampliar</span></button>${saveToggleMarkup(product.name, { compact: true })}</div><div class="card-copy"><p class="eyebrow">${product.category}</p><h3>${product.name}</h3><p>${product.description}</p>${product.detail ? `<p class="muted">${product.detail}</p>` : ""}<a class="button button-outline full-button" data-product-order="${product.name}" href="${productOrderLink(product)}">Quero encomendar</a></div></article>`;
-}
 function productLightboxItem(product) {
   return {
     imageHtml: imageMarkup(product.image, product.name, { loading: "eager", sizes: lightboxImageSizes }),
@@ -154,7 +111,7 @@ function renderHome() {
   renderHomeShowcase();
   renderOccasions();
 }
-// Carrossel compartilhado pela vitrine da home e pela galeria do portfólio.
+// Carrossel da galeria de Páscoa do portfólio.
 function setupCarousel({ root, track, dots, counter, pauseButton, photoSelector }) {
   const slides = [...track.children];
   const total = slides.length;
@@ -246,33 +203,22 @@ function setupCarousel({ root, track, dots, counter, pauseButton, photoSelector 
 }
 
 function renderHomeShowcase() {
-  const root = document.querySelector("#home-showcase");
-  const track = document.querySelector("#home-showcase-track");
-  if (!root || !track) return;
-  track.innerHTML = homeFeaturedProducts.map((item, itemIndex) => `
-    <article class="home-showcase-slide">
-      <button class="home-showcase-photo" type="button" aria-label="${item.name}. Clique para avançar para a próxima foto.">
-        ${framedImageMarkup(item.image, item.name, { loading: itemIndex < 1 ? "eager" : "lazy", sizes: carouselImageSizes, draggable: true })}
-      </button>
-      <div class="home-showcase-copy"><p class="eyebrow">${item.category}</p><h3>${item.name}</h3><p>${item.description}</p><a class="button button-outline" href="catalogo.html">Ver no catálogo</a></div>
-    </article>`).join("");
-  setupCarousel({
-    root, track,
-    dots: document.querySelector("#home-showcase-dots"),
-    counter: document.querySelector("#home-showcase-count"),
-    pauseButton: document.querySelector("#home-showcase-toggle"),
-    photoSelector: ".home-showcase-photo",
+  const target = document.querySelector("#home-showcase");
+  if (!target) return;
+  target.innerHTML = showcaseMarkup();
+  target.addEventListener("click", (event) => {
+    const photo = event.target.closest("[data-showcase]");
+    if (!photo) return;
+    openLightbox(homeFeaturedProducts.map(productLightboxItem), Number(photo.dataset.showcase), {
+      onItemShow: (item) => trackEvent("product_zoom", { item_name: item.title }),
+    });
   });
-}
-function clientPhotoCard(item, itemIndex, { sizes, loading }) {
-  return `<figure class="feedback-photo-card"><a class="feedback-photo-link" href="${item.image}" data-client-photo="${itemIndex}" aria-label="Ampliar foto: ${item.caption}">${framedImageMarkup(item.image, item.alt, { loading, sizes })}</a><figcaption>${item.caption}</figcaption></figure>`;
 }
 function renderClientPhotos() {
   const targets = document.querySelectorAll("[data-client-photos]");
   targets.forEach((target) => {
     const limit = Number(target.dataset.clientPhotos) || clientPhotos.length;
-    const sizes = "(max-width: 850px) calc((100vw - 52px) / 2), 270px";
-    target.innerHTML = clientPhotos.slice(0, limit).map((item, itemIndex) => clientPhotoCard(item, itemIndex, { sizes, loading: itemIndex < 2 && currentPage === "feedback" ? "eager" : "lazy" })).join("");
+    target.innerHTML = clientPhotosMarkup(limit, currentPage);
     target.addEventListener("click", (event) => {
       const link = event.target.closest("[data-client-photo]");
       if (!link) return;
@@ -289,12 +235,7 @@ function renderClientPhotos() {
 
 function renderOccasions() {
   const target = document.querySelector("#home-occasions");
-  if (!target) return;
-  target.innerHTML = categories.map((item) => {
-    const count = products.filter((product) => product.category === item.name).length;
-    const url = `catalogo.html?categoria=${encodeURIComponent(item.name)}`;
-    return `<a class="occasion-card" href="${url}"><span class="occasion-arch">${framedImageMarkup(item.image, "", { loading: "lazy", sizes: "(max-width: 580px) calc(100vw - 30px), (max-width: 850px) calc((100vw - 56px) / 2), 260px", forceCover: true })}</span><span class="occasion-copy"><span class="occasion-name">${item.name}</span><span class="occasion-count">${count} ${count === 1 ? "modelo" : "modelos"} <span aria-hidden="true">→</span></span></span></a>`;
-  }).join("");
+  if (target) target.innerHTML = occasionsMarkup();
 }
 
 function setupMarquee() {
@@ -305,14 +246,11 @@ function setupMarquee() {
     const paused = toggle.getAttribute("aria-pressed") !== "true";
     toggle.setAttribute("aria-pressed", String(paused));
     toggle.setAttribute("aria-label", paused ? "Continuar o letreiro" : "Pausar o letreiro");
-    toggle.querySelector("span").textContent = paused ? "▶" : "❚❚";
     marquee.classList.toggle("is-paused", paused);
   });
 }
 
 function renderCatalog() {
-  const savedFilter = "♥ Minhas inspirações";
-  const filters = ["Todos", ...categories.map((item) => item.name), savedFilter];
   let activeFilter = "Todos";
   let visibleProducts = products;
   const buttonBox = document.querySelector("#catalog-filters");
@@ -342,7 +280,7 @@ function renderCatalog() {
     else url.searchParams.set("categoria", active === savedFilter ? "inspiracoes" : active);
     history.replaceState(null, "", url);
     visibleProducts = products.filter((item) => active === "Todos" || item.category === active || (active === savedFilter && inspirations.has(item.name)));
-    productBox.innerHTML = visibleProducts.length ? visibleProducts.map(productCard).join("") : `<p class="empty-state">Você ainda não salvou nenhuma inspiração. Toque em <strong>♡ Salvar</strong> nos bolos de que gostar para montar a sua lista.</p>`;
+    productBox.innerHTML = visibleProducts.length ? visibleProducts.map((item) => productCard(item, { saved: inspirations.has(item.name) })).join("") : `<p class="empty-state">Você ainda não salvou nenhuma inspiração. Toque em <strong>Salvar</strong> nos bolos de que gostar para montar a sua lista.</p>`;
     buttonBox.querySelectorAll("button").forEach((button) => {
       button.classList.toggle("active", button.textContent === active);
       button.setAttribute("aria-pressed", String(button.textContent === active));
@@ -363,12 +301,13 @@ function renderCatalog() {
     if (activeFilter === savedFilter && !document.querySelector(".lightbox[open]")) showProducts(savedFilter);
   });
   renderInspirationBar(() => showProducts(savedFilter));
-  buttonBox.innerHTML = filters.map((label) => `<button type="button" class="filter-button">${label}</button>`).join("");
+  buttonBox.innerHTML = catalogFiltersMarkup();
   buttonBox.addEventListener("click", (event) => {
-    if (event.target.matches("button")) showProducts(event.target.textContent);
+    const button = event.target.closest("button");
+    if (button) showProducts(button.textContent);
   });
   const requested = new URLSearchParams(window.location.search).get("categoria");
-  showProducts(requested === "inspiracoes" ? savedFilter : filters.includes(requested) ? requested : "Todos");
+  showProducts(requested === "inspiracoes" ? savedFilter : catalogFilters.includes(requested) ? requested : "Todos");
   if (productObserver) {
     window.addEventListener("analytics-consent-granted", () => {
       productBox.querySelectorAll(".product-card:not([data-view-tracked])").forEach((card) => {
@@ -377,7 +316,7 @@ function renderCatalog() {
       });
     });
   }
-  document.querySelector("#catalog-categories").innerHTML = categories.map((item) => `<article class="category-note"><h2>${item.name}</h2><p>${item.description}</p></article>`).join("");
+  document.querySelector("#catalog-categories").innerHTML = categoryNotesMarkup();
 }
 function renderInspirationBar(showSaved) {
   const bar = document.createElement("aside");
@@ -389,7 +328,7 @@ function renderInspirationBar(showSaved) {
     bar.hidden = names.length === 0;
     document.body.classList.toggle("has-inspiration-bar", names.length > 0);
     if (!names.length) return;
-    bar.innerHTML = `<p><span aria-hidden="true">♥</span> <strong>${names.length} ${names.length === 1 ? "inspiração salva" : "inspirações salvas"}</strong></p>
+    bar.innerHTML = `<p>${heartIcon} <strong>${names.length} ${names.length === 1 ? "inspiração salva" : "inspirações salvas"}</strong></p>
       <div class="inspiration-bar-actions"><button class="button button-outline" type="button" data-show-saved>Ver lista</button><a class="button" data-send-inspirations href="${whatsappLink(inspirationsMessage(names, `${siteOrigin}/catalogo.html`))}">Enviar para a Ângela</a></div>`;
   }
   bar.addEventListener("click", (event) => {
@@ -407,20 +346,8 @@ function renderMenu() {
   const target = document.querySelector("#menu-sections");
   if (!target) return;
   const nav = document.querySelector("#menu-nav");
-  if (nav) nav.innerHTML = menuSections.map((section) => `<a class="filter-button" href="#${section.id}">${section.title.replace(/^Bolos /, "")}</a>`).join("");
-  target.innerHTML = menuSections.map((section) => `
-    <section class="menu-section" id="${section.id}" aria-labelledby="${section.id}-title">
-      <h2 id="${section.id}-title">${section.title}</h2>
-      ${section.intro ? `<p class="menu-section-intro">${section.intro}</p>` : ""}
-      ${section.prices ? `<dl class="menu-unit-prices">${section.prices.map(([label, price]) => `<div><dt>${label}</dt><dd>${price}</dd></div>`).join("")}</dl>` : ""}
-      <ul class="menu-list">${section.items.map((item) => `
-        <li class="menu-item"><div class="menu-item-head"><h3>${item.name}</h3>${item.price ? `<span class="menu-leader" aria-hidden="true"></span><span class="menu-price">${item.price}</span>` : ""}</div><p>${item.description}</p></li>`).join("")}
-      </ul>
-    </section>`).join("") + `
-    <section class="menu-section menu-notes" aria-labelledby="menu-notes-title">
-      <h2 id="menu-notes-title">Observações</h2>
-      <ul>${menuNotes.map((note) => `<li>${note}</li>`).join("")}</ul>
-    </section>`;
+  if (nav) nav.innerHTML = menuNavMarkup();
+  target.innerHTML = menuSectionsMarkup();
 }
 function renderPortfolio() {
   const processBox = document.querySelector("#process-videos");
