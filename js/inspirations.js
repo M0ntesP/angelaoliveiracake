@@ -67,7 +67,6 @@ function syncToggleButtons() {
     const active = inspirations.has(name);
     button.setAttribute("aria-pressed", String(active));
     button.setAttribute("aria-label", `${active ? "Remover das" : "Salvar nas"} minhas inspirações: ${name}`);
-    button.querySelector(".save-icon").textContent = active ? "♥" : "♡";
     button.querySelector(".save-label").textContent = active ? "Salvo" : "Salvar";
   });
 }

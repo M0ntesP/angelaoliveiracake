@@ -10,7 +10,9 @@ export const pageLinks = [
   ["feedback", "Feedback", "feedback.html"], ["endereco", "Endereço", "endereco.html"], ["contato", "Contato", "contato.html"],
 ];
 export const siteOrigin = "https://angelaoliveira.lovable.app";
-export const savedFilter = "♥ Minhas inspirações";
+export const savedFilter = "Minhas inspirações";
+// Coração de linha (lucide); o CSS preenche quando o bolo está salvo.
+export const heartIcon = `<svg class="icon icon-heart" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>`;
 export const catalogFilters = ["Todos", ...categories.map((item) => item.name), savedFilter];
 const productImageSizes = "(max-width: 580px) calc(100vw - 30px), (max-width: 850px) calc((100vw - 66px) / 2), 356px";
 const showcaseImageSizes = "(max-width: 850px) calc((100vw - 52px) / 2), 356px";
@@ -53,7 +55,7 @@ export function headerMarkup(currentPage) {
     <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
     <header class="site-header"><div class="container header-inner">
       <a class="brand" href="index.html" aria-label="Ângela Oliveira — início"><img src="${site.logo}" data-fallback-src="${site.logoFallback}" alt="Ângela Oliveira — Confeitaria Brasileira" width="360" height="360"></a>
-      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-controls="main-navigation" aria-expanded="false">☰</button>
+      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-controls="main-navigation" aria-expanded="false"><svg class="icon icon-menu" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="icon icon-close" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
       <nav class="main-nav" id="main-navigation" aria-label="Navegação principal">${pageLinks.map(([id, label, url]) => `<a ${currentPage === id ? 'aria-current="page"' : ""} href="${url}">${label}</a>`).join("")}<a class="button nav-order" href="${site.whatsapp}">Encomendar</a></nav>
     </div></header>`;
 }
@@ -74,7 +76,7 @@ export function footerMarkup() {
 
 // Botão "Salvar" das inspirações; quem chama informa se o bolo já está salvo.
 export function saveToggleMarkup(name, { compact = false, active = false } = {}) {
-  return `<button class="save-toggle${compact ? " save-toggle-compact" : ""}" type="button" data-save="${name}" aria-pressed="${active}" aria-label="${active ? "Remover das" : "Salvar nas"} minhas inspirações: ${name}"><span class="save-icon" aria-hidden="true">${active ? "♥" : "♡"}</span><span class="save-label">${active ? "Salvo" : "Salvar"}</span></button>`;
+  return `<button class="save-toggle${compact ? " save-toggle-compact" : ""}" type="button" data-save="${name}" aria-pressed="${active}" aria-label="${active ? "Remover das" : "Salvar nas"} minhas inspirações: ${name}"><span class="save-icon" aria-hidden="true">${heartIcon}</span><span class="save-label">${active ? "Salvo" : "Salvar"}</span></button>`;
 }
 
 export const productOrderLink = (product) => whatsappLink(`Olá, Ângela! Tenho interesse em um bolo como o “${product.name}” do seu catálogo. Você pode me informar as opções e os valores para a minha data?`);
@@ -84,7 +86,7 @@ export function productCard(product, { saved = false } = {}) {
 }
 
 export function catalogFiltersMarkup(active = "Todos") {
-  return catalogFilters.map((label) => `<button type="button" class="filter-button${label === active ? " active" : ""}" aria-pressed="${label === active}">${label}</button>`).join("");
+  return catalogFilters.map((label) => `<button type="button" class="filter-button${label === active ? " active" : ""}" aria-pressed="${label === active}">${label === savedFilter ? heartIcon : ""}${label}</button>`).join("");
 }
 
 export function categoryNotesMarkup() {

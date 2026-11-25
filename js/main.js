@@ -4,7 +4,7 @@ import { openLightbox } from "./lightbox.js";
 import { inspirations, saveToggleMarkup, setupSaveToggles, inspirationsMessage } from "./inspirations.js";
 import { pricePerKg, suggestedKg, formatKg, formatMoney, daysUntil, leadTimeHint } from "./party-planning.js";
 import {
-  siteOrigin, savedFilter, catalogFilters, lightboxImageSizes, whatsappLink, imageMarkup, framedImageMarkup,
+  siteOrigin, savedFilter, heartIcon, catalogFilters, lightboxImageSizes, whatsappLink, imageMarkup, framedImageMarkup,
   headerMarkup, footerMarkup, productOrderLink, productCard, catalogFiltersMarkup, categoryNotesMarkup,
   occasionsMarkup, showcaseMarkup, clientPhotosMarkup, menuNavMarkup, menuSectionsMarkup,
 } from "./render.js";
@@ -70,7 +70,6 @@ function renderHeader() {
   function setMenuOpen(isOpen) {
     toggle.setAttribute("aria-expanded", String(isOpen));
     toggle.setAttribute("aria-label", isOpen ? "Fechar menu" : "Abrir menu");
-    toggle.textContent = isOpen ? "×" : "☰";
     navigation.classList.toggle("is-open", isOpen);
   }
   toggle.addEventListener("click", () => {
@@ -236,7 +235,6 @@ function setupMarquee() {
     const paused = toggle.getAttribute("aria-pressed") !== "true";
     toggle.setAttribute("aria-pressed", String(paused));
     toggle.setAttribute("aria-label", paused ? "Continuar o letreiro" : "Pausar o letreiro");
-    toggle.querySelector("span").textContent = paused ? "▶" : "❚❚";
     marquee.classList.toggle("is-paused", paused);
   });
 }
@@ -271,7 +269,7 @@ function renderCatalog() {
     else url.searchParams.set("categoria", active === savedFilter ? "inspiracoes" : active);
     history.replaceState(null, "", url);
     visibleProducts = products.filter((item) => active === "Todos" || item.category === active || (active === savedFilter && inspirations.has(item.name)));
-    productBox.innerHTML = visibleProducts.length ? visibleProducts.map((item) => productCard(item, { saved: inspirations.has(item.name) })).join("") : `<p class="empty-state">Você ainda não salvou nenhuma inspiração. Toque em <strong>♡ Salvar</strong> nos bolos de que gostar para montar a sua lista.</p>`;
+    productBox.innerHTML = visibleProducts.length ? visibleProducts.map((item) => productCard(item, { saved: inspirations.has(item.name) })).join("") : `<p class="empty-state">Você ainda não salvou nenhuma inspiração. Toque em <strong>Salvar</strong> nos bolos de que gostar para montar a sua lista.</p>`;
     buttonBox.querySelectorAll("button").forEach((button) => {
       button.classList.toggle("active", button.textContent === active);
       button.setAttribute("aria-pressed", String(button.textContent === active));
@@ -294,7 +292,8 @@ function renderCatalog() {
   renderInspirationBar(() => showProducts(savedFilter));
   buttonBox.innerHTML = catalogFiltersMarkup();
   buttonBox.addEventListener("click", (event) => {
-    if (event.target.matches("button")) showProducts(event.target.textContent);
+    const button = event.target.closest("button");
+    if (button) showProducts(button.textContent);
   });
   const requested = new URLSearchParams(window.location.search).get("categoria");
   showProducts(requested === "inspiracoes" ? savedFilter : catalogFilters.includes(requested) ? requested : "Todos");
@@ -318,7 +317,7 @@ function renderInspirationBar(showSaved) {
     bar.hidden = names.length === 0;
     document.body.classList.toggle("has-inspiration-bar", names.length > 0);
     if (!names.length) return;
-    bar.innerHTML = `<p><span aria-hidden="true">♥</span> <strong>${names.length} ${names.length === 1 ? "inspiração salva" : "inspirações salvas"}</strong></p>
+    bar.innerHTML = `<p>${heartIcon} <strong>${names.length} ${names.length === 1 ? "inspiração salva" : "inspirações salvas"}</strong></p>
       <div class="inspiration-bar-actions"><button class="button button-outline" type="button" data-show-saved>Ver lista</button><a class="button" data-send-inspirations href="${whatsappLink(inspirationsMessage(names, `${siteOrigin}/catalogo.html`))}">Enviar para a Ângela</a></div>`;
   }
   bar.addEventListener("click", (event) => {
