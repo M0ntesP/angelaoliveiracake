@@ -42,7 +42,8 @@
         <p class="eyebrow">Para planejar a festa</p>
         <h2 id="calculator-title">Quanto bolo eu preciso?</h2>
         <p class="intro">Diga quantas pessoas vão celebrar e escolha um sabor. O site sugere o tamanho e estima o valor do bolo pelo cardápio.</p>
-        <form id="party-calculator" class="calculator-form">
+        <div data-party-calculator>
+        <form class="calculator-form">
           <div class="form-field">
             <label for="calculator-guests">Número de convidados</label>
             <input id="calculator-guests" name="guests" type="number" min="1" max="10000" inputmode="numeric" placeholder="Ex.: 30">
@@ -52,7 +53,8 @@
             <select id="calculator-flavor" name="flavor"></select>
           </div>
         </form>
-        <div id="party-calculator-result" class="calculator-result" aria-live="polite"></div>
+        <div class="calculator-result" aria-live="polite"></div>
+        </div>
       </section>
       <div id="menu-sections"></div>
       <section class="print-only menu-print-contact" aria-hidden="true">
