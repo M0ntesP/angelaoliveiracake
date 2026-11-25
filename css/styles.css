@@ -479,11 +479,10 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: rgb(113 60 
 .promise-card h3 { margin-top: 14px; font-size: 1.3rem; }
 .promise-card p { margin-bottom: 0; color: var(--muted); font-size: .9rem; }
 
-/* Rodapé: redes e nome grande */
+/* Rodapé: redes */
 .footer-social { display: flex; gap: 10px; margin-top: 6px; }
 .footer-social a { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--gold); border-radius: 50%; color: var(--ink); transition: background .2s, color .2s; }
 .footer-social a:hover { background: var(--ink); color: #fffaf0; }
-.footer-wordmark { overflow: hidden; margin: 0; padding: 0 20px; color: var(--ink); font: 500 clamp(3rem, 13.5vw, 11.5rem)/.95 var(--serif); letter-spacing: -.02em; text-align: center; white-space: nowrap; opacity: .9; }
 
 @media (max-width: 850px) {
   .hero-media { justify-self: start; width: 100%; max-width: 520px; }
