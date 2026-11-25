@@ -18,10 +18,11 @@ export const site = {
   logoFallback: "/images/marca/angela-logo-circular.webp",
 };
 
+// Categorias do catálogo. A foto ("image") aparece nos cartões "Escolha pela ocasião" da página inicial.
 export const categories = [
   { name: "Bolos temáticos", image: "catalogo/bolo-7.jpg", description: "Personagens, cores e cenários montados à mão para festas infantis e temas favoritos de qualquer idade." },
-  { name: "Bolos comemorativos", image: "catalogo/bolo-3.jpg", description: "Aniversários, 15 anos e datas especiais com acabamento delicado, topo personalizado e detalhes em dourado." },
-  { name: "Bolos florais e frutas", image: "catalogo/bolo-1.jpg", description: "Chantilly, frutas frescas e flores naturais para quem prefere um bolo clássico, leve e elegante." },
+  { name: "Bolos comemorativos", image: "catalogo/bolo-lilas-borboletas.jpg", description: "Aniversários, 15 anos e datas especiais com acabamento delicado, topo personalizado e detalhes em dourado." },
+  { name: "Bolos florais e frutas", image: "catalogo/bolo-morangos-mirtilos.jpg", description: "Chantilly, frutas frescas e flores naturais para quem prefere um bolo clássico, leve e elegante." },
   { name: "Doces artesanais", image: "catalogo/coracao-de-chocolate-decorado.jpg", description: "Doces decorados sob encomenda para presentear e celebrar momentos especiais." },
 ];
 
