@@ -70,7 +70,7 @@ export function footerMarkup() {
       </div></div>
       <div><p class="eyebrow">Navegar</p><ul>${pageLinks.slice(1).map(([, label, url]) => `<li><a href="${url}">${label}</a></li>`).join("")}<li><a href="${site.instagram}" target="_blank" rel="noopener">Instagram</a></li><li><a href="${site.links}" target="_blank" rel="noopener">Todos os links</a></li><li><a href="${whatsappLink("Olá, Ângela! Vim pelo site e quero contar como foi a minha encomenda.")}">Deixe seu feedback</a></li></ul></div>
       <div><p class="eyebrow">Pedidos e contato</p><a class="button" href="${site.whatsapp}">Fazer encomenda pelo WhatsApp</a><p>Pedidos combinados pelo WhatsApp, sem carrinho ou pagamento online.</p><p class="eyebrow">Telefone e WhatsApp</p><a class="footer-email" href="tel:+${site.whatsappPhone}">${site.phoneDisplay}</a><p class="eyebrow">E-mail</p><a class="footer-email" href="mailto:${site.email}">${site.email}</a></div>
-    </div><p class="footer-wordmark" aria-hidden="true" translate="no">Ângela Oliveira</p><div class="copyright">© ${new Date().getFullYear()} ${site.name} · ${site.city}</div></footer>
+    </div><div class="copyright">© ${new Date().getFullYear()} ${site.name} · ${site.city}</div></footer>
     <a class="whatsapp-float" href="${site.whatsapp}" aria-label="Conversar com a Ângela pelo WhatsApp"><svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 3C6.9 3 3 6.6 3 11.2c0 2.3 1 4.4 2.7 5.9L5 21l4.2-2c.9.2 1.8.4 2.8.4 5.1 0 9-3.6 9-8.2S17.1 3 12 3Zm-4 9.4a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Zm4 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Zm4 0a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Z"/></svg><span>Encomendar</span></a>`;
 }
 
